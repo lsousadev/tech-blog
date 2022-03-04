@@ -1,0 +1,2 @@
+I"{<p>&lt;a :href=”lastPost.url”&gt;{{lastPost.title}}&lt;/a&gt; published {{lastPost.age}} on {{lastPost.date}}</p>
+:ET

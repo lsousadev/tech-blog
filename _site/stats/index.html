@@ -7,20 +7,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
 <!-- Begin Jekyll SEO tag v2.7.1 -->
-<title>Home | Just Tech Things</title>
+<title>Stats | Just Tech Things</title>
 <meta name="generator" content="Jekyll v4.2.1">
-<meta property="og:title" content="Home">
+<meta property="og:title" content="Stats">
 <meta name="author" content="Lucas Sousa">
 <meta property="og:locale" content="en_US">
 <meta name="description" content="A blog for all things tech that Lucas runs into.">
 <meta property="og:description" content="A blog for all things tech that Lucas runs into.">
-<link rel="canonical" href="http://localhost:4000/">
-<meta property="og:url" content="http://localhost:4000/">
+<link rel="canonical" href="http://localhost:4000/stats/">
+<meta property="og:url" content="http://localhost:4000/stats/">
 <meta property="og:site_name" content="Just Tech Things">
 <meta name="twitter:card" content="summary">
-<meta property="twitter:title" content="Home">
+<meta property="twitter:title" content="Stats">
 <script type="application/ld+json">
-{"@type":"WebSite","url":"http://localhost:4000/","headline":"Home","author":{"@type":"Person","name":"Lucas Sousa"},"description":"A blog for all things tech that Lucas runs into.","name":"Just Tech Things","@context":"https://schema.org"}</script>
+{"@type":"WebPage","url":"http://localhost:4000/stats/","headline":"Stats","author":{"@type":"Person","name":"Lucas Sousa"},"description":"A blog for all things tech that Lucas runs into.","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="shortcut icon" href="/assets/images/devops.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -243,7 +243,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
 
 
-<header class="site-header site-header-transparent" role="banner">
+<header class="site-header " role="banner">
 
   <div class="wrapper">
     <div class="site-header-inner">
@@ -427,7 +427,7 @@ function googleTranslateElementInit() {
     var documentElement = document.documentElement;
 
     function storeScrollData() {
-      var y = getScrollPos().y;documentElement.setAttribute("data-header-transparent", "");var scrollStatus = "";
+      var y = getScrollPos().y;var scrollStatus = "";
 
       if (y <= 0) {
         scrollStatus = "top";
@@ -594,22 +594,7 @@ function googleTranslateElementInit() {
 
 
 
-<section class="page-banner">
-    <div class="page-banner-img">
-<div style="background-image: url()"></div>
-        <img class="img-placeholder" src="">
-</div>
-    <div class="wrapper">
-      <div class="page-banner-inner"><div class="page-banner-default">
-            <h1 class="page-banner-heading">
-              Just Tech Things
-            </h1>
-            <h2 class="page-banner-subheading">
-              A blog by Lucas Sousa.
-            </h2>
-          </div></div>
-    </div>
-  </section><script>
+<script>
   function hashLocate(hashValue) {
     hashValue = hashValue.replace(/^.*#h-/, '');
     hashValue = decodeURIComponent(hashValue);
@@ -765,150 +750,317 @@ function googleTranslateElementInit() {
         <div class="framework">
   <section class="main">
 
-     <div class="articles">
-  
+     <div class="post">
+  <section>
+
+
+
+
+
+
+
+
+
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <div class="post-content e-content" itemprop="articleBody">
+
+      <style>
+[v-cloak] {display: none}
+</style>
+
+
+<div id="app" v-cloak="" markdown="0">
+	<table>
+		<tr>
+			<td width="30%" style="text-align: right">Total Posts</td>
+			<td width="70%">{{totalPosts | number}}</td>
+		</tr>
+		<tr>
+		<td style="text-align: right">First Post</td>
+		<td>&lt;a :href=”firstPost.url”&gt;{{firstPost.title}}&lt;/a&gt; published {{firstPost.age}} on {{firstPost.date}}</td>
+		</tr>
+		<tr>
+		<td style="text-align: right">Last Post</td>
+		<td>&lt;a :href=”lastPost.url”&gt;{{lastPost.title}}&lt;/a&gt; published {{lastPost.age}} on {{lastPost.date}}</td>
+		</tr>
+		<tr>
+		<td style="text-align: right">Total Words Written</td>
+		<td>{{totalWords | number}}</td>
+		</tr>
+		<tr>
+		<td style="text-align: right">Average Words per Post</td>
+		<td>{{avgWords | number}}</td>
+		</tr>
+	</table>
+
+    <h3>Posts Per Year</h3>
+    <table>
+        <tr>
+            <td>Year</td>
+            <td>Number of Posts</td>
+        </tr>
+        <tr v-for="year in sortedYears">
+            <td>{{year}}</td>
+            <td>{{years[year] | number}}</td>
+        </tr>
+    </table>
+
+    <h3>Posts Per Category</h3>
+    <table>
+        <tr>
+            <td>Category</td>
+            <td>Number of Posts</td>
+        </tr>
+        <tr v-for="cat in sortedCats">
+            <td>{{cat.name}}</td>
+            <td>{{cat.size | number}}</td>
+        </tr>
+    </table>
+
+    <h3>Posts Per Tag</h3>
+    <table>
+        <tr>
+            <td>Tag</td>
+            <td>Number of Posts</td>
+        </tr>
+        <tr v-for="tag in sortedTags">
+            <td>{{tag.name}}</td>
+            <td>{{tag.size | number}}</td>
+        </tr>
+    </table>
 
-  
-
-
-  <div class="pagination">
-  <!-- Post list links -->
-  <ul class="post-list"><li>
-      
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h2 class="post-title">
-        <a class="post-link" href="/hosting-safe-static-website-aws-ui/">
-          Hosting a Safe Static Website on AWS (UI Version)
-        </a>
-      </h2>
-      <div class="post-meta">
-        <span class="post-date"><i class="fa fa-calendar"></i> Nov 27, 2021</span>
-        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 7 mins</span>
-      </div>
-      <a class="post-excerpt" href="/hosting-safe-static-website-aws-ui/">
-        <p>
-        There are many articles on how to host a static website using S3. Many more explain how to enable https, and plenty of them lay out how to use your own domain to host them. AWS’ documentation alone covers all of it. In fact, the base for this article is in the documentation pages.
-
-What makes this article worth writing (and hopefully reading) is... <span class="read_more">Read More</span>
-        </p>
-      </a>
-      <div class="post-tags">
-<a class="post-tag" href="/tags.html#aws">#aws</a><a class="post-tag" href="/tags.html#route%2053">#route 53</a><a class="post-tag" href="/tags.html#cloudfront">#cloudfront</a><a class="post-tag" href="/tags.html#acm">#acm</a><a class="post-tag" href="/tags.html#s3">#s3</a><a class="post-tag" href="/tags.html#webhosting">#webhosting</a>
 </div>
-    </li></ul>
 
-  <!-- Pagination links -->
-</div>
+
+<p>
+Running <a href="https://jekyllrb.com">Jekyll</a> 4.2.1.
+</p>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/moment.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+<script>
+Vue.filter('number', s =>  {
+  if(!window.Intl) return s;
+  return new Intl.NumberFormat().format(s);
+});
+
+new Vue({
+	el:'#app',
+	data:{
+		totalPosts:0,
+		firstPost:{
+			title:"",
+			date:"",
+			url:""
+		},
+		lastPost:{
+			title:"",
+			date:"",
+			url:""
+		},
+		totalWords:0,
+		avgWords:0,
+        years:{},
+        cats:[], 
+        tags:[]
+	},
+	created:function() {
+		fetch('/stats.json')
+		.then(res => res.json())
+		.then(res => {
+			this.totalPosts = res.totalPosts;
+			
+			this.firstPost = {
+				title:res.firstPost.title,
+				date:res.firstPost.published,
+				url:res.firstPost.url,
+				age:moment(res.firstPost.published).fromNow()
+			};
+
+			this.lastPost = {
+				title:res.lastPost.title,
+				date:res.lastPost.published,
+				url:res.lastPost.url,
+				age:moment(res.lastPost.published).fromNow()
+			};
+
+			this.totalWords = res.totalWords;
+			this.avgWords = res.averageWordsPerPost;
+
+            let dates = res.dates.split(',');
+            // process res.dates on the client site
+            dates.forEach(d => {
+                let year = new Date(d).getFullYear();
+                if(!this.years[year]) Vue.set(this.years,year,0);
+                Vue.set(this.years,year, this.years[year]+1);
+            });
+
+            this.cats = res.postsPerCategory;
+            this.tags = res.postsPerTag;
+
+		}).catch(e => {
+            console.error(e);
+        });
+	},
+    computed:{
+        sortedCats:function() {
+            return this.cats.sort((a,b) => {
+                if(a.name < b.name) return -1;
+                if(a.name > b.name) return 1;
+                return 0;
+            });
+        },
+        sortedTags:function() {
+            return this.tags.sort((a,b) => {
+                if(a.name < b.name) return -1;
+                if(a.name > b.name) return 1;
+                return 0;
+            });
+        },
+        sortedYears:function() {
+            return Object.keys(this.years).sort();
+        }
+    }
+});
+</script>
+
+
+
+
+    </div>
+
+</article>
+<div class="post-comments"></div></section>
 </div>
 
 
   </section>
   <section class="sidebar" style="margin-left: 15px;">
-    <!-- Get sidebar items -->
+    <!-- Get sidebar items --><style type="text/css" media="screen">
+.post-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+</style>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="common-list">
-  <ul>
-    <li>
-      <a href="/index.html">
-        All<span>1</span>
-      </a>
-    </li>
-
-    
-      <li>
-        <a href="/categories.html#h-cloud">
-          cloud <span>1</span>
-        </a>
-      </li>
-    
-      <li>
-        <a href="/categories.html#h-networking,">
-          networking, <span>1</span>
-        </a>
-      </li>
-    
-  </ul>
+<div class="post-menu">
+  <div class="post-menu-title">TOC</div>
+  <div class="post-menu-content"></div>
 </div>
 
+<script>
+  function generateContent() {
+    var menu = document.querySelector(".post-menu");
+    var menuContent =  menu.querySelector(".post-menu-content");
+    var headings = document.querySelector(".post-content").querySelectorAll("h2, h3, h4, h5, h6");
+
+    // Hide menu when no headings
+    if (headings.length === 0) {
+      return menu.style.display = "none";
+    }
+
+    // Generate post menu
+    var menuHTML = '';
+    for (var i = 0; i < headings.length; i++) {
+      var h = headings[i];
+      menuHTML += (
+        '<li class="h-' + h.tagName.toLowerCase() + '">'
+        + '<a href="#h-' + h.getAttribute('id') + '">' + h.textContent + '</a></li>');
+    }
+
+    menuContent.innerHTML = '<ul>' + menuHTML + '</ul>';
+
+    // The header element
+    var header = document.querySelector('header.site-header');
+
+    function doMenuCollapse(index, over_items) {
+      var items = menuContent.firstChild.children;
+
+      if (over_items == undefined) {
+        over_items = 20;
+      }
+
+      if (items.length < over_items) {
+        return;
+      }
+
+      var activeItem = items[index];
+      var beginItem = activeItem
+      var endItem = activeItem
+      var beginIndex = index;
+      var endIndex = index + 1;
+      while (beginIndex >= 0
+        && !items[beginIndex].classList.contains('h-h2')) {
+        beginIndex -= 1;
+      }
+      while (endIndex < items.length
+        && !items[endIndex].classList.contains('h-h2')) {
+        endIndex += 1;
+      }
+      for (var i = 0; i < beginIndex; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+      for (var i = beginIndex + 1; i < endIndex; i++) {
+        item = items[i]
+        // if (!item.classList.contains('h-h2')) {
+          item.style.display = '';
+        // }
+      }
+      for (var i = endIndex; i < items.length; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+    }
+
+    // Init menu collapsed
+    doMenuCollapse(-1);
+
+    // Active the menu item
+    window.addEventListener('scroll', function (event) {
+      var lastActive = menuContent.querySelector('.active');
+      var changed = true;
+      var activeIndex = -1;
+      for (var i = headings.length - 1; i >= 0; i--) {
+        var h = headings[i];
+        var headingRect = h.getBoundingClientRect();
+        var headerRect = header.getBoundingClientRect();
+        var headerTop = Math.floor(headerRect.top);
+        var headerHeight = Math.floor(headerRect.height);
+        var headerHeight = headerTop + headerHeight + 20;
+        if (headingRect.top <= headerHeight) {
+          var id = 'h-' + h.getAttribute('id');
+          var a = menuContent.querySelector('a[href="#' + id  + '"]');
+          var curActive = a.parentNode;
+          if (curActive) {
+            curActive.classList.add('active');
+            activeIndex = i;
+          }
+          if (lastActive == curActive) {
+            changed = false;
+          }
+          break;
+        }
+      }
+      if (changed) {
+        if (lastActive) {
+          lastActive.classList.remove('active');
+        }
+        doMenuCollapse(activeIndex);
+      }
+      event.preventDefault();
+    });
+  }
+  generateContent();
+</script>
 </section>
 </div>
 

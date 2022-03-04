@@ -1,0 +1,66 @@
+	
+
+	
+	
+
+	
+
+	
+
+{
+	"totalPosts":1,
+	"totalCategories": 2,
+	"totalTags": 6,
+	"totalWords": 1236,
+	"averageWordsPerPost": 1236,
+	"firstPost": {
+		"title":"Hosting a Safe Static Website on AWS (UI Version)",
+		"published":"2021-11-27",
+		"url":"/hosting-safe-static-website-aws-ui/"
+	},
+	"lastPost": {
+		"title":"Hosting a Safe Static Website on AWS (UI Version)",
+		"published":"2021-11-27",
+		"url":"/hosting-safe-static-website-aws-ui/"
+	},
+	"postsPerCategory":[
+		
+			
+			
+			{ "name": "networking,", "size":1 }
+		
+			
+			,
+			{ "name": "cloud", "size":1 }
+		
+	],
+	"postsPerTag":[
+		
+			
+			
+			{ "name": "aws", "size":1 }
+		
+			
+			,
+			{ "name": "route 53", "size":1 }
+		
+			
+			,
+			{ "name": "cloudfront", "size":1 }
+		
+			
+			,
+			{ "name": "acm", "size":1 }
+		
+			
+			,
+			{ "name": "s3", "size":1 }
+		
+			
+			,
+			{ "name": "webhosting", "size":1 }
+		
+	],
+	"dates":"2021-11-27"
+
+}
