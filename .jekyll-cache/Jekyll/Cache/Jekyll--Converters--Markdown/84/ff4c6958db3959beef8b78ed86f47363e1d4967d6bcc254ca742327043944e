@@ -1,0 +1,64 @@
+I"�<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
+
+<h2 id="app-service-within-azure-architecture">App Service Within Azure Architecture</h2>
+
+<h2 id="app-service-creation-flow">App Service Creation Flow</h2>
+
+<p><img src="/assets/images/app_service_creation_architecture.png" alt="App Service app creation flow" /></p>
+
+<ol>
+  <li>User makes a request to create a new site.</li>
+  <li>ARM makes sure user has access to the resource to allow the given operation (create in this case) and forwards the requests to App Service Geo-Master.</li>
+  <li>Geo-Master finds the best suitable scale unit for the user’s request and forwards the request.</li>
+  <li>The scale unit creates the new application.</li>
+  <li>Geo-Master reports success on the create request.</li>
+</ol>
+
+<h2 id="stamp-overview">Stamp Overview</h2>
+
+<ul>
+  <li>The architecture for App Service is called Antares.</li>
+  <li>Antares is composed of scale units. There are dozens to thousands of scale units in each Azure region.</li>
+  <li>Each scale unit, or stamp, consists of ~1000 virtual machines, also called servers or workers.</li>
+</ul>
+
+<h2 id="stamp-architecture">Stamp Architecture</h2>
+
+<ul>
+  <li>There are different types of workers inside of a stamp:
+    <ul>
+      <li><strong>Web workers</strong>: the vast majority of workers in a stamp. It’s the server that runs the app. They can be shared between clients or dedicated to a single client, depending on the App Service Plan.</li>
+      <li><strong>Front end</strong>: a layer 7 (HTTP) load balancer that distributes requests too all web workers allocated for an app. It uses round-robin by default.</li>
+      <li><strong>File servers</strong>: worker that mounts to Blob Storage containing data needed to run app (code, images, etc) and exposes it as a network drive, which in turn is mapped by the web worker as a local drive. Any file-relateed r/w operation performed by the app passes through a file server.</li>
+      <li><strong>API controller</strong>: performs management operations inside stamp. Receives API calls and orchestrates the steps to fulfill the requests. Examples:
+        <ul>
+          <li>When Geo-Master passes an API call to create a new application, the API controller orchestrates the required steps to create the application at the scale unit.</li>
+          <li>When you use the Azure portal to reset your application, it’s the API controller that notifies all Web Workers currently allocated to your application to restart your app.</li>
+        </ul>
+      </li>
+      <li><strong>Azure SQL</strong>: persists app metadata, only accessed by the data role.</li>
+      <li><strong>Data role</strong>: a cache layer between the SQL database and all the other workers. Examples:
+        <ul>
+          <li>Web workers ask Data role for website configuration.</li>
+          <li>Front end workers ask Data role for list of workers they can route an app’s requests to.</li>
+        </ul>
+      </li>
+      <li><strong>Publisher</strong>: exposes FTP functionality for customers to access their application content and logs in the Blob Storages and file servers. It also gives customers another way of deploying apps.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="web-worker-architecture">Web Worker Architecture</h2>
+
+<h2 id="reference">Reference</h2>
+
+<ul>
+  <li><a href="https://docs.microsoft.com/en-us/archive/msdn-magazine/2017/february/azure-inside-the-azure-app-service-architecture">https://docs.microsoft.com/en-us/archive/msdn-magazine/2017/february/azure-inside-the-azure-app-service-architecture</a></li>
+</ul>
+
+<h2 id="questions">Questions</h2>
+
+<ul>
+  <li>What is the underlying tech behind the ~1000 VMs per stamp? Are they in physical servers/hosts dedicated to App Service only? How many physical servers?</li>
+</ul>
+:ET

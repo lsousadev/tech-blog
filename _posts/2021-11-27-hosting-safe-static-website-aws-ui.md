@@ -3,10 +3,10 @@ layout: post
 author: Lucas
 title: Hosting a Safe Static Website on AWS (UI Version)
 subtitle: Using Route 53, CloudFront, ACM, and S3
-categories: networking, cloud
-tags: [aws, "route 53", cloudfront, acm, s3, webhosting]
+categories: [networking, aws]
+tags: [aws, cloud, "route 53", cloudfront, acm, s3, webhosting, dns]
 ---
-There are many articles on how to host a static website using S3. Many more explain how to enable *https*, and plenty of them lay out how to use your own domain to host them. AWS' documentation alone covers all of it. In fact, the base for this article is in the documentation [pages](https://docs.aws.amazon.com/AmazonS3/latest/userguide/website-hosting-custom-domain-walkthrough.html). 
+There are many articles on how to host a static website using S3. Many more explain how to enable *https*, and plenty of them lay out how to use your own domain to host them. AWS' documentation alone covers all of it. In fact, the base for this article is in the documentation [pages](https://docs.aws.amazon.com/AmazonS3/latest/userguide/website-hosting-custom-domain-walkthrough.html).
 
 What makes this article worth writing (and hopefully reading) is the attention to the rationale behind every step, from bucket configuration to A record creation. The idea is to learn concepts rather than to practice following steps. Details on what buttons to click and where to find them can be found on the documentation.
 
@@ -40,11 +40,11 @@ The bucket should be in the same region as the hosting bucket for cost reasons. 
 
 This part is highly depends on personal preferences and objectives. You can add a personal project using CSS and Javascript, you can add a whole [Jekyll](https://jekyllrb.com/) blog, or you can simply add an index.html page for testing.
 
-If you're going the Jekyll route, or any other route where you manipulate your links, be very wary. In my case, changing the `permalink` of pages caused all requested pages other than the root page to not be found. But the worst part was that I did not get a *Page Not Found* error. Instead, I got an *Access Denied* error, making it much harder to find the problem. To summarize, I had to create a CloudFront Function that added `index.html` to all requests that ended with a `/`. You can read more about that [here](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/example-function-add-index.html). 
+If you're going the Jekyll route, or any other route where you manipulate your links, be very wary. In my case, changing the `permalink` of pages caused all requested pages other than the root page to not be found. But the worst part was that I did not get a *Page Not Found* error. Instead, I got an *Access Denied* error, making it much harder to find the problem. To summarize, I had to create a CloudFront Function that added `index.html` to all requests that ended with a `/`. You can read more about that [here](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/example-function-add-index.html).
 
 ## 06. Create and configure CDN distribution
 
-By default, CloudFront only knows how to serve requests to its domain name, which should be something like *https://xxxxxxxxxxxxxx.cloudfront.net*. In order to let it know it is okay to serve requests that are originally sent to your custom domain (*mydomain.com*). Step 3 dives a bit deeper on this topic. Step 7 will not work if your alternate domain names are not properly set.
+By default, CloudFront only knows how to serve requests to its domain name, which should be something like *`https://xxxxxxxxxxxxxx.cloudfront.net`*. In order to let it know it is okay to serve requests that are originally sent to your custom domain (*mydomain.com*). Step 3 dives a bit deeper on this topic. Step 7 will not work if your alternate domain names are not properly set.
 
 This step is where the certificate created in step 2 comes into play as well. You can cover your alternate domain names with your SSL certificate so that you can redirect all requests to HTTPS.
 

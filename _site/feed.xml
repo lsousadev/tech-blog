@@ -1,4 +1,166 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-03-03T21:03:58-08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Just Tech Things</title><subtitle>A blog for all things tech that Lucas runs into.</subtitle><author><name>Lucas Sousa</name></author><entry><title type="html">Hosting a Safe Static Website on AWS (UI Version)</title><link href="http://localhost:4000/hosting-safe-static-website-aws-ui/" rel="alternate" type="text/html" title="Hosting a Safe Static Website on AWS (UI Version)" /><published>2021-11-27T00:00:00-08:00</published><updated>2021-11-27T00:00:00-08:00</updated><id>http://localhost:4000/hosting-safe-static-website-aws-ui</id><content type="html" xml:base="http://localhost:4000/hosting-safe-static-website-aws-ui/"><![CDATA[<p>There are many articles on how to host a static website using S3. Many more explain how to enable <em>https</em>, and plenty of them lay out how to use your own domain to host them. AWS’ documentation alone covers all of it. In fact, the base for this article is in the documentation <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/website-hosting-custom-domain-walkthrough.html">pages</a>.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-07-22T11:45:58-07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Just Tech Things</title><subtitle>A blog for all things tech that Lucas runs into.</subtitle><author><name>Lucas Sousa</name></author><entry><title type="html">Azure App Service Architecture</title><link href="http://localhost:4000/azure-app-services-architecture/" rel="alternate" type="text/html" title="Azure App Service Architecture" /><published>2022-07-17T00:00:00-07:00</published><updated>2022-07-17T00:00:00-07:00</updated><id>http://localhost:4000/azure-app-services-architecture</id><content type="html" xml:base="http://localhost:4000/azure-app-services-architecture/"><![CDATA[<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
+
+<h2 id="app-service-within-azure-architecture">App Service Within Azure Architecture</h2>
+
+<h2 id="app-service-creation-flow">App Service Creation Flow</h2>
+
+<p><img src="/assets/images/app_service_creation_architecture.png" alt="App Service app creation flow" /></p>
+
+<ol>
+  <li>User makes a request to create a new site.</li>
+  <li>ARM makes sure user has access to the resource to allow the given operation (create in this case) and forwards the requests to App Service Geo-Master.</li>
+  <li>Geo-Master finds the best suitable scale unit for the user’s request and forwards the request.</li>
+  <li>The scale unit creates the new application.</li>
+  <li>Geo-Master reports success on the create request.</li>
+</ol>
+
+<h2 id="stamp-overview">Stamp Overview</h2>
+
+<ul>
+  <li>The architecture for App Service is called Antares.</li>
+  <li>Antares is composed of scale units. There are dozens to thousands of scale units in each Azure region.</li>
+  <li>Each scale unit, or stamp, consists of ~1000 virtual machines, also called servers or workers.</li>
+</ul>
+
+<h2 id="stamp-architecture">Stamp Architecture</h2>
+
+<ul>
+  <li>There are different types of workers inside of a stamp:
+    <ul>
+      <li><strong>Web workers</strong>: the vast majority of workers in a stamp. It’s the server that runs the app. They can be shared between clients or dedicated to a single client, depending on the App Service Plan.</li>
+      <li><strong>Front end</strong>: a layer 7 (HTTP) load balancer that distributes requests too all web workers allocated for an app. It uses round-robin by default.</li>
+      <li><strong>File servers</strong>: worker that mounts to Blob Storage containing data needed to run app (code, images, etc) and exposes it as a network drive, which in turn is mapped by the web worker as a local drive. Any file-relateed r/w operation performed by the app passes through a file server.</li>
+      <li><strong>API controller</strong>: performs management operations inside stamp. Receives API calls and orchestrates the steps to fulfill the requests. Examples:
+        <ul>
+          <li>When Geo-Master passes an API call to create a new application, the API controller orchestrates the required steps to create the application at the scale unit.</li>
+          <li>When you use the Azure portal to reset your application, it’s the API controller that notifies all Web Workers currently allocated to your application to restart your app.</li>
+        </ul>
+      </li>
+      <li><strong>Azure SQL</strong>: persists app metadata, only accessed by the data role.</li>
+      <li><strong>Data role</strong>: a cache layer between the SQL database and all the other workers. Examples:
+        <ul>
+          <li>Web workers ask Data role for website configuration.</li>
+          <li>Front end workers ask Data role for list of workers they can route an app’s requests to.</li>
+        </ul>
+      </li>
+      <li><strong>Publisher</strong>: exposes FTP functionality for customers to access their application content and logs in the Blob Storages and file servers. It also gives customers another way of deploying apps.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="web-worker-architecture">Web Worker Architecture</h2>
+
+<h2 id="reference">Reference</h2>
+
+<ul>
+  <li><a href="https://docs.microsoft.com/en-us/archive/msdn-magazine/2017/february/azure-inside-the-azure-app-service-architecture">https://docs.microsoft.com/en-us/archive/msdn-magazine/2017/february/azure-inside-the-azure-app-service-architecture</a></li>
+</ul>
+
+<h2 id="questions">Questions</h2>
+
+<ul>
+  <li>What is the underlying tech behind the ~1000 VMs per stamp? Are they in physical servers/hosts dedicated to App Service only? How many physical servers?</li>
+</ul>]]></content><author><name>Lucas</name></author><category term="app service" /><category term="azure" /><category term="azure" /><category term="cloud" /><category term="vnet" /><category term="app service" /><category term="dns" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Azure Networking for Virtual Networks</title><link href="http://localhost:4000/azure-networking-vnet-dns/" rel="alternate" type="text/html" title="Azure Networking for Virtual Networks" /><published>2022-07-10T00:00:00-07:00</published><updated>2022-07-10T00:00:00-07:00</updated><id>http://localhost:4000/azure-networking-vnet-dns</id><content type="html" xml:base="http://localhost:4000/azure-networking-vnet-dns/"><![CDATA[<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
+
+<h2 id="nslookup-testblobcorewindowsnet-from-a-vm-in-a-vnet"><code class="language-plaintext highlighter-rouge">nslookup test.blob.core.windows.net</code> from a VM in a VNet</h2>
+
+<ul>
+  <li>without any integration:
+    <ul>
+      <li>⚪ test.blob.core.windows.net -&gt; CNAME -&gt; 🔵 blob.a1b2c3.store.core.windows.net</li>
+      <li>🔵 blob.a1b2c3.store.core.windows.net -&gt; A record -&gt; 🔴 52.240.48.36 (public IP)</li>
+    </ul>
+  </li>
+  <li>with PrivateLink:
+    <ul>
+      <li>⚪ test.blob.core.windows.net -&gt; CNAME -&gt; 🟡 test.privatelink.blob.core.windows.net</li>
+      <li>🟡 test.privatelink.blob.core.windows.net -&gt; CNAME -&gt; 🔵 blob.a1b2c3.store.core.windows.net</li>
+      <li>🔵 blob.a1b2c3.store.core.windows.net -&gt; A record -&gt; 🔴 52.240.48.36 (public IP)</li>
+    </ul>
+  </li>
+  <li>with PrivateLink and Private Endpoint:
+    <ul>
+      <li>⚪ test.blob.core.windows.net -&gt; CNAME -&gt; 🟡 test.privatelink.blob.core.windows.net</li>
+      <li>🟡 test.privatelink.blob.core.windows.net -&gt; A record (Azure Private DNS) -&gt; 🟢 10.0.1.4</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="dns-configuration">DNS Configuration</h2>
+
+<ul>
+  <li>The VNet uses Azure DNS by default.</li>
+  <li>NIC’s inside a VNet use the VNet DNS configuration by default.</li>
+  <li>An internal DNS private zone called IDNS is created automatically inside every VNet.
+    <ul>
+      <li>Any NIC added to the VNet gets registered within IDNS</li>
+      <li>The domain name for the private zone is <code class="language-plaintext highlighter-rouge">internal.cloudapp.net</code></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="private-dns-zone">Private DNS Zone</h2>
+
+<ul>
+  <li>Can hold any time of record for any name. Full-range.</li>
+  <li>Exists outside of VNets (global resource) and can be attached to them.</li>
+  <li>Private DNS zones can be used solely for DNS resolution or for registration:
+    <ul>
+      <li>Like IDNS, all NIC’s added to the VNet gets registered within the private zone.</li>
+      <li>A VNet can only connect to one private zone for registration.</li>
+      <li>A private DNS zone can connect to 100 VNets for registration and 1000 for resolution.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="network-security-groups">Network Security Groups</h2>
+
+<ul>
+  <li>Can only be attached to a subnet or a network interface (eg. a VM).</li>
+  <li>App Security Group: works like a managed tag that can be referenced as source/destination in NSG rules.</li>
+</ul>
+
+<h2 id="service-endpoints">Service Endpoints</h2>
+
+<ul>
+  <li>Services such as Azure Storage, Key Vault, Cosmos DB, etc offer service endpoint.</li>
+  <li>It creates a record in the route table of a subnet listing all the multiple public IP CIDR blocks of an Azure service and redirect them to the VirtualNetworkServiceEndpoint and remains internal to Azure.</li>
+  <li>The source IP address will switch from public to private, so the service’s firewall rules must reflect that.</li>
+</ul>
+
+<h2 id="private-endpoints">Private Endpoints</h2>
+
+<ul>
+  <li>Adds a NIC to a subnet with private IP (within the VNet CIDR block) pointing to a storage account and service.</li>
+</ul>
+
+<h2 id="the-reason-for-privatelink">The reason for PrivateLink</h2>
+
+<p>From the results above, it may seem that if you have a Private Endpoint, you can bypass PrivateLink and just create an Azure Private DNS that points ⚪ test.blob.core.windows.net to 🟢 10.0.1.4. It would work, but for that to happen the Private DNS zone would have to be at the <code class="language-plaintext highlighter-rouge">blob.core.windows.net</code>, and you’d then be expected to create a record for each Blob Storage that the VNet attached to the Private DNS zone would like to connect to. For example, if a machine also wanted to connect to <code class="language-plaintext highlighter-rouge">second-test.blob.core.windows.net</code>, it would be directed to resolve with the Private DNS zone, which would need to be manually configured. It is often more sensible to create a Private DNS zone at the <code class="language-plaintext highlighter-rouge">privatelink.blob.core.windows.net</code> level.</p>
+
+<h2 id="on-premises-considerations">On-premises considerations</h2>
+
+<ul>
+  <li>Azure Private DNS zones are available globally, you can connect any VNet in the world to it for link resolution, but you cannot connect to it from on-premises.</li>
+  <li>You can deploy a DNS forwarder in a VNet, then create a record in the local DNS (on-prem) to point any <code class="language-plaintext highlighter-rouge">privatelink.blob.core.windows.net</code> requests to the DNS forwarder, which can then talk to the Private DNS zone.</li>
+  <li>Optionally, the records in the Private DNS zone can be recreated manually on local DNS.</li>
+</ul>
+
+<h2 id="privatelink-service">PrivateLink Service</h2>
+
+<ul>
+  <li>Useful in cases virtual networks cannot be peered (eg. 3rd party services, CIDR block overlap, etc).</li>
+  <li>The host VNet deploys PLS internally in its own subnet. PLS will receive external requests and forward them to a Standard Load Balancer.</li>
+  <li>The PLS deployment can have up to 8 IP addresses in the VNet, and it connects to a Front End IP address of the Load Balancer.</li>
+</ul>
+
+<h2 id="questions">Questions</h2>
+
+<ul>
+  <li>Is the VirtualNetworkServiceEndpoint a NIC with private IP?</li>
+  <li>How does a Private Endpoint, which is a NIC with a private IP inside the VNet, talk to a Blob Storage instance without using the internet or Public IP?</li>
+  <li>How does a private DNS zone get linked to a VNet? VNet’s route table?</li>
+</ul>]]></content><author><name>Lucas</name></author><category term="networking" /><category term="azure" /><category term="azure" /><category term="cloud" /><category term="vnet" /><category term="app services" /><category term="dns" /><category term="private endpoint" /><category term="service endpoint" /><category term="private link" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Hosting a Safe Static Website on AWS (UI Version)</title><link href="http://localhost:4000/hosting-safe-static-website-aws-ui/" rel="alternate" type="text/html" title="Hosting a Safe Static Website on AWS (UI Version)" /><published>2021-11-27T00:00:00-08:00</published><updated>2021-11-27T00:00:00-08:00</updated><id>http://localhost:4000/hosting-safe-static-website-aws-ui</id><content type="html" xml:base="http://localhost:4000/hosting-safe-static-website-aws-ui/"><![CDATA[<p>There are many articles on how to host a static website using S3. Many more explain how to enable <em>https</em>, and plenty of them lay out how to use your own domain to host them. AWS’ documentation alone covers all of it. In fact, the base for this article is in the documentation <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/website-hosting-custom-domain-walkthrough.html">pages</a>.</p>
 
 <p>What makes this article worth writing (and hopefully reading) is the attention to the rationale behind every step, from bucket configuration to A record creation. The idea is to learn concepts rather than to practice following steps. Details on what buttons to click and where to find them can be found on the documentation.</p>
 
@@ -36,7 +198,7 @@
 
 <h2 id="06-create-and-configure-cdn-distribution">06. Create and configure CDN distribution</h2>
 
-<p>By default, CloudFront only knows how to serve requests to its domain name, which should be something like <em>https://xxxxxxxxxxxxxx.cloudfront.net</em>. In order to let it know it is okay to serve requests that are originally sent to your custom domain (<em>mydomain.com</em>). Step 3 dives a bit deeper on this topic. Step 7 will not work if your alternate domain names are not properly set.</p>
+<p>By default, CloudFront only knows how to serve requests to its domain name, which should be something like <em><code class="language-plaintext highlighter-rouge">https://xxxxxxxxxxxxxx.cloudfront.net</code></em>. In order to let it know it is okay to serve requests that are originally sent to your custom domain (<em>mydomain.com</em>). Step 3 dives a bit deeper on this topic. Step 7 will not work if your alternate domain names are not properly set.</p>
 
 <p>This step is where the certificate created in step 2 comes into play as well. You can cover your alternate domain names with your SSL certificate so that you can redirect all requests to HTTPS.</p>
 
@@ -44,4 +206,4 @@
 
 <h2 id="07-create-alias-records">07. Create alias records</h2>
 
-<p>If you followed the previous steps correctly, this step should be simple. Go to the hosted zone of your custom domain and create an alias A record to your CloudFront distribution. If your CloudFront distribution doesn’t show up as an option when you create the record via Route 53, chances are that you did not properly configure your distribution’s alternate domain names to use your custom domain name. Due to reasons touched upon on steps 3 and 6, Route 53 is configured to not allow the creation of aliases to CloudFront distributions that do not have the domain (or subdomain) as an alternate domain name.</p>]]></content><author><name>Lucas</name></author><category term="networking," /><category term="cloud" /><category term="aws" /><category term="route 53" /><category term="cloudfront" /><category term="acm" /><category term="s3" /><category term="webhosting" /><summary type="html"><![CDATA[There are many articles on how to host a static website using S3. Many more explain how to enable https, and plenty of them lay out how to use your own domain to host them. AWS’ documentation alone covers all of it. In fact, the base for this article is in the documentation pages.]]></summary></entry></feed>
+<p>If you followed the previous steps correctly, this step should be simple. Go to the hosted zone of your custom domain and create an alias A record to your CloudFront distribution. If your CloudFront distribution doesn’t show up as an option when you create the record via Route 53, chances are that you did not properly configure your distribution’s alternate domain names to use your custom domain name. Due to reasons touched upon on steps 3 and 6, Route 53 is configured to not allow the creation of aliases to CloudFront distributions that do not have the domain (or subdomain) as an alternate domain name.</p>]]></content><author><name>Lucas</name></author><category term="networking" /><category term="aws" /><category term="aws" /><category term="cloud" /><category term="route 53" /><category term="cloudfront" /><category term="acm" /><category term="s3" /><category term="webhosting" /><category term="dns" /><summary type="html"><![CDATA[There are many articles on how to host a static website using S3. Many more explain how to enable https, and plenty of them lay out how to use your own domain to host them. AWS’ documentation alone covers all of it. In fact, the base for this article is in the documentation pages.]]></summary></entry></feed>

@@ -1,4 +1,4 @@
-I")!<p>There are many articles on how to host a static website using S3. Many more explain how to enable <em>https</em>, and plenty of them lay out how to use your own domain to host them. AWS’ documentation alone covers all of it. In fact, the base for this article is in the documentation <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/website-hosting-custom-domain-walkthrough.html">pages</a>.</p>
+I"c!<p>There are many articles on how to host a static website using S3. Many more explain how to enable <em>https</em>, and plenty of them lay out how to use your own domain to host them. AWS’ documentation alone covers all of it. In fact, the base for this article is in the documentation <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/website-hosting-custom-domain-walkthrough.html">pages</a>.</p>
 
 <p>What makes this article worth writing (and hopefully reading) is the attention to the rationale behind every step, from bucket configuration to A record creation. The idea is to learn concepts rather than to practice following steps. Details on what buttons to click and where to find them can be found on the documentation.</p>
 
@@ -36,7 +36,7 @@
 
 <h2 id="06-create-and-configure-cdn-distribution">06. Create and configure CDN distribution</h2>
 
-<p>By default, CloudFront only knows how to serve requests to its domain name, which should be something like <em>https://xxxxxxxxxxxxxx.cloudfront.net</em>. In order to let it know it is okay to serve requests that are originally sent to your custom domain (<em>mydomain.com</em>). Step 3 dives a bit deeper on this topic. Step 7 will not work if your alternate domain names are not properly set.</p>
+<p>By default, CloudFront only knows how to serve requests to its domain name, which should be something like <em><code class="language-plaintext highlighter-rouge">https://xxxxxxxxxxxxxx.cloudfront.net</code></em>. In order to let it know it is okay to serve requests that are originally sent to your custom domain (<em>mydomain.com</em>). Step 3 dives a bit deeper on this topic. Step 7 will not work if your alternate domain names are not properly set.</p>
 
 <p>This step is where the certificate created in step 2 comes into play as well. You can cover your alternate domain names with your SSL certificate so that you can redirect all requests to HTTPS.</p>
 
