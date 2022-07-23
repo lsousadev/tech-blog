@@ -23,3 +23,7 @@ todo:
 
 - improve stats page (ref <https://www.raymondcamden.com/2018/07/21/building-a-stats-page-for-jekyll-blogs>)
 - visitor count / analytics <https://ravichaganti.com/blog/adding-visitor-counter-to-statically-generated-web-pages/> <https://michaelsoolee.com/google-analytics-jekyll/>
+- bash script to bundle and push to git
+  - exit on any command error
+  - make sure git has login for github
+  - output commands to serve site locally and access in lucas-sousa.com

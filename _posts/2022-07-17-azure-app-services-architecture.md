@@ -47,9 +47,46 @@ tags: [azure, cloud, vnet, app service, dns]
 
 ## Web Worker Architecture
 
+![Antares dynamic website provisioning - control flow](/assets/images/antares_dynamic_prov_control.png)
+
 - Basic components:
-  - **DWAS**: Windows service (DWASSVC) that runs in all web worker virtual machines. It is in charge of provisioning the websites and maintaining the health of the VM, websites, and processes.
-    - When provisioning a website for the first time in the VM, it associates a sandbox to that app.
+  - **HTTP.sys**: receives requests (by matching, as seen above) based on URL and port, then sends it to HTTP Request Queue.
+  - **HTTP Request Queue**: sends requests received via site-specific binding to the site specific HTTP request queue, and sends all other requests to the MiniARR HTTP request queue.
+  - **MiniARR Worker Process**: only receives requests for websites not yet set up. Tells DWAS to create the structure for the website requested.
+  - **DWAS**: receives input from two components:
+    - From **MiniARR**, triggering a dynamic website provisining. DWAS:
+      1. receives host name from MiniArr and uses it to fetch site config (`StartSiteContext`) from DataRole.
+      2. generates `applicationHost.config`, `rootweb.config`, etc into its temp directory.
+          - Both config files are created with "transform pipeline" code, under `Microsoft.Web.Hosting\Utilities\Transformers`.
+          - The transform pipeline can inject user-specific config settings into the `.config` files, such as Virtual Directories, Apps, Handler Mappings (PHP/Python support), etc.
+      3. generates low-privileged user identity to run site code.
+      4. creates a local directory for site, and sets up a symlink to the site's root directory. (eg. `C:\DWASFiles\Sites\foo\VirtualDir0` pointing to `\\FileServerIP1\volume-3-default\<webspaceGuid>\<siteGuid>`)
+      5. copies config files from temp to local directory at `config\`.
+      6. creates a site-specific binding in HTTP.sys and an HTTP request queue, asking to be notified once queue gets a requests.
+      7. registers with Data Role to receive change notifications to website config.
+      8. sets up rest of state in machine needed to run the site (VNet and MSI integration, cert installation, local cache hydration, etc), based on site config.
+    - From **site-specific HTTP request queue**, triggering DWAS to:
+      1. spin up and initializes a Worker Process (`w3wp.exe`) for the site.
+      2. create a sandbox by virtualizing `D:\home` which points to the site's root directory and only allows access to that SMB path.
+    - From **DataRole** (outside of Web Worker) to change site configuration. DWAS:
+      1. receives a notification from DataRole by long-polling for it.
+      2. fetches new `StartSiteContext` from DataRole and compares with previous version.
+      3. overwrites `.config` files if there are changes and orchestrates the changes to ensure new config is applied.
+          - Overwriting the `.config` files causes AppDomain recycles for ASP.NET apps, and can cause child-process recycles for other stacks.
+          - Config changes such as an update to app-settings usually require worker process recycle.
+      4. gets informed about internal system changes such as movement of storage volumes through long-polling calls to DataRole as well.
+          - Change to the site's root path requires worker process recycle.
+  - **Worker Process**: sandboxed site-specific worker process that dequeues requests in its corresponding queue, then processes it through a module pipeline, much like in IIS (out of scope for this post).
+    - Its initialization process is similar to IIS as well, requiring DWAS to guide it through start-up, and then signal when it is ready to start processing requests.
+    - The process is under a "job object", which imposes restrictions on the amount of memory and CPU the `w3wp.exe` can utilize.
+    - Again, like IIS, the worker process expects to retrieve config files from the DWAS local directory at `C:\DWASFiles\Sites\foo\config\`.
+
+## IIS Overview
+
+- Antares, in its initial version, was more of an IIS-as-a-service.
+- IIS' model for hosting app code:
+  - Config concepts: sites, bindings, apps, VirtualDirectories, ApplicationPools, handler mappings, etc
+  - Runtime entities: HTTP(.sys) bindings, HTTP(.sys) request queues, user identities, worker processes (w3wp.exe), etc
 
 ## Referencee
 
@@ -58,3 +95,4 @@ tags: [azure, cloud, vnet, app service, dns]
 ## Questions
 
 - What is the underlying tech behind the ~1000 VMs per stamp? Are they in physical servers/hosts dedicated to App Service only? How many physical servers?
+- What exactly is the sandbox? The `D:\home`? Does the worker process get assigned the low-privileged user identity, and what privileges does it have? Seems that the worker process also has access to DWAS local directory.
