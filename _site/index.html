@@ -671,7 +671,7 @@ function googleTranslateElementInit() {
   (function() {
     var sw = document.getElementById('theme-switch');
     var html = document.getElementsByTagName('html')[0];
-    var nightModeOption = ('auto' || 'auto').toLowerCase();
+    var nightModeOption = ('on' || 'auto').toLowerCase();
     var storage = nightModeOption === 'manual'
         ? localStorage
         : sessionStorage;
@@ -844,7 +844,7 @@ function googleTranslateElementInit() {
       </h2>
       <div class="post-meta">
         <span class="post-date"><i class="fa fa-calendar"></i> Jul 17, 2022</span>
-        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 2 mins</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 7 mins</span>
       </div>
       <a class="post-excerpt" href="/azure-app-services-architecture/">
         <p>
@@ -852,14 +852,12 @@ function googleTranslateElementInit() {
 
 App Service Within Azure Architecture
 
-App Service Creation Flow
 
 
 
-
-  User makes a request to create a new site.
-  ARM makes sure user has access to the resource to allow the given operation (create in this case) and forwards the requests to App Service Geo-Master.
-  Geo-Master finds the best suitable scale unit for the user’s request and for... <span class="read_more">Read More</span>
+  The architecture for App Service is called Antares.
+  The Control Plane API requests start from ARM (Azure Resource Manager) to Antares’ Geomaster.
+  The Geomaster is a component that serves as a load balancer keeping track of state of App Service’s stamps (scale units) around the world and directing... <span class="read_more">Read More</span>
         </p>
       </a>
       <div class="post-tags">
@@ -1118,7 +1116,8 @@ What makes this article worth writing (and hopefully reading) is... <span class=
 
   <div class="wrapper">
     <div class="site-footer-inner">
-<div>Unpublished Work <span class="copyleft">©</span> 2021-2022 Lucas Sousa</div>
+<div>
+<span class="copyleft">©</span> 2021-2022 Lucas Sousa</div>
       <div>Powered by <a title="Jekyll is a simple, blog-aware, static site
       generator." href="http://jekyllrb.com/">Jekyll</a> &amp; <a title="Yat, yet
       another theme." href="https://github.com/jeffreytse/jekyll-theme-yat">Yat Theme</a>.</div>

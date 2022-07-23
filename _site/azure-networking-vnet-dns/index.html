@@ -658,7 +658,7 @@ function googleTranslateElementInit() {
   (function() {
     var sw = document.getElementById('theme-switch');
     var html = document.getElementsByTagName('html')[0];
-    var nightModeOption = ('auto' || 'auto').toLowerCase();
+    var nightModeOption = ('on' || 'auto').toLowerCase();
     var storage = nightModeOption === 'manual'
         ? localStorage
         : sessionStorage;
@@ -929,8 +929,8 @@ function googleTranslateElementInit() {
       <div>Related Articles</div>
       <ul>
         <li><a class="post-link" href="/azure-app-services-architecture/" title="Azure App Service Architecture">Azure App Service Architecture</a></li>
-<li><a class="post-link" href="/azure-networking-vnet-dns/" title="Azure App Service Architecture">Azure Networking for Virtual Networks</a></li>
 <li><a class="post-link" href="/hosting-safe-static-website-aws-ui/" title="Azure App Service Architecture">Hosting a Safe Static Website on AWS (UI Version)</a></li>
+<li><a class="post-link" href="/azure-networking-vnet-dns/" title="Azure App Service Architecture">Azure Networking for Virtual Networks</a></li>
 </ul>
     </div>
 <div class="post-comments"></div></section>
@@ -1070,7 +1070,8 @@ function googleTranslateElementInit() {
 
   <div class="wrapper">
     <div class="site-footer-inner">
-<div>Unpublished Work <span class="copyleft">©</span> 2021-2022 Lucas Sousa</div>
+<div>
+<span class="copyleft">©</span> 2021-2022 Lucas Sousa</div>
       <div>Powered by <a title="Jekyll is a simple, blog-aware, static site
       generator." href="http://jekyllrb.com/">Jekyll</a> &amp; <a title="Yat, yet
       another theme." href="https://github.com/jeffreytse/jekyll-theme-yat">Yat Theme</a>.</div>

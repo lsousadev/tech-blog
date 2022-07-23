@@ -11,8 +11,8 @@
 	"totalPosts":3,
 	"totalCategories": 4,
 	"totalTags": 15,
-	"totalWords": 2422,
-	"averageWordsPerPost": 807,
+	"totalWords": 3116,
+	"averageWordsPerPost": 1038,
 	"firstPost": {
 		"title":"Hosting a Safe Static Website on AWS (UI Version)",
 		"published":"2021-11-27",

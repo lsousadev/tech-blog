@@ -1,4 +1,4 @@
-# Just Tech Things
+# Lucas' Tech Notebook
 
 jekyll docs <https://jekyllrb.com/docs/>
 theme documentation: <https://github.com/jeffreytse/jekyll-theme-yat>
@@ -27,3 +27,4 @@ todo:
   - exit on any command error
   - make sure git has login for github
   - output commands to serve site locally and access in lucas-sousa.com
+- switch website name to Lucas' Tech Notebook, with sub-title "This blog was created for note-keeping purposes, not educational. Browse at your own peril."

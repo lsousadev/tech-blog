@@ -658,7 +658,7 @@ function googleTranslateElementInit() {
   (function() {
     var sw = document.getElementById('theme-switch');
     var html = document.getElementsByTagName('html')[0];
-    var nightModeOption = ('auto' || 'auto').toLowerCase();
+    var nightModeOption = ('on' || 'auto').toLowerCase();
     var storage = nightModeOption === 'manual'
         ? localStorage
         : sessionStorage;
@@ -805,7 +805,7 @@ function googleTranslateElementInit() {
 
 
 
-    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 2 mins</span>
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 7 mins</span>
   </p>
 <div class="post-tags">
 <a class="post-tag" href="/tags.html#azure">#azure</a><a class="post-tag" href="/tags.html#cloud">#cloud</a><a class="post-tag" href="/tags.html#vnet">#vnet</a><a class="post-tag" href="/tags.html#app%20service">#app service</a><a class="post-tag" href="/tags.html#dns">#dns</a>
@@ -818,9 +818,19 @@ function googleTranslateElementInit() {
 
 <h2 id="app-service-within-azure-architecture">App Service Within Azure Architecture</h2>
 
+<p><img src="/assets/images/azure_antares_architecture.png" alt="Azure - Antares Architecture"></p>
+
+<ul>
+  <li>The architecture for App Service is called Antares.</li>
+  <li>The Control Plane API requests start from ARM (Azure Resource Manager) to Antares’ Geomaster.</li>
+  <li>The Geomaster is a component that serves as a load balancer keeping track of state of App Service’s stamps (scale units) around the world and directing API call traffic.</li>
+  <li>There are dozens to thousands of stampsin each Azure region.</li>
+  <li>Each scale unit, or stamp, consists of ~1000 virtual machines, also called servers or workers.</li>
+</ul>
+
 <h2 id="app-service-creation-flow">App Service Creation Flow</h2>
 
-<p><img src="/assets/images/app_service_creation_architecture.png" alt="App Service app creation flow"></p>
+<p><img src="/assets/images/app_service_creation_flow.png" alt="App Service app creation flow"></p>
 
 <ol>
   <li>User makes a request to create a new site.</li>
@@ -830,15 +840,9 @@ function googleTranslateElementInit() {
   <li>Geo-Master reports success on the create request.</li>
 </ol>
 
-<h2 id="stamp-overview">Stamp Overview</h2>
-
-<ul>
-  <li>The architecture for App Service is called Antares.</li>
-  <li>Antares is composed of scale units. There are dozens to thousands of scale units in each Azure region.</li>
-  <li>Each scale unit, or stamp, consists of ~1000 virtual machines, also called servers or workers.</li>
-</ul>
-
 <h2 id="stamp-architecture">Stamp Architecture</h2>
+
+<p><img src="/assets/images/app_service_stamp_architecture.png" alt="App Service stamp architecture"></p>
 
 <ul>
   <li>There are different types of workers inside of a stamp:
@@ -850,7 +854,7 @@ function googleTranslateElementInit() {
       <li>
 <strong>File servers</strong>: worker that mounts to Blob Storage containing data needed to run app (code, images, etc) and exposes it as a network drive, which in turn is mapped by the web worker as a local drive. Any file-relateed r/w operation performed by the app passes through a file server.</li>
       <li>
-<strong>API controller</strong>: performs management operations inside stamp. Receives API calls and orchestrates the steps to fulfill the requests. Examples:
+<strong>API controller</strong>: performs management operations inside stamp. It is to the Control Plane what the Front end is to the Runtime Plane. Receives API calls and orchestrates the steps to fulfill the requests. Examples:
         <ul>
           <li>When Geo-Master passes an API call to create a new application, the API controller orchestrates the required steps to create the application at the scale unit.</li>
           <li>When you use the Azure portal to reset your application, it’s the API controller that notifies all Web Workers currently allocated to your application to restart your app.</li>
@@ -873,7 +877,87 @@ function googleTranslateElementInit() {
 
 <h2 id="web-worker-architecture">Web Worker Architecture</h2>
 
-<h2 id="reference">Reference</h2>
+<p><img src="/assets/images/antares_dynamic_prov_control.png" alt="Antares dynamic website provisioning - control flow"></p>
+
+<ul>
+  <li>Basic components:
+    <ul>
+      <li>
+<strong>HTTP.sys</strong>: receives requests (by matching, as seen above) based on URL and port, then sends it to HTTP Request Queue.</li>
+      <li>
+<strong>HTTP Request Queue</strong>: sends requests received via site-specific binding to the site specific HTTP request queue, and sends all other requests to the MiniARR HTTP request queue.</li>
+      <li>
+<strong>MiniARR Worker Process</strong>: only receives requests for websites not yet set up. Tells DWAS to create the structure for the website requested.</li>
+      <li>
+<strong>DWAS</strong>: receives input from two components:
+        <ul>
+          <li>From <strong>MiniARR</strong>, triggering a dynamic website provisining. DWAS:
+            <ol>
+              <li>receives host name from MiniArr and uses it to fetch site config (<code class="language-plaintext highlighter-rouge">StartSiteContext</code>) from DataRole.</li>
+              <li>generates <code class="language-plaintext highlighter-rouge">applicationHost.config</code>, <code class="language-plaintext highlighter-rouge">rootweb.config</code>, etc into its temp directory.
+                <ul>
+                  <li>Both config files are created with “transform pipeline” code, under <code class="language-plaintext highlighter-rouge">Microsoft.Web.Hosting\Utilities\Transformers</code>.</li>
+                  <li>The transform pipeline can inject user-specific config settings into the <code class="language-plaintext highlighter-rouge">.config</code> files, such as Virtual Directories, Apps, Handler Mappings (PHP/Python support), etc.</li>
+                </ul>
+              </li>
+              <li>generates low-privileged user identity to run site code.</li>
+              <li>creates a local directory for site, and sets up a symlink to the site’s root directory. (eg. <code class="language-plaintext highlighter-rouge">C:\DWASFiles\Sites\foo\VirtualDir0</code> pointing to <code class="language-plaintext highlighter-rouge">\\FileServerIP1\volume-3-default\&lt;webspaceGuid&gt;\&lt;siteGuid&gt;</code>)</li>
+              <li>copies config files from temp to local directory at <code class="language-plaintext highlighter-rouge">config\</code>.</li>
+              <li>creates a site-specific binding in HTTP.sys and an HTTP request queue, asking to be notified once queue gets a requests.</li>
+              <li>registers with Data Role to receive change notifications to website config.</li>
+              <li>sets up rest of state in machine needed to run the site (VNet and MSI integration, cert installation, local cache hydration, etc), based on site config.</li>
+            </ol>
+          </li>
+          <li>From <strong>site-specific HTTP request queue</strong>, triggering DWAS to:
+            <ol>
+              <li>spin up and initializes a Worker Process (<code class="language-plaintext highlighter-rouge">w3wp.exe</code>) for the site.</li>
+              <li>create a sandbox by virtualizing <code class="language-plaintext highlighter-rouge">D:\home</code> which points to the site’s root directory and only allows access to that SMB path.</li>
+            </ol>
+          </li>
+          <li>From <strong>DataRole</strong> (outside of Web Worker) to change site configuration. DWAS:
+            <ol>
+              <li>receives a notification from DataRole by long-polling for it.</li>
+              <li>fetches new <code class="language-plaintext highlighter-rouge">StartSiteContext</code> from DataRole and compares with previous version.</li>
+              <li>overwrites <code class="language-plaintext highlighter-rouge">.config</code> files if there are changes and orchestrates the changes to ensure new config is applied.
+                <ul>
+                  <li>Overwriting the <code class="language-plaintext highlighter-rouge">.config</code> files causes AppDomain recycles for ASP.NET apps, and can cause child-process recycles for other stacks.</li>
+                  <li>Config changes such as an update to app-settings usually require worker process recycle.</li>
+                </ul>
+              </li>
+              <li>gets informed about internal system changes such as movement of storage volumes through long-polling calls to DataRole as well.
+                <ul>
+                  <li>Change to the site’s root path requires worker process recycle.</li>
+                </ul>
+              </li>
+            </ol>
+          </li>
+        </ul>
+      </li>
+      <li>
+<strong>Worker Process</strong>: sandboxed site-specific worker process that dequeues requests in its corresponding queue, then processes it through a module pipeline, much like in IIS (out of scope for this post).
+        <ul>
+          <li>Its initialization process is similar to IIS as well, requiring DWAS to guide it through start-up, and then signal when it is ready to start processing requests.</li>
+          <li>The process is under a “job object”, which imposes restrictions on the amount of memory and CPU the <code class="language-plaintext highlighter-rouge">w3wp.exe</code> can utilize.</li>
+          <li>Again, like IIS, the worker process expects to retrieve config files from the DWAS local directory at <code class="language-plaintext highlighter-rouge">C:\DWASFiles\Sites\foo\config\</code>.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="iis-overview">IIS Overview</h2>
+
+<ul>
+  <li>Antares, in its initial version, was more of an IIS-as-a-service.</li>
+  <li>IIS’ model for hosting app code:
+    <ul>
+      <li>Config concepts: sites, bindings, apps, VirtualDirectories, ApplicationPools, handler mappings, etc</li>
+      <li>Runtime entities: HTTP(.sys) bindings, HTTP(.sys) request queues, user identities, worker processes (w3wp.exe), etc</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="referencee">Referencee</h2>
 
 <ul>
   <li><a href="https://docs.microsoft.com/en-us/archive/msdn-magazine/2017/february/azure-inside-the-azure-app-service-architecture">https://docs.microsoft.com/en-us/archive/msdn-magazine/2017/february/azure-inside-the-azure-app-service-architecture</a></li>
@@ -883,6 +967,7 @@ function googleTranslateElementInit() {
 
 <ul>
   <li>What is the underlying tech behind the ~1000 VMs per stamp? Are they in physical servers/hosts dedicated to App Service only? How many physical servers?</li>
+  <li>What exactly is the sandbox? The <code class="language-plaintext highlighter-rouge">D:\home</code>? Does the worker process get assigned the low-privileged user identity, and what privileges does it have? Seems that the worker process also has access to DWAS local directory.</li>
 </ul>
 
 
@@ -895,8 +980,8 @@ function googleTranslateElementInit() {
 <div class="post-related">
       <div>Related Articles</div>
       <ul>
-        <li><a class="post-link" href="/azure-app-services-architecture/" title="">Azure App Service Architecture</a></li>
-<li><a class="post-link" href="/azure-networking-vnet-dns/" title="">Azure Networking for Virtual Networks</a></li>
+        <li><a class="post-link" href="/azure-networking-vnet-dns/" title="">Azure Networking for Virtual Networks</a></li>
+<li><a class="post-link" href="/azure-app-services-architecture/" title="">Azure App Service Architecture</a></li>
 <li><a class="post-link" href="/hosting-safe-static-website-aws-ui/" title="">Hosting a Safe Static Website on AWS (UI Version)</a></li>
 </ul>
     </div>
@@ -1037,7 +1122,8 @@ function googleTranslateElementInit() {
 
   <div class="wrapper">
     <div class="site-footer-inner">
-<div>Unpublished Work <span class="copyleft">©</span> 2021-2022 Lucas Sousa</div>
+<div>
+<span class="copyleft">©</span> 2021-2022 Lucas Sousa</div>
       <div>Powered by <a title="Jekyll is a simple, blog-aware, static site
       generator." href="http://jekyllrb.com/">Jekyll</a> &amp; <a title="Yat, yet
       another theme." href="https://github.com/jeffreytse/jekyll-theme-yat">Yat Theme</a>.</div>
