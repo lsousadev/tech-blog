@@ -35,7 +35,7 @@ tags: [azure, cloud, vnet, app service, dns]
 - There are different types of workers inside of a stamp:
   - **Web workers**: the vast majority of workers in a stamp. It's the server that runs the app. They can be shared between clients or dedicated to a single client, depending on the App Service Plan.
   - **Front end**: a layer 7 (HTTP) load balancer that distributes requests too all web workers allocated for an app. It uses round-robin by default.
-  - **File servers**: worker that mounts to Blob Storage containing data needed to run app (code, images, etc) and exposes it as a network drive, which in turn is mapped by the web worker as a local drive. Any file-relateed r/w operation performed by the app passes through a file server.
+  - **File servers**: worker that mounts page blob containing data needed to run app (code, images, etc) and exposes it as a network drive, which in turn is mapped by the web worker as a local drive. Any file-relateed r/w operation performed by the app passes through a file server.
   - **API controller**: performs management operations inside stamp. It is to the Control Plane what the Front end is to the Runtime Plane. Receives API calls and orchestrates the steps to fulfill the requests. Examples:
     - When Geo-Master passes an API call to create a new application, the API controller orchestrates the required steps to create the application at the scale unit.
     - When you use the Azure portal to reset your application, it’s the API controller that notifies all Web Workers currently allocated to your application to restart your app.
@@ -51,7 +51,7 @@ tags: [azure, cloud, vnet, app service, dns]
 
 - Basic components:
   - **HTTP.sys**: receives requests (by matching, as seen above) based on URL and port, then sends it to HTTP Request Queue.
-  - **HTTP Request Queue**: sends requests received via site-specific binding to the site specific HTTP request queue, and sends all other requests to the MiniARR HTTP request queue.
+  - **HTTP Request Queue**: sends requests received via site-specific binding (hostname + port, eg. "mysite:80") to the site specific HTTP request queue, and sends all other requests to the MiniARR HTTP request queue.
   - **MiniARR Worker Process**: only receives requests for websites not yet set up. Tells DWAS to create the structure for the website requested.
   - **DWAS**: receives input from two components:
     - From **MiniARR**, triggering a dynamic website provisining. DWAS:
@@ -66,7 +66,7 @@ tags: [azure, cloud, vnet, app service, dns]
       7. registers with Data Role to receive change notifications to website config.
       8. sets up rest of state in machine needed to run the site (VNet and MSI integration, cert installation, local cache hydration, etc), based on site config.
     - From **site-specific HTTP request queue**, triggering DWAS to:
-      1. spin up and initializes a Worker Process (`w3wp.exe`) for the site.
+      1. spin up and initializes a Worker Process (a `w3wp.exe`) for the site.
       2. create a sandbox by virtualizing `D:\home` which points to the site's root directory and only allows access to that SMB path.
     - From **DataRole** (outside of Web Worker) to change site configuration. DWAS:
       1. receives a notification from DataRole by long-polling for it.
@@ -74,12 +74,13 @@ tags: [azure, cloud, vnet, app service, dns]
       3. overwrites `.config` files if there are changes and orchestrates the changes to ensure new config is applied.
           - Overwriting the `.config` files causes AppDomain recycles for ASP.NET apps, and can cause child-process recycles for other stacks.
           - Config changes such as an update to app-settings usually require worker process recycle.
-      4. gets informed about internal system changes such as movement of storage volumes through long-polling calls to DataRole as well.
+      4. gets informed about internal system changes such as movement of storage volumes through long-polling calls to DataRole as well, on top of pinging storage itself every 5 seconds for health.
           - Change to the site's root path requires worker process recycle.
   - **Worker Process**: sandboxed site-specific worker process that dequeues requests in its corresponding queue, then processes it through a module pipeline, much like in IIS (out of scope for this post).
     - Its initialization process is similar to IIS as well, requiring DWAS to guide it through start-up, and then signal when it is ready to start processing requests.
-    - The process is under a "job object", which imposes restrictions on the amount of memory and CPU the `w3wp.exe` can utilize.
+    - The process is under a "job object", which imposes restrictions on the amount of memory and CPU that specific `w3wp.exe` can utilize.
     - Again, like IIS, the worker process expects to retrieve config files from the DWAS local directory at `C:\DWASFiles\Sites\foo\config\`.
+    - The worker process stays alive for 30 minutes before ending itself if there are no requests.
 
 ## IIS Overview
 
