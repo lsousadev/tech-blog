@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-07-23T11:43:28-07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Just Tech Things</title><subtitle>A blog for all things tech that Lucas runs into.</subtitle><author><name>Lucas Sousa</name></author><entry><title type="html">Azure App Service Architecture</title><link href="http://localhost:4000/azure-app-services-architecture/" rel="alternate" type="text/html" title="Azure App Service Architecture" /><published>2022-07-17T00:00:00-07:00</published><updated>2022-07-17T00:00:00-07:00</updated><id>http://localhost:4000/azure-app-services-architecture</id><content type="html" xml:base="http://localhost:4000/azure-app-services-architecture/"><![CDATA[<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="https://lucas-sousa.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://lucas-sousa.com/" rel="alternate" type="text/html" /><updated>2022-07-28T18:54:32-07:00</updated><id>https://lucas-sousa.com/feed.xml</id><title type="html">Tech Notebook by Lucas</title><subtitle>This blog was created for note-keeping purposes, not educational. Browse at your own peril.</subtitle><author><name>Lucas Sousa</name></author><entry><title type="html">Azure App Service Architecture</title><link href="https://lucas-sousa.com/azure-app-services-architecture/" rel="alternate" type="text/html" title="Azure App Service Architecture" /><published>2022-07-17T00:00:00-07:00</published><updated>2022-07-17T00:00:00-07:00</updated><id>https://lucas-sousa.com/azure-app-services-architecture</id><content type="html" xml:base="https://lucas-sousa.com/azure-app-services-architecture/"><![CDATA[<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
 
 <h2 id="app-service-within-azure-architecture">App Service Within Azure Architecture</h2>
 
@@ -10,6 +10,8 @@
   <li>The Geomaster is a component that serves as a load balancer keeping track of state of App Service’s stamps (scale units) around the world and directing API call traffic.</li>
   <li>There are dozens to thousands of stampsin each Azure region.</li>
   <li>Each scale unit, or stamp, consists of ~1000 virtual machines, also called servers or workers.</li>
+  <li>The underlying physical technology for the virtual machines are generally a single server host per VM.</li>
+  <li>All servers in a stamp are used for the App Service offering only, no other Azure service.</li>
 </ul>
 
 <h2 id="app-service-creation-flow">App Service Creation Flow</h2>
@@ -33,7 +35,7 @@
     <ul>
       <li><strong>Web workers</strong>: the vast majority of workers in a stamp. It’s the server that runs the app. They can be shared between clients or dedicated to a single client, depending on the App Service Plan.</li>
       <li><strong>Front end</strong>: a layer 7 (HTTP) load balancer that distributes requests too all web workers allocated for an app. It uses round-robin by default.</li>
-      <li><strong>File servers</strong>: worker that mounts to Blob Storage containing data needed to run app (code, images, etc) and exposes it as a network drive, which in turn is mapped by the web worker as a local drive. Any file-relateed r/w operation performed by the app passes through a file server.</li>
+      <li><strong>File servers</strong>: worker that mounts page blob containing data needed to run app (code, images, etc) and exposes it as a network drive, which in turn is mapped by the web worker as a local drive. Any file-relateed r/w operation performed by the app passes through a file server.</li>
       <li><strong>API controller</strong>: performs management operations inside stamp. It is to the Control Plane what the Front end is to the Runtime Plane. Receives API calls and orchestrates the steps to fulfill the requests. Examples:
         <ul>
           <li>When Geo-Master passes an API call to create a new application, the API controller orchestrates the required steps to create the application at the scale unit.</li>
@@ -52,6 +54,20 @@
   </li>
 </ul>
 
+<h2 id="iis-overview">IIS Overview</h2>
+
+<p><img src="/assets/images/iis_request_runtime_flow.png" alt="IIS request runtime flow" /></p>
+
+<ul>
+  <li>Antares, in its initial version, was more of an IIS-as-a-service.</li>
+  <li>IIS’ model for hosting app code:
+    <ul>
+      <li>Config concepts: sites, bindings, apps, VirtualDirectories, ApplicationPools, handler mappings, etc</li>
+      <li>Runtime entities: HTTP(.sys) bindings, HTTP(.sys) request queues, user identities, worker processes (w3wp.exe), etc</li>
+    </ul>
+  </li>
+</ul>
+
 <h2 id="web-worker-architecture">Web Worker Architecture</h2>
 
 <p><img src="/assets/images/antares_dynamic_prov_control.png" alt="Antares dynamic website provisioning - control flow" /></p>
@@ -60,7 +76,7 @@
   <li>Basic components:
     <ul>
       <li><strong>HTTP.sys</strong>: receives requests (by matching, as seen above) based on URL and port, then sends it to HTTP Request Queue.</li>
-      <li><strong>HTTP Request Queue</strong>: sends requests received via site-specific binding to the site specific HTTP request queue, and sends all other requests to the MiniARR HTTP request queue.</li>
+      <li><strong>HTTP Request Queue</strong>: sends requests received via site-specific binding (hostname + port, eg. “mysite:80”) to the site specific HTTP request queue, and sends all other requests to the MiniARR HTTP request queue.</li>
       <li><strong>MiniARR Worker Process</strong>: only receives requests for websites not yet set up. Tells DWAS to create the structure for the website requested.</li>
       <li><strong>DWAS</strong>: receives input from two components:
         <ul>
@@ -83,8 +99,12 @@
           </li>
           <li>From <strong>site-specific HTTP request queue</strong>, triggering DWAS to:
             <ol>
-              <li>spin up and initializes a Worker Process (<code class="language-plaintext highlighter-rouge">w3wp.exe</code>) for the site.</li>
-              <li>create a sandbox by virtualizing <code class="language-plaintext highlighter-rouge">D:\home</code> which points to the site’s root directory and only allows access to that SMB path.</li>
+              <li>spin up and initializes a sandboxed Worker Process (a <code class="language-plaintext highlighter-rouge">w3wp.exe</code>) for the site.</li>
+              <li>create a sandbox by virtualizing <code class="language-plaintext highlighter-rouge">D:\home</code> which points to the site’s root directory and only allows access to that SMB path.
+                <ul>
+                  <li>SANDBOX</li>
+                </ul>
+              </li>
             </ol>
           </li>
           <li>From <strong>DataRole</strong> (outside of Web Worker) to change site configuration. DWAS:
@@ -97,7 +117,7 @@
                   <li>Config changes such as an update to app-settings usually require worker process recycle.</li>
                 </ul>
               </li>
-              <li>gets informed about internal system changes such as movement of storage volumes through long-polling calls to DataRole as well.
+              <li>gets informed about internal system changes such as movement of storage volumes through long-polling calls to DataRole as well, on top of pinging storage itself every 5 seconds for health.
                 <ul>
                   <li>Change to the site’s root path requires worker process recycle.</li>
                 </ul>
@@ -109,68 +129,31 @@
       <li><strong>Worker Process</strong>: sandboxed site-specific worker process that dequeues requests in its corresponding queue, then processes it through a module pipeline, much like in IIS (out of scope for this post).
         <ul>
           <li>Its initialization process is similar to IIS as well, requiring DWAS to guide it through start-up, and then signal when it is ready to start processing requests.</li>
-          <li>The process is under a “job object”, which imposes restrictions on the amount of memory and CPU the <code class="language-plaintext highlighter-rouge">w3wp.exe</code> can utilize.</li>
+          <li>The process is under a “job object”, which imposes restrictions on the amount of memory and CPU that specific <code class="language-plaintext highlighter-rouge">w3wp.exe</code> can utilize.</li>
           <li>Again, like IIS, the worker process expects to retrieve config files from the DWAS local directory at <code class="language-plaintext highlighter-rouge">C:\DWASFiles\Sites\foo\config\</code>.</li>
+          <li>The worker process stays alive for 30 minutes before ending itself if there are no requests.</li>
         </ul>
       </li>
     </ul>
   </li>
 </ul>
 
-<h2 id="iis-overview">IIS Overview</h2>
-
-<ul>
-  <li>Antares, in its initial version, was more of an IIS-as-a-service.</li>
-  <li>IIS’ model for hosting app code:
-    <ul>
-      <li>Config concepts: sites, bindings, apps, VirtualDirectories, ApplicationPools, handler mappings, etc</li>
-      <li>Runtime entities: HTTP(.sys) bindings, HTTP(.sys) request queues, user identities, worker processes (w3wp.exe), etc</li>
-    </ul>
-  </li>
-</ul>
-
-<h2 id="referencee">Referencee</h2>
+<h2 id="reference">Reference</h2>
 
 <ul>
   <li><a href="https://docs.microsoft.com/en-us/archive/msdn-magazine/2017/february/azure-inside-the-azure-app-service-architecture">https://docs.microsoft.com/en-us/archive/msdn-magazine/2017/february/azure-inside-the-azure-app-service-architecture</a></li>
-</ul>
+</ul>]]></content><author><name>Lucas</name></author><category term="azure" /><category term="azure" /><category term="cloud" /><category term="vnet" /><category term="app service" /><category term="dns" /><category term="networking" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Azure Networking for Virtual Networks</title><link href="https://lucas-sousa.com/azure-networking-vnet-dns/" rel="alternate" type="text/html" title="Azure Networking for Virtual Networks" /><published>2022-07-10T00:00:00-07:00</published><updated>2022-07-10T00:00:00-07:00</updated><id>https://lucas-sousa.com/azure-networking-vnet-dns</id><content type="html" xml:base="https://lucas-sousa.com/azure-networking-vnet-dns/"><![CDATA[<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
 
-<h2 id="questions">Questions</h2>
+<h2 id="basics--concepts">Basics &amp; Concepts</h2>
 
-<ul>
-  <li>What is the underlying tech behind the ~1000 VMs per stamp? Are they in physical servers/hosts dedicated to App Service only? How many physical servers?</li>
-  <li>What exactly is the sandbox? The <code class="language-plaintext highlighter-rouge">D:\home</code>? Does the worker process get assigned the low-privileged user identity, and what privileges does it have? Seems that the worker process also has access to DWAS local directory.</li>
-</ul>]]></content><author><name>Lucas</name></author><category term="app service" /><category term="azure" /><category term="azure" /><category term="cloud" /><category term="vnet" /><category term="app service" /><category term="dns" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Azure Networking for Virtual Networks</title><link href="http://localhost:4000/azure-networking-vnet-dns/" rel="alternate" type="text/html" title="Azure Networking for Virtual Networks" /><published>2022-07-10T00:00:00-07:00</published><updated>2022-07-10T00:00:00-07:00</updated><id>http://localhost:4000/azure-networking-vnet-dns</id><content type="html" xml:base="http://localhost:4000/azure-networking-vnet-dns/"><![CDATA[<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
-
-<h2 id="nslookup-testblobcorewindowsnet-from-a-vm-in-a-vnet"><code class="language-plaintext highlighter-rouge">nslookup test.blob.core.windows.net</code> from a VM in a VNet</h2>
+<h3 id="vnet--dns">VNet &amp; DNS</h3>
 
 <ul>
-  <li>without any integration:
+  <li>The VNet uses Azure DNS by default.
     <ul>
-      <li>⚪ test.blob.core.windows.net -&gt; CNAME -&gt; 🔵 blob.a1b2c3.store.core.windows.net</li>
-      <li>🔵 blob.a1b2c3.store.core.windows.net -&gt; A record -&gt; 🔴 52.240.48.36 (public IP)</li>
+      <li>NIC’s inside a VNet use the VNet DNS configuration by default.</li>
     </ul>
   </li>
-  <li>with PrivateLink:
-    <ul>
-      <li>⚪ test.blob.core.windows.net -&gt; CNAME -&gt; 🟡 test.privatelink.blob.core.windows.net</li>
-      <li>🟡 test.privatelink.blob.core.windows.net -&gt; CNAME -&gt; 🔵 blob.a1b2c3.store.core.windows.net</li>
-      <li>🔵 blob.a1b2c3.store.core.windows.net -&gt; A record -&gt; 🔴 52.240.48.36 (public IP)</li>
-    </ul>
-  </li>
-  <li>with PrivateLink and Private Endpoint:
-    <ul>
-      <li>⚪ test.blob.core.windows.net -&gt; CNAME -&gt; 🟡 test.privatelink.blob.core.windows.net</li>
-      <li>🟡 test.privatelink.blob.core.windows.net -&gt; A record (Azure Private DNS) -&gt; 🟢 10.0.1.4</li>
-    </ul>
-  </li>
-</ul>
-
-<h2 id="dns-configuration">DNS Configuration</h2>
-
-<ul>
-  <li>The VNet uses Azure DNS by default.</li>
-  <li>NIC’s inside a VNet use the VNet DNS configuration by default.</li>
   <li>An internal DNS private zone called IDNS is created automatically inside every VNet.
     <ul>
       <li>Any NIC added to the VNet gets registered within IDNS</li>
@@ -179,11 +162,11 @@
   </li>
 </ul>
 
-<h2 id="private-dns-zone">Private DNS Zone</h2>
+<h3 id="private-dns-zone">Private DNS Zone</h3>
 
 <ul>
-  <li>Can hold any time of record for any name. Full-range.</li>
   <li>Exists outside of VNets (global resource) and can be attached to them.</li>
+  <li>Can hold any time of record for any name. Full-range.</li>
   <li>Private DNS zones can be used solely for DNS resolution or for registration:
     <ul>
       <li>Like IDNS, all NIC’s added to the VNet gets registered within the private zone.</li>
@@ -193,32 +176,85 @@
   </li>
 </ul>
 
-<h2 id="network-security-groups">Network Security Groups</h2>
+<h3 id="network-security-groups">Network Security Groups</h3>
 
 <ul>
   <li>Can only be attached to a subnet or a network interface (eg. a VM).</li>
   <li>App Security Group: works like a managed tag that can be referenced as source/destination in NSG rules.</li>
 </ul>
 
-<h2 id="service-endpoints">Service Endpoints</h2>
+<h3 id="the-azure-backbone">The Azure “Backbone”</h3>
 
 <ul>
+  <li>Microsoft has a network infrastructure for Azure called the “Azure backbone”.</li>
+  <li>Azure can “magically” route things through this backbone.</li>
+  <li>This backbone is how service endpoint, private endpoint, and VNet integration can keep requests needing to reach the internet.
+    <ul>
+      <li>Service endpoints use that magic by forwarding all requests to public IPs of storage accounts to a <code class="language-plaintext highlighter-rouge">VirtualNetworkServiceEndpoint</code>, which then redirects the requests through the backbone and is fully managed by Azure, the customer can’t see it.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="service-endpoints">Service Endpoints</h3>
+
+<p><img src="/assets/images/service_endpoint.jpg" alt="Service Endpoint Request Flow" /></p>
+
+<ul>
+  <li>Adds a record to a subnet’s route table pointing public IP addresses of services to <code class="language-plaintext highlighter-rouge">VirtualNetworkServiceEndpoint</code>, which chains records redirecting the request through the Azure backbone all the way to the service’s public endpoint.</li>
+  <li>The source IP address will switch from public to private as the request will be internal to the VNet, so the service’s firewall rules must reflect that.</li>
+  <li>The request’s final hop is still the public endpoint of the target <em>service</em>, even if the source IP is private.</li>
   <li>Services such as Azure Storage, Key Vault, Cosmos DB, etc offer service endpoint.</li>
-  <li>It creates a record in the route table of a subnet listing all the multiple public IP CIDR blocks of an Azure service and redirect them to the VirtualNetworkServiceEndpoint and remains internal to Azure.</li>
-  <li>The source IP address will switch from public to private, so the service’s firewall rules must reflect that.</li>
 </ul>
 
-<h2 id="private-endpoints">Private Endpoints</h2>
+<h3 id="private-endpoints">Private Endpoints</h3>
+
+<p><img src="/assets/images/private_endpoint_private_link.png" alt="Private Endpoint Request Flow with Private Link" /></p>
 
 <ul>
-  <li>Adds a NIC to a subnet with private IP (within the VNet CIDR block) pointing to a storage account and service.</li>
+  <li>Adds a NIC to a subnet and attaches said NIC to a specific <em>resource</em> (eg. a blob storage).</li>
+  <li>It is usually coupled with Private Link, which creates a private DNS zone to map all resource requests to their correct Private Endpoint private IP addresses.</li>
 </ul>
 
-<h2 id="the-reason-for-privatelink">The reason for PrivateLink</h2>
+<h2 id="example">Example</h2>
+
+<h3 id="nslookup-testblobcorewindowsnet-from-a-vm-in-azure"><code class="language-plaintext highlighter-rouge">nslookup test.blob.core.windows.net</code> from a VM in Azure</h3>
+
+<ul>
+  <li>without any integrations:
+    <ul>
+      <li>⚪ test.blob.core.windows.net -&gt; CNAME -&gt; 🔵 blob.a1b2c3.store.core.windows.net</li>
+      <li>🔵 blob.a1b2c3.store.core.windows.net -&gt; A record -&gt; 🔴 52.240.48.36 (public IP)</li>
+    </ul>
+  </li>
+  <li>with Service Endpoint:
+    <ul>
+      <li>⚪ test.blob.core.windows.net -&gt; CNAME -&gt; 🔵 blob.a1b2c3.store.core.windows.net</li>
+      <li>🔵 blob.a1b2c3.store.core.windows.net -&gt; A record -&gt; 🔴 52.240.48.36 (public IP)</li>
+      <li>🔴 52.240.48.36 (public IP) -&gt; Subnet Route Table Entry -&gt; 🟠 VirtualNetworkServiceEndpoint</li>
+      <li>🟠 VirtualNetworkServiceEndpoint -&gt; ???? -&gt; ⚫ Azure Backbone</li>
+      <li>⚫ Azure Backbone -&gt; ???? -&gt; 🔴 52.240.48.36 (????)</li>
+    </ul>
+  </li>
+  <li>with Private Link:
+    <ul>
+      <li>⚪ test.blob.core.windows.net -&gt; CNAME -&gt; 🟡 test.privatelink.blob.core.windows.net</li>
+      <li>🟡 test.privatelink.blob.core.windows.net -&gt; CNAME -&gt; 🔵 blob.a1b2c3.store.core.windows.net</li>
+      <li>🔵 blob.a1b2c3.store.core.windows.net -&gt; A record -&gt; 🔴 52.240.48.36 (public IP)</li>
+    </ul>
+  </li>
+  <li>with Private Link and Private Endpoint:
+    <ul>
+      <li>⚪ test.blob.core.windows.net -&gt; CNAME -&gt; 🟡 test.privatelink.blob.core.windows.net</li>
+      <li>🟡 test.privatelink.blob.core.windows.net -&gt; A record (Azure Private DNS) -&gt; 🟢 10.0.1.4</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="the-reason-for-privatelink">The reason for PrivateLink</h3>
 
 <p>From the results above, it may seem that if you have a Private Endpoint, you can bypass PrivateLink and just create an Azure Private DNS that points ⚪ test.blob.core.windows.net to 🟢 10.0.1.4. It would work, but for that to happen the Private DNS zone would have to be at the <code class="language-plaintext highlighter-rouge">blob.core.windows.net</code>, and you’d then be expected to create a record for each Blob Storage that the VNet attached to the Private DNS zone would like to connect to. For example, if a machine also wanted to connect to <code class="language-plaintext highlighter-rouge">second-test.blob.core.windows.net</code>, it would be directed to resolve with the Private DNS zone, which would need to be manually configured. It is often more sensible to create a Private DNS zone at the <code class="language-plaintext highlighter-rouge">privatelink.blob.core.windows.net</code> level.</p>
 
-<h2 id="on-premises-considerations">On-premises considerations</h2>
+<h3 id="on-premises-considerations">On-premises considerations</h3>
 
 <ul>
   <li>Azure Private DNS zones are available globally, you can connect any VNet in the world to it for link resolution, but you cannot connect to it from on-premises.</li>
@@ -226,7 +262,7 @@
   <li>Optionally, the records in the Private DNS zone can be recreated manually on local DNS.</li>
 </ul>
 
-<h2 id="privatelink-service">PrivateLink Service</h2>
+<h3 id="privatelink-service">PrivateLink Service</h3>
 
 <ul>
   <li>Useful in cases virtual networks cannot be peered (eg. 3rd party services, CIDR block overlap, etc).</li>
@@ -237,10 +273,12 @@
 <h2 id="questions">Questions</h2>
 
 <ul>
-  <li>Is the VirtualNetworkServiceEndpoint a NIC with private IP?</li>
-  <li>How does a Private Endpoint, which is a NIC with a private IP inside the VNet, talk to a Blob Storage instance without using the internet or Public IP?</li>
+  <li>Is the VirtualNetworkServiceEndpoint a NIC with private IP? Is there a DNS record for VirtualNetworkServiceEndpoint? What does it look like?</li>
+  <li>What does a traceroute of a request to the public IP of a service looks like compared a request to VirtualNetworkServiceEndpoint?</li>
+  <li>Does the Private Endpoint NIC get attached directly to the resource server?</li>
+  <li>How does Private Endpoint DNS work without Private Link?</li>
   <li>How does a private DNS zone get linked to a VNet? VNet’s route table?</li>
-</ul>]]></content><author><name>Lucas</name></author><category term="networking" /><category term="azure" /><category term="azure" /><category term="cloud" /><category term="vnet" /><category term="app services" /><category term="dns" /><category term="private endpoint" /><category term="service endpoint" /><category term="private link" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Hosting a Safe Static Website on AWS (UI Version)</title><link href="http://localhost:4000/hosting-safe-static-website-aws-ui/" rel="alternate" type="text/html" title="Hosting a Safe Static Website on AWS (UI Version)" /><published>2021-11-27T00:00:00-08:00</published><updated>2021-11-27T00:00:00-08:00</updated><id>http://localhost:4000/hosting-safe-static-website-aws-ui</id><content type="html" xml:base="http://localhost:4000/hosting-safe-static-website-aws-ui/"><![CDATA[<p>There are many articles on how to host a static website using S3. Many more explain how to enable <em>https</em>, and plenty of them lay out how to use your own domain to host them. AWS’ documentation alone covers all of it. In fact, the base for this article is in the documentation <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/website-hosting-custom-domain-walkthrough.html">pages</a>.</p>
+</ul>]]></content><author><name>Lucas</name></author><category term="networking" /><category term="azure" /><category term="azure" /><category term="cloud" /><category term="vnet" /><category term="app service" /><category term="dns" /><category term="private endpoint" /><category term="service endpoint" /><category term="private link" /><category term="networking" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Hosting a Safe Static Website on AWS (UI Version)</title><link href="https://lucas-sousa.com/hosting-safe-static-website-aws-ui/" rel="alternate" type="text/html" title="Hosting a Safe Static Website on AWS (UI Version)" /><published>2021-11-27T00:00:00-08:00</published><updated>2021-11-27T00:00:00-08:00</updated><id>https://lucas-sousa.com/hosting-safe-static-website-aws-ui</id><content type="html" xml:base="https://lucas-sousa.com/hosting-safe-static-website-aws-ui/"><![CDATA[<p>There are many articles on how to host a static website using S3. Many more explain how to enable <em>https</em>, and plenty of them lay out how to use your own domain to host them. AWS’ documentation alone covers all of it. In fact, the base for this article is in the documentation <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/website-hosting-custom-domain-walkthrough.html">pages</a>.</p>
 
 <p>What makes this article worth writing (and hopefully reading) is the attention to the rationale behind every step, from bucket configuration to A record creation. The idea is to learn concepts rather than to practice following steps. Details on what buttons to click and where to find them can be found on the documentation.</p>
 

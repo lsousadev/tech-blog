@@ -1,30 +1,31 @@
 # Lucas' Tech Notebook
 
-jekyll docs <https://jekyllrb.com/docs/>
-theme documentation: <https://github.com/jeffreytse/jekyll-theme-yat>
-bucket website url: <http://lucas-sousa.com.s3-website.us-west-1.amazonaws.com/>
+## Handy Commands
 
-commands to build blog, test it, and upload to s3:
-cd ~/projects/tech-blog
-sudo bundle
-sudo jekyll serve
-aws s3 sync _site s3://lucas-sousa.com/ --delete
+- cd ~/projects/tech-blog
+- sudo bundle ### builds Ruby changes
+- sudo jekyll build ### buids the blog
+- sudo jekyll serve ### builds and runs the blog locally
+- git add
+- git commit -m ""
+- git push
+- aws s3 sync _site s3://lucas-sousa.com/ --delete
 
-categories:
+## Handy Links
 
-- programming (algorithms, scripting)
-- operating systems
-- networking
-- devops
-- cloud
-- cybersecurity
+- jekyll docs <https://jekyllrb.com/docs/>
+- theme documentation: <https://github.com/jeffreytse/jekyll-theme-yat>
+- bucket website url: <http://lucas-sousa.com.s3-website.us-west-1.amazonaws.com/>
 
-todo:
+## Planned categories
+
+- programming (algorithms, scripting): ?
+- operating systems: linux, macOS, windows, etc
+- devops: ?
+- cloud: azure, aws, gcp, etc
+- cybersecurity: ?
+
+## TODO
 
 - improve stats page (ref <https://www.raymondcamden.com/2018/07/21/building-a-stats-page-for-jekyll-blogs>)
 - visitor count / analytics <https://ravichaganti.com/blog/adding-visitor-counter-to-statically-generated-web-pages/> <https://michaelsoolee.com/google-analytics-jekyll/>
-- bash script to bundle and push to git
-  - exit on any command error
-  - make sure git has login for github
-  - output commands to serve site locally and access in lucas-sousa.com
-- switch website name to Lucas' Tech Notebook, with sub-title "This blog was created for note-keeping purposes, not educational. Browse at your own peril."

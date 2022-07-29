@@ -1,0 +1,138 @@
+I"�<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
+
+<h2 id="basics--concepts">Basics &amp; Concepts</h2>
+
+<h3 id="vnet--dns">VNet &amp; DNS</h3>
+
+<ul>
+  <li>The VNet uses Azure DNS by default.
+    <ul>
+      <li>NIC’s inside a VNet use the VNet DNS configuration by default.</li>
+    </ul>
+  </li>
+  <li>An internal DNS private zone called IDNS is created automatically inside every VNet.
+    <ul>
+      <li>Any NIC added to the VNet gets registered within IDNS</li>
+      <li>The domain name for the private zone is <code class="language-plaintext highlighter-rouge">internal.cloudapp.net</code></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="private-dns-zone">Private DNS Zone</h3>
+
+<ul>
+  <li>Exists outside of VNets (global resource) and can be attached to them.</li>
+  <li>Can hold any time of record for any name. Full-range.</li>
+  <li>Private DNS zones can be used solely for DNS resolution or for registration:
+    <ul>
+      <li>Like IDNS, all NIC’s added to the VNet gets registered within the private zone.</li>
+      <li>A VNet can only connect to one private zone for registration.</li>
+      <li>A private DNS zone can connect to 100 VNets for registration and 1000 for resolution.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="network-security-groups">Network Security Groups</h3>
+
+<ul>
+  <li>Can only be attached to a subnet or a network interface (eg. a VM).</li>
+  <li>App Security Group: works like a managed tag that can be referenced as source/destination in NSG rules.</li>
+</ul>
+
+<h3 id="the-azure-backbone">The Azure “Backbone”</h3>
+
+<ul>
+  <li>Microsoft has a network infrastructure for Azure called the “Azure backbone”.</li>
+  <li>Azure can “magically” route things through this backbone.</li>
+  <li>This backbone is how service endpoint, private endpoint, and VNet integration can keep requests needing to reach the internet.
+    <ul>
+      <li>Service endpoints use that magic by forwarding all requests to public IPs of storage accounts to a <code class="language-plaintext highlighter-rouge">VirtualNetworkServiceEndpoint</code>, which then redirects the requests through the backbone and is fully managed by Azure, the customer can’t see it.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="service-endpoints">Service Endpoints</h3>
+
+<p><img src="/assets/images/service_endpoint.jpg" alt="Service Endpoint Request Flow" /></p>
+
+<ul>
+  <li>Adds a record to a subnet’s route table pointing public IP addresses of services to <code class="language-plaintext highlighter-rouge">VirtualNetworkServiceEndpoint</code>, which chains records redirecting the request through the Azure backbone all the way to the service’s public endpoint.</li>
+  <li>The source IP address will switch from public to private as the request will be internal to the VNet, so the service’s firewall rules must reflect that.</li>
+  <li>The request’s final hop is still the public endpoint of the target <em>service</em>, even if the source IP is private.</li>
+  <li>Services such as Azure Storage, Key Vault, Cosmos DB, etc offer service endpoint.</li>
+</ul>
+
+<h3 id="private-endpoints">Private Endpoints</h3>
+
+<p><img src="/assets/images/private_endpoint_private_link.png" alt="Private Endpoint Request Flow with Private Link" /></p>
+
+<ul>
+  <li>Adds a NIC to a subnet and attaches said NIC to a specific <em>resource</em> (eg. a blob storage).</li>
+  <li>It is usually coupled with Private Link, which creates a private DNS zone to map all resource requests to their correct Private Endpoint private IP addresses.</li>
+</ul>
+
+<h2 id="example">Example</h2>
+
+<h3 id="nslookup-testblobcorewindowsnet-from-a-vm-in-azure"><code class="language-plaintext highlighter-rouge">nslookup test.blob.core.windows.net</code> from a VM in Azure</h3>
+
+<ul>
+  <li>without any integrations:
+    <ul>
+      <li>⚪ test.blob.core.windows.net -&gt; CNAME -&gt; 🔵 blob.a1b2c3.store.core.windows.net</li>
+      <li>🔵 blob.a1b2c3.store.core.windows.net -&gt; A record -&gt; 🔴 52.240.48.36 (public IP)</li>
+    </ul>
+  </li>
+  <li>with Service Endpoint:
+    <ul>
+      <li>⚪ test.blob.core.windows.net -&gt; CNAME -&gt; 🔵 blob.a1b2c3.store.core.windows.net</li>
+      <li>🔵 blob.a1b2c3.store.core.windows.net -&gt; A record -&gt; 🔴 52.240.48.36 (public IP)</li>
+      <li>🔴 52.240.48.36 (public IP) -&gt; Subnet Route Table Entry -&gt; 🟠 VirtualNetworkServiceEndpoint</li>
+      <li>🟠 VirtualNetworkServiceEndpoint -&gt; ???? -&gt; ⚫ Azure Backbone</li>
+      <li>⚫ Azure Backbone -&gt; ???? -&gt; 🔴 52.240.48.36 (????)</li>
+    </ul>
+  </li>
+  <li>with Private Link:
+    <ul>
+      <li>⚪ test.blob.core.windows.net -&gt; CNAME -&gt; 🟡 test.privatelink.blob.core.windows.net</li>
+      <li>🟡 test.privatelink.blob.core.windows.net -&gt; CNAME -&gt; 🔵 blob.a1b2c3.store.core.windows.net</li>
+      <li>🔵 blob.a1b2c3.store.core.windows.net -&gt; A record -&gt; 🔴 52.240.48.36 (public IP)</li>
+    </ul>
+  </li>
+  <li>with Private Link and Private Endpoint:
+    <ul>
+      <li>⚪ test.blob.core.windows.net -&gt; CNAME -&gt; 🟡 test.privatelink.blob.core.windows.net</li>
+      <li>🟡 test.privatelink.blob.core.windows.net -&gt; A record (Azure Private DNS) -&gt; 🟢 10.0.1.4</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="the-reason-for-privatelink">The reason for PrivateLink</h3>
+
+<p>From the results above, it may seem that if you have a Private Endpoint, you can bypass PrivateLink and just create an Azure Private DNS that points ⚪ test.blob.core.windows.net to 🟢 10.0.1.4. It would work, but for that to happen the Private DNS zone would have to be at the <code class="language-plaintext highlighter-rouge">blob.core.windows.net</code>, and you’d then be expected to create a record for each Blob Storage that the VNet attached to the Private DNS zone would like to connect to. For example, if a machine also wanted to connect to <code class="language-plaintext highlighter-rouge">second-test.blob.core.windows.net</code>, it would be directed to resolve with the Private DNS zone, which would need to be manually configured. It is often more sensible to create a Private DNS zone at the <code class="language-plaintext highlighter-rouge">privatelink.blob.core.windows.net</code> level.</p>
+
+<h3 id="on-premises-considerations">On-premises considerations</h3>
+
+<ul>
+  <li>Azure Private DNS zones are available globally, you can connect any VNet in the world to it for link resolution, but you cannot connect to it from on-premises.</li>
+  <li>You can deploy a DNS forwarder in a VNet, then create a record in the local DNS (on-prem) to point any <code class="language-plaintext highlighter-rouge">privatelink.blob.core.windows.net</code> requests to the DNS forwarder, which can then talk to the Private DNS zone.</li>
+  <li>Optionally, the records in the Private DNS zone can be recreated manually on local DNS.</li>
+</ul>
+
+<h3 id="privatelink-service">PrivateLink Service</h3>
+
+<ul>
+  <li>Useful in cases virtual networks cannot be peered (eg. 3rd party services, CIDR block overlap, etc).</li>
+  <li>The host VNet deploys PLS internally in its own subnet. PLS will receive external requests and forward them to a Standard Load Balancer.</li>
+  <li>The PLS deployment can have up to 8 IP addresses in the VNet, and it connects to a Front End IP address of the Load Balancer.</li>
+</ul>
+
+<h2 id="questions">Questions</h2>
+
+<ul>
+  <li>Is the VirtualNetworkServiceEndpoint a NIC with private IP? Is there a DNS record for VirtualNetworkServiceEndpoint? What does it look like?</li>
+  <li>What does a traceroute of a request to the public IP of a service looks like compared a request to VirtualNetworkServiceEndpoint?</li>
+  <li>Does the Private Endpoint NIC get attached directly to the resource server?</li>
+  <li>How does Private Endpoint DNS work without Private Link?</li>
+  <li>How does a private DNS zone get linked to a VNet? VNet’s route table?</li>
+</ul>
+:ET

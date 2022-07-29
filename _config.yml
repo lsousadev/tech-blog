@@ -24,7 +24,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Just Tech Things
+title: Tech Notebook by Lucas
 email: lsousadev@gmail.com
 author: Lucas Sousa
 
@@ -43,7 +43,7 @@ author: Lucas Sousa
 copyright: "(cleft) 2021-{currentYear} {author}"
 
 description: >- # this means to ignore newlines until "baseurl:"
-  A blog for all things tech that Lucas runs into.
+  This blog was created for note-keeping purposes, not educational. Browse at your own peril.
 
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://lucas-sousa.com" # the base hostname & protocol for your site, e.g. http://example.com
@@ -155,9 +155,9 @@ header_pages:
 # Page default value
 defaults:
   home:
-    heading: "Just Tech Things"
-    subheading: "A blog by Lucas Sousa."
-    banner: "assets/images/banners/cloud-banner.jpg"
+    heading: "Tech Notebook by Lucas"
+    subheading: "This blog was created for note-keeping, not educational purposes."
+    banner: "/assets/images/banners/cloud-banner.jpg"
 
 # Banner default settings
 # These banner settings are for global banner default, but you can also

@@ -9,10 +9,10 @@
 
 {
 	"totalPosts":3,
-	"totalCategories": 4,
+	"totalCategories": 3,
 	"totalTags": 15,
-	"totalWords": 3116,
-	"averageWordsPerPost": 1038,
+	"totalWords": 3373,
+	"averageWordsPerPost": 1124,
 	"firstPost": {
 		"title":"Hosting a Safe Static Website on AWS (UI Version)",
 		"published":"2021-11-27",
@@ -36,10 +36,6 @@
 			
 			,
 			{ "name": "azure", "size":2 }
-		
-			
-			,
-			{ "name": "app service", "size":1 }
 		
 	],
 	"postsPerTag":[
@@ -86,7 +82,7 @@
 		
 			
 			,
-			{ "name": "app services", "size":1 }
+			{ "name": "app service", "size":2 }
 		
 			
 			,
@@ -102,7 +98,7 @@
 		
 			
 			,
-			{ "name": "app service", "size":1 }
+			{ "name": "networking", "size":2 }
 		
 	],
 	"dates":"2022-07-17,2022-07-10,2021-11-27"

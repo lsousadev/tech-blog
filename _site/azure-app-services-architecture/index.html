@@ -7,28 +7,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
 <!-- Begin Jekyll SEO tag v2.7.1 -->
-<title>Azure App Service Architecture | Just Tech Things</title>
+<title>Azure App Service Architecture | Tech Notebook by Lucas</title>
 <meta name="generator" content="Jekyll v4.2.1">
 <meta property="og:title" content="Azure App Service Architecture">
 <meta name="author" content="Lucas">
 <meta property="og:locale" content="en_US">
-<meta name="description" content="A blog for all things tech that Lucas runs into.">
-<meta property="og:description" content="A blog for all things tech that Lucas runs into.">
-<link rel="canonical" href="http://localhost:4000/azure-app-services-architecture/">
-<meta property="og:url" content="http://localhost:4000/azure-app-services-architecture/">
-<meta property="og:site_name" content="Just Tech Things">
+<meta name="description" content="This blog was created for note-keeping purposes, not educational. Browse at your own peril.">
+<meta property="og:description" content="This blog was created for note-keeping purposes, not educational. Browse at your own peril.">
+<link rel="canonical" href="https://lucas-sousa.com/azure-app-services-architecture/">
+<meta property="og:url" content="https://lucas-sousa.com/azure-app-services-architecture/">
+<meta property="og:site_name" content="Tech Notebook by Lucas">
 <meta property="og:type" content="article">
 <meta property="article:published_time" content="2022-07-17T00:00:00-07:00">
 <meta name="twitter:card" content="summary">
 <meta property="twitter:title" content="Azure App Service Architecture">
 <script type="application/ld+json">
-{"@type":"BlogPosting","url":"http://localhost:4000/azure-app-services-architecture/","headline":"Azure App Service Architecture","dateModified":"2022-07-17T00:00:00-07:00","datePublished":"2022-07-17T00:00:00-07:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/azure-app-services-architecture/"},"author":{"@type":"Person","name":"Lucas"},"description":"A blog for all things tech that Lucas runs into.","@context":"https://schema.org"}</script>
+{"@type":"BlogPosting","url":"https://lucas-sousa.com/azure-app-services-architecture/","headline":"Azure App Service Architecture","dateModified":"2022-07-17T00:00:00-07:00","datePublished":"2022-07-17T00:00:00-07:00","author":{"@type":"Person","name":"Lucas"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://lucas-sousa.com/azure-app-services-architecture/"},"description":"This blog was created for note-keeping purposes, not educational. Browse at your own peril.","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="shortcut icon" href="/assets/images/devops.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
   <link rel="stylesheet" href="/assets/css/main.css">
-  <script src="/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Just Tech Things">
+  <script src="/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="https://lucas-sousa.com/feed.xml" title="Tech Notebook by Lucas">
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
 <!-- and it's easy to individually load additional languages -->
@@ -250,8 +250,8 @@ document.addEventListener('DOMContentLoaded', function(event) {
   <div class="wrapper">
     <div class="site-header-inner">
 <span class="site-brand"><a class="site-brand-inner" rel="author" href="/">
-  <img class="site-favicon" title="Just Tech Things" src="/assets/images/devops.png" onerror="this.style.display='none'">
-  Just Tech Things
+  <img class="site-favicon" title="Tech Notebook by Lucas" src="/assets/images/devops.png" onerror="this.style.display='none'">
+  Tech Notebook by Lucas
 </a>
 </span><nav class="site-nav">
           <input type="checkbox" id="nav-trigger" class="nav-trigger">
@@ -808,7 +808,7 @@ function googleTranslateElementInit() {
     <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 7 mins</span>
   </p>
 <div class="post-tags">
-<a class="post-tag" href="/tags.html#azure">#azure</a><a class="post-tag" href="/tags.html#cloud">#cloud</a><a class="post-tag" href="/tags.html#vnet">#vnet</a><a class="post-tag" href="/tags.html#app%20service">#app service</a><a class="post-tag" href="/tags.html#dns">#dns</a>
+<a class="post-tag" href="/tags.html#azure">#azure</a><a class="post-tag" href="/tags.html#cloud">#cloud</a><a class="post-tag" href="/tags.html#vnet">#vnet</a><a class="post-tag" href="/tags.html#app%20service">#app service</a><a class="post-tag" href="/tags.html#dns">#dns</a><a class="post-tag" href="/tags.html#networking">#networking</a>
 </div></header>
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
@@ -826,6 +826,8 @@ function googleTranslateElementInit() {
   <li>The Geomaster is a component that serves as a load balancer keeping track of state of App Service’s stamps (scale units) around the world and directing API call traffic.</li>
   <li>There are dozens to thousands of stampsin each Azure region.</li>
   <li>Each scale unit, or stamp, consists of ~1000 virtual machines, also called servers or workers.</li>
+  <li>The underlying physical technology for the virtual machines are generally a single server host per VM.</li>
+  <li>All servers in a stamp are used for the App Service offering only, no other Azure service.</li>
 </ul>
 
 <h2 id="app-service-creation-flow">App Service Creation Flow</h2>
@@ -852,7 +854,7 @@ function googleTranslateElementInit() {
       <li>
 <strong>Front end</strong>: a layer 7 (HTTP) load balancer that distributes requests too all web workers allocated for an app. It uses round-robin by default.</li>
       <li>
-<strong>File servers</strong>: worker that mounts to Blob Storage containing data needed to run app (code, images, etc) and exposes it as a network drive, which in turn is mapped by the web worker as a local drive. Any file-relateed r/w operation performed by the app passes through a file server.</li>
+<strong>File servers</strong>: worker that mounts page blob containing data needed to run app (code, images, etc) and exposes it as a network drive, which in turn is mapped by the web worker as a local drive. Any file-relateed r/w operation performed by the app passes through a file server.</li>
       <li>
 <strong>API controller</strong>: performs management operations inside stamp. It is to the Control Plane what the Front end is to the Runtime Plane. Receives API calls and orchestrates the steps to fulfill the requests. Examples:
         <ul>
@@ -875,6 +877,20 @@ function googleTranslateElementInit() {
   </li>
 </ul>
 
+<h2 id="iis-overview">IIS Overview</h2>
+
+<p><img src="/assets/images/iis_request_runtime_flow.png" alt="IIS request runtime flow"></p>
+
+<ul>
+  <li>Antares, in its initial version, was more of an IIS-as-a-service.</li>
+  <li>IIS’ model for hosting app code:
+    <ul>
+      <li>Config concepts: sites, bindings, apps, VirtualDirectories, ApplicationPools, handler mappings, etc</li>
+      <li>Runtime entities: HTTP(.sys) bindings, HTTP(.sys) request queues, user identities, worker processes (w3wp.exe), etc</li>
+    </ul>
+  </li>
+</ul>
+
 <h2 id="web-worker-architecture">Web Worker Architecture</h2>
 
 <p><img src="/assets/images/antares_dynamic_prov_control.png" alt="Antares dynamic website provisioning - control flow"></p>
@@ -885,7 +901,7 @@ function googleTranslateElementInit() {
       <li>
 <strong>HTTP.sys</strong>: receives requests (by matching, as seen above) based on URL and port, then sends it to HTTP Request Queue.</li>
       <li>
-<strong>HTTP Request Queue</strong>: sends requests received via site-specific binding to the site specific HTTP request queue, and sends all other requests to the MiniARR HTTP request queue.</li>
+<strong>HTTP Request Queue</strong>: sends requests received via site-specific binding (hostname + port, eg. “mysite:80”) to the site specific HTTP request queue, and sends all other requests to the MiniARR HTTP request queue.</li>
       <li>
 <strong>MiniARR Worker Process</strong>: only receives requests for websites not yet set up. Tells DWAS to create the structure for the website requested.</li>
       <li>
@@ -910,8 +926,12 @@ function googleTranslateElementInit() {
           </li>
           <li>From <strong>site-specific HTTP request queue</strong>, triggering DWAS to:
             <ol>
-              <li>spin up and initializes a Worker Process (<code class="language-plaintext highlighter-rouge">w3wp.exe</code>) for the site.</li>
-              <li>create a sandbox by virtualizing <code class="language-plaintext highlighter-rouge">D:\home</code> which points to the site’s root directory and only allows access to that SMB path.</li>
+              <li>spin up and initializes a sandboxed Worker Process (a <code class="language-plaintext highlighter-rouge">w3wp.exe</code>) for the site.</li>
+              <li>create a sandbox by virtualizing <code class="language-plaintext highlighter-rouge">D:\home</code> which points to the site’s root directory and only allows access to that SMB path.
+                <ul>
+                  <li>SANDBOX</li>
+                </ul>
+              </li>
             </ol>
           </li>
           <li>From <strong>DataRole</strong> (outside of Web Worker) to change site configuration. DWAS:
@@ -924,7 +944,7 @@ function googleTranslateElementInit() {
                   <li>Config changes such as an update to app-settings usually require worker process recycle.</li>
                 </ul>
               </li>
-              <li>gets informed about internal system changes such as movement of storage volumes through long-polling calls to DataRole as well.
+              <li>gets informed about internal system changes such as movement of storage volumes through long-polling calls to DataRole as well, on top of pinging storage itself every 5 seconds for health.
                 <ul>
                   <li>Change to the site’s root path requires worker process recycle.</li>
                 </ul>
@@ -937,37 +957,19 @@ function googleTranslateElementInit() {
 <strong>Worker Process</strong>: sandboxed site-specific worker process that dequeues requests in its corresponding queue, then processes it through a module pipeline, much like in IIS (out of scope for this post).
         <ul>
           <li>Its initialization process is similar to IIS as well, requiring DWAS to guide it through start-up, and then signal when it is ready to start processing requests.</li>
-          <li>The process is under a “job object”, which imposes restrictions on the amount of memory and CPU the <code class="language-plaintext highlighter-rouge">w3wp.exe</code> can utilize.</li>
+          <li>The process is under a “job object”, which imposes restrictions on the amount of memory and CPU that specific <code class="language-plaintext highlighter-rouge">w3wp.exe</code> can utilize.</li>
           <li>Again, like IIS, the worker process expects to retrieve config files from the DWAS local directory at <code class="language-plaintext highlighter-rouge">C:\DWASFiles\Sites\foo\config\</code>.</li>
+          <li>The worker process stays alive for 30 minutes before ending itself if there are no requests.</li>
         </ul>
       </li>
     </ul>
   </li>
 </ul>
 
-<h2 id="iis-overview">IIS Overview</h2>
-
-<ul>
-  <li>Antares, in its initial version, was more of an IIS-as-a-service.</li>
-  <li>IIS’ model for hosting app code:
-    <ul>
-      <li>Config concepts: sites, bindings, apps, VirtualDirectories, ApplicationPools, handler mappings, etc</li>
-      <li>Runtime entities: HTTP(.sys) bindings, HTTP(.sys) request queues, user identities, worker processes (w3wp.exe), etc</li>
-    </ul>
-  </li>
-</ul>
-
-<h2 id="referencee">Referencee</h2>
+<h2 id="reference">Reference</h2>
 
 <ul>
   <li><a href="https://docs.microsoft.com/en-us/archive/msdn-magazine/2017/february/azure-inside-the-azure-app-service-architecture">https://docs.microsoft.com/en-us/archive/msdn-magazine/2017/february/azure-inside-the-azure-app-service-architecture</a></li>
-</ul>
-
-<h2 id="questions">Questions</h2>
-
-<ul>
-  <li>What is the underlying tech behind the ~1000 VMs per stamp? Are they in physical servers/hosts dedicated to App Service only? How many physical servers?</li>
-  <li>What exactly is the sandbox? The <code class="language-plaintext highlighter-rouge">D:\home</code>? Does the worker process get assigned the low-privileged user identity, and what privileges does it have? Seems that the worker process also has access to DWAS local directory.</li>
 </ul>
 
 
@@ -981,8 +983,8 @@ function googleTranslateElementInit() {
       <div>Related Articles</div>
       <ul>
         <li><a class="post-link" href="/azure-networking-vnet-dns/" title="">Azure Networking for Virtual Networks</a></li>
-<li><a class="post-link" href="/hosting-safe-static-website-aws-ui/" title="">Hosting a Safe Static Website on AWS (UI Version)</a></li>
 <li><a class="post-link" href="/azure-app-services-architecture/" title="">Azure App Service Architecture</a></li>
+<li><a class="post-link" href="/hosting-safe-static-website-aws-ui/" title="">Hosting a Safe Static Website on AWS (UI Version)</a></li>
 </ul>
     </div>
 <div class="post-comments"></div></section>

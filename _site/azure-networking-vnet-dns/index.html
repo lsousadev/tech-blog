@@ -7,28 +7,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
 <!-- Begin Jekyll SEO tag v2.7.1 -->
-<title>Azure Networking for Virtual Networks | Just Tech Things</title>
+<title>Azure Networking for Virtual Networks | Tech Notebook by Lucas</title>
 <meta name="generator" content="Jekyll v4.2.1">
 <meta property="og:title" content="Azure Networking for Virtual Networks">
 <meta name="author" content="Lucas">
 <meta property="og:locale" content="en_US">
-<meta name="description" content="A blog for all things tech that Lucas runs into.">
-<meta property="og:description" content="A blog for all things tech that Lucas runs into.">
-<link rel="canonical" href="http://localhost:4000/azure-networking-vnet-dns/">
-<meta property="og:url" content="http://localhost:4000/azure-networking-vnet-dns/">
-<meta property="og:site_name" content="Just Tech Things">
+<meta name="description" content="This blog was created for note-keeping purposes, not educational. Browse at your own peril.">
+<meta property="og:description" content="This blog was created for note-keeping purposes, not educational. Browse at your own peril.">
+<link rel="canonical" href="https://lucas-sousa.com/azure-networking-vnet-dns/">
+<meta property="og:url" content="https://lucas-sousa.com/azure-networking-vnet-dns/">
+<meta property="og:site_name" content="Tech Notebook by Lucas">
 <meta property="og:type" content="article">
 <meta property="article:published_time" content="2022-07-10T00:00:00-07:00">
 <meta name="twitter:card" content="summary">
 <meta property="twitter:title" content="Azure Networking for Virtual Networks">
 <script type="application/ld+json">
-{"@type":"BlogPosting","url":"http://localhost:4000/azure-networking-vnet-dns/","headline":"Azure Networking for Virtual Networks","dateModified":"2022-07-10T00:00:00-07:00","datePublished":"2022-07-10T00:00:00-07:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/azure-networking-vnet-dns/"},"author":{"@type":"Person","name":"Lucas"},"description":"A blog for all things tech that Lucas runs into.","@context":"https://schema.org"}</script>
+{"@type":"BlogPosting","url":"https://lucas-sousa.com/azure-networking-vnet-dns/","headline":"Azure Networking for Virtual Networks","dateModified":"2022-07-10T00:00:00-07:00","datePublished":"2022-07-10T00:00:00-07:00","author":{"@type":"Person","name":"Lucas"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://lucas-sousa.com/azure-networking-vnet-dns/"},"description":"This blog was created for note-keeping purposes, not educational. Browse at your own peril.","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="shortcut icon" href="/assets/images/devops.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
   <link rel="stylesheet" href="/assets/css/main.css">
-  <script src="/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Just Tech Things">
+  <script src="/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="https://lucas-sousa.com/feed.xml" title="Tech Notebook by Lucas">
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
 <!-- and it's easy to individually load additional languages -->
@@ -250,8 +250,8 @@ document.addEventListener('DOMContentLoaded', function(event) {
   <div class="wrapper">
     <div class="site-header-inner">
 <span class="site-brand"><a class="site-brand-inner" rel="author" href="/">
-  <img class="site-favicon" title="Just Tech Things" src="/assets/images/devops.png" onerror="this.style.display='none'">
-  Just Tech Things
+  <img class="site-favicon" title="Tech Notebook by Lucas" src="/assets/images/devops.png" onerror="this.style.display='none'">
+  Tech Notebook by Lucas
 </a>
 </span><nav class="site-nav">
           <input type="checkbox" id="nav-trigger" class="nav-trigger">
@@ -805,10 +805,10 @@ function googleTranslateElementInit() {
 
 
 
-    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 4 mins</span>
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 6 mins</span>
   </p>
 <div class="post-tags">
-<a class="post-tag" href="/tags.html#azure">#azure</a><a class="post-tag" href="/tags.html#cloud">#cloud</a><a class="post-tag" href="/tags.html#vnet">#vnet</a><a class="post-tag" href="/tags.html#app%20services">#app services</a><a class="post-tag" href="/tags.html#dns">#dns</a><a class="post-tag" href="/tags.html#private%20endpoint">#private endpoint</a><a class="post-tag" href="/tags.html#service%20endpoint">#service endpoint</a><a class="post-tag" href="/tags.html#private%20link">#private link</a>
+<a class="post-tag" href="/tags.html#azure">#azure</a><a class="post-tag" href="/tags.html#cloud">#cloud</a><a class="post-tag" href="/tags.html#vnet">#vnet</a><a class="post-tag" href="/tags.html#app%20service">#app service</a><a class="post-tag" href="/tags.html#dns">#dns</a><a class="post-tag" href="/tags.html#private%20endpoint">#private endpoint</a><a class="post-tag" href="/tags.html#service%20endpoint">#service endpoint</a><a class="post-tag" href="/tags.html#private%20link">#private link</a><a class="post-tag" href="/tags.html#networking">#networking</a>
 </div></header>
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
@@ -816,36 +816,16 @@ function googleTranslateElementInit() {
 
       <!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
 
-<h2 id="nslookup-testblobcorewindowsnet-from-a-vm-in-a-vnet">
-<code class="language-plaintext highlighter-rouge">nslookup test.blob.core.windows.net</code> from a VM in a VNet</h2>
+<h2 id="basics--concepts">Basics &amp; Concepts</h2>
+
+<h3 id="vnet--dns">VNet &amp; DNS</h3>
 
 <ul>
-  <li>without any integration:
+  <li>The VNet uses Azure DNS by default.
     <ul>
-      <li>⚪ test.blob.core.windows.net -&gt; CNAME -&gt; 🔵 blob.a1b2c3.store.core.windows.net</li>
-      <li>🔵 blob.a1b2c3.store.core.windows.net -&gt; A record -&gt; 🔴 52.240.48.36 (public IP)</li>
+      <li>NIC’s inside a VNet use the VNet DNS configuration by default.</li>
     </ul>
   </li>
-  <li>with PrivateLink:
-    <ul>
-      <li>⚪ test.blob.core.windows.net -&gt; CNAME -&gt; 🟡 test.privatelink.blob.core.windows.net</li>
-      <li>🟡 test.privatelink.blob.core.windows.net -&gt; CNAME -&gt; 🔵 blob.a1b2c3.store.core.windows.net</li>
-      <li>🔵 blob.a1b2c3.store.core.windows.net -&gt; A record -&gt; 🔴 52.240.48.36 (public IP)</li>
-    </ul>
-  </li>
-  <li>with PrivateLink and Private Endpoint:
-    <ul>
-      <li>⚪ test.blob.core.windows.net -&gt; CNAME -&gt; 🟡 test.privatelink.blob.core.windows.net</li>
-      <li>🟡 test.privatelink.blob.core.windows.net -&gt; A record (Azure Private DNS) -&gt; 🟢 10.0.1.4</li>
-    </ul>
-  </li>
-</ul>
-
-<h2 id="dns-configuration">DNS Configuration</h2>
-
-<ul>
-  <li>The VNet uses Azure DNS by default.</li>
-  <li>NIC’s inside a VNet use the VNet DNS configuration by default.</li>
   <li>An internal DNS private zone called IDNS is created automatically inside every VNet.
     <ul>
       <li>Any NIC added to the VNet gets registered within IDNS</li>
@@ -855,11 +835,11 @@ function googleTranslateElementInit() {
   </li>
 </ul>
 
-<h2 id="private-dns-zone">Private DNS Zone</h2>
+<h3 id="private-dns-zone">Private DNS Zone</h3>
 
 <ul>
-  <li>Can hold any time of record for any name. Full-range.</li>
   <li>Exists outside of VNets (global resource) and can be attached to them.</li>
+  <li>Can hold any time of record for any name. Full-range.</li>
   <li>Private DNS zones can be used solely for DNS resolution or for registration:
     <ul>
       <li>Like IDNS, all NIC’s added to the VNet gets registered within the private zone.</li>
@@ -869,32 +849,86 @@ function googleTranslateElementInit() {
   </li>
 </ul>
 
-<h2 id="network-security-groups">Network Security Groups</h2>
+<h3 id="network-security-groups">Network Security Groups</h3>
 
 <ul>
   <li>Can only be attached to a subnet or a network interface (eg. a VM).</li>
   <li>App Security Group: works like a managed tag that can be referenced as source/destination in NSG rules.</li>
 </ul>
 
-<h2 id="service-endpoints">Service Endpoints</h2>
+<h3 id="the-azure-backbone">The Azure “Backbone”</h3>
 
 <ul>
+  <li>Microsoft has a network infrastructure for Azure called the “Azure backbone”.</li>
+  <li>Azure can “magically” route things through this backbone.</li>
+  <li>This backbone is how service endpoint, private endpoint, and VNet integration can keep requests needing to reach the internet.
+    <ul>
+      <li>Service endpoints use that magic by forwarding all requests to public IPs of storage accounts to a <code class="language-plaintext highlighter-rouge">VirtualNetworkServiceEndpoint</code>, which then redirects the requests through the backbone and is fully managed by Azure, the customer can’t see it.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="service-endpoints">Service Endpoints</h3>
+
+<p><img src="/assets/images/service_endpoint.jpg" alt="Service Endpoint Request Flow"></p>
+
+<ul>
+  <li>Adds a record to a subnet’s route table pointing public IP addresses of services to <code class="language-plaintext highlighter-rouge">VirtualNetworkServiceEndpoint</code>, which chains records redirecting the request through the Azure backbone all the way to the service’s public endpoint.</li>
+  <li>The source IP address will switch from public to private as the request will be internal to the VNet, so the service’s firewall rules must reflect that.</li>
+  <li>The request’s final hop is still the public endpoint of the target <em>service</em>, even if the source IP is private.</li>
   <li>Services such as Azure Storage, Key Vault, Cosmos DB, etc offer service endpoint.</li>
-  <li>It creates a record in the route table of a subnet listing all the multiple public IP CIDR blocks of an Azure service and redirect them to the VirtualNetworkServiceEndpoint and remains internal to Azure.</li>
-  <li>The source IP address will switch from public to private, so the service’s firewall rules must reflect that.</li>
 </ul>
 
-<h2 id="private-endpoints">Private Endpoints</h2>
+<h3 id="private-endpoints">Private Endpoints</h3>
+
+<p><img src="/assets/images/private_endpoint_private_link.png" alt="Private Endpoint Request Flow with Private Link"></p>
 
 <ul>
-  <li>Adds a NIC to a subnet with private IP (within the VNet CIDR block) pointing to a storage account and service.</li>
+  <li>Adds a NIC to a subnet and attaches said NIC to a specific <em>resource</em> (eg. a blob storage).</li>
+  <li>It is usually coupled with Private Link, which creates a private DNS zone to map all resource requests to their correct Private Endpoint private IP addresses.</li>
 </ul>
 
-<h2 id="the-reason-for-privatelink">The reason for PrivateLink</h2>
+<h2 id="example">Example</h2>
+
+<h3 id="nslookup-testblobcorewindowsnet-from-a-vm-in-azure">
+<code class="language-plaintext highlighter-rouge">nslookup test.blob.core.windows.net</code> from a VM in Azure</h3>
+
+<ul>
+  <li>without any integrations:
+    <ul>
+      <li>⚪ test.blob.core.windows.net -&gt; CNAME -&gt; 🔵 blob.a1b2c3.store.core.windows.net</li>
+      <li>🔵 blob.a1b2c3.store.core.windows.net -&gt; A record -&gt; 🔴 52.240.48.36 (public IP)</li>
+    </ul>
+  </li>
+  <li>with Service Endpoint:
+    <ul>
+      <li>⚪ test.blob.core.windows.net -&gt; CNAME -&gt; 🔵 blob.a1b2c3.store.core.windows.net</li>
+      <li>🔵 blob.a1b2c3.store.core.windows.net -&gt; A record -&gt; 🔴 52.240.48.36 (public IP)</li>
+      <li>🔴 52.240.48.36 (public IP) -&gt; Subnet Route Table Entry -&gt; 🟠 VirtualNetworkServiceEndpoint</li>
+      <li>🟠 VirtualNetworkServiceEndpoint -&gt; ???? -&gt; ⚫ Azure Backbone</li>
+      <li>⚫ Azure Backbone -&gt; ???? -&gt; 🔴 52.240.48.36 (????)</li>
+    </ul>
+  </li>
+  <li>with Private Link:
+    <ul>
+      <li>⚪ test.blob.core.windows.net -&gt; CNAME -&gt; 🟡 test.privatelink.blob.core.windows.net</li>
+      <li>🟡 test.privatelink.blob.core.windows.net -&gt; CNAME -&gt; 🔵 blob.a1b2c3.store.core.windows.net</li>
+      <li>🔵 blob.a1b2c3.store.core.windows.net -&gt; A record -&gt; 🔴 52.240.48.36 (public IP)</li>
+    </ul>
+  </li>
+  <li>with Private Link and Private Endpoint:
+    <ul>
+      <li>⚪ test.blob.core.windows.net -&gt; CNAME -&gt; 🟡 test.privatelink.blob.core.windows.net</li>
+      <li>🟡 test.privatelink.blob.core.windows.net -&gt; A record (Azure Private DNS) -&gt; 🟢 10.0.1.4</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="the-reason-for-privatelink">The reason for PrivateLink</h3>
 
 <p>From the results above, it may seem that if you have a Private Endpoint, you can bypass PrivateLink and just create an Azure Private DNS that points ⚪ test.blob.core.windows.net to 🟢 10.0.1.4. It would work, but for that to happen the Private DNS zone would have to be at the <code class="language-plaintext highlighter-rouge">blob.core.windows.net</code>, and you’d then be expected to create a record for each Blob Storage that the VNet attached to the Private DNS zone would like to connect to. For example, if a machine also wanted to connect to <code class="language-plaintext highlighter-rouge">second-test.blob.core.windows.net</code>, it would be directed to resolve with the Private DNS zone, which would need to be manually configured. It is often more sensible to create a Private DNS zone at the <code class="language-plaintext highlighter-rouge">privatelink.blob.core.windows.net</code> level.</p>
 
-<h2 id="on-premises-considerations">On-premises considerations</h2>
+<h3 id="on-premises-considerations">On-premises considerations</h3>
 
 <ul>
   <li>Azure Private DNS zones are available globally, you can connect any VNet in the world to it for link resolution, but you cannot connect to it from on-premises.</li>
@@ -902,7 +936,7 @@ function googleTranslateElementInit() {
   <li>Optionally, the records in the Private DNS zone can be recreated manually on local DNS.</li>
 </ul>
 
-<h2 id="privatelink-service">PrivateLink Service</h2>
+<h3 id="privatelink-service">PrivateLink Service</h3>
 
 <ul>
   <li>Useful in cases virtual networks cannot be peered (eg. 3rd party services, CIDR block overlap, etc).</li>
@@ -913,8 +947,10 @@ function googleTranslateElementInit() {
 <h2 id="questions">Questions</h2>
 
 <ul>
-  <li>Is the VirtualNetworkServiceEndpoint a NIC with private IP?</li>
-  <li>How does a Private Endpoint, which is a NIC with a private IP inside the VNet, talk to a Blob Storage instance without using the internet or Public IP?</li>
+  <li>Is the VirtualNetworkServiceEndpoint a NIC with private IP? Is there a DNS record for VirtualNetworkServiceEndpoint? What does it look like?</li>
+  <li>What does a traceroute of a request to the public IP of a service looks like compared a request to VirtualNetworkServiceEndpoint?</li>
+  <li>Does the Private Endpoint NIC get attached directly to the resource server?</li>
+  <li>How does Private Endpoint DNS work without Private Link?</li>
   <li>How does a private DNS zone get linked to a VNet? VNet’s route table?</li>
 </ul>
 
@@ -928,8 +964,8 @@ function googleTranslateElementInit() {
 <div class="post-related">
       <div>Related Articles</div>
       <ul>
-        <li><a class="post-link" href="/azure-app-services-architecture/" title="Azure App Service Architecture">Azure App Service Architecture</a></li>
-<li><a class="post-link" href="/hosting-safe-static-website-aws-ui/" title="Azure App Service Architecture">Hosting a Safe Static Website on AWS (UI Version)</a></li>
+        <li><a class="post-link" href="/hosting-safe-static-website-aws-ui/" title="Azure App Service Architecture">Hosting a Safe Static Website on AWS (UI Version)</a></li>
+<li><a class="post-link" href="/azure-app-services-architecture/" title="Azure App Service Architecture">Azure App Service Architecture</a></li>
 <li><a class="post-link" href="/azure-networking-vnet-dns/" title="Azure App Service Architecture">Azure Networking for Virtual Networks</a></li>
 </ul>
     </div>

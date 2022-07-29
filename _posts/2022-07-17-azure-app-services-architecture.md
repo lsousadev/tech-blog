@@ -3,8 +3,8 @@ layout: post
 author: Lucas
 title: Azure App Service Architecture
 subtitle: Dissecting Antares
-categories: [app service, azure]
-tags: [azure, cloud, vnet, app service, dns]
+categories: [azure]
+tags: [azure, cloud, vnet, app service, dns, networking]
 ---
 <!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
 
@@ -17,6 +17,8 @@ tags: [azure, cloud, vnet, app service, dns]
 - The Geomaster is a component that serves as a load balancer keeping track of state of App Service's stamps (scale units) around the world and directing API call traffic.
 - There are dozens to thousands of stampsin each Azure region.
 - Each scale unit, or stamp, consists of ~1000 virtual machines, also called servers or workers.
+- The underlying physical technology for the virtual machines are generally a single server host per VM.
+- All servers in a stamp are used for the App Service offering only, no other Azure service.
 
 ## App Service Creation Flow
 
@@ -45,6 +47,15 @@ tags: [azure, cloud, vnet, app service, dns]
     - Front end workers ask Data role for list of workers they can route an app's requests to.
   - **Publisher**: exposes FTP functionality for customers to access their application content and logs in the Blob Storages and file servers. It also gives customers another way of deploying apps.
 
+## IIS Overview
+
+![IIS request runtime flow](/assets/images/iis_request_runtime_flow.png)
+
+- Antares, in its initial version, was more of an IIS-as-a-service.
+- IIS' model for hosting app code:
+  - Config concepts: sites, bindings, apps, VirtualDirectories, ApplicationPools, handler mappings, etc
+  - Runtime entities: HTTP(.sys) bindings, HTTP(.sys) request queues, user identities, worker processes (w3wp.exe), etc
+
 ## Web Worker Architecture
 
 ![Antares dynamic website provisioning - control flow](/assets/images/antares_dynamic_prov_control.png)
@@ -66,8 +77,9 @@ tags: [azure, cloud, vnet, app service, dns]
       7. registers with Data Role to receive change notifications to website config.
       8. sets up rest of state in machine needed to run the site (VNet and MSI integration, cert installation, local cache hydration, etc), based on site config.
     - From **site-specific HTTP request queue**, triggering DWAS to:
-      1. spin up and initializes a Worker Process (a `w3wp.exe`) for the site.
+      1. spin up and initializes a sandboxed Worker Process (a `w3wp.exe`) for the site.
       2. create a sandbox by virtualizing `D:\home` which points to the site's root directory and only allows access to that SMB path.
+          - SANDBOX
     - From **DataRole** (outside of Web Worker) to change site configuration. DWAS:
       1. receives a notification from DataRole by long-polling for it.
       2. fetches new `StartSiteContext` from DataRole and compares with previous version.
@@ -82,18 +94,6 @@ tags: [azure, cloud, vnet, app service, dns]
     - Again, like IIS, the worker process expects to retrieve config files from the DWAS local directory at `C:\DWASFiles\Sites\foo\config\`.
     - The worker process stays alive for 30 minutes before ending itself if there are no requests.
 
-## IIS Overview
-
-- Antares, in its initial version, was more of an IIS-as-a-service.
-- IIS' model for hosting app code:
-  - Config concepts: sites, bindings, apps, VirtualDirectories, ApplicationPools, handler mappings, etc
-  - Runtime entities: HTTP(.sys) bindings, HTTP(.sys) request queues, user identities, worker processes (w3wp.exe), etc
-
-## Referencee
+## Reference
 
 - <https://docs.microsoft.com/en-us/archive/msdn-magazine/2017/february/azure-inside-the-azure-app-service-architecture>
-
-## Questions
-
-- What is the underlying tech behind the ~1000 VMs per stamp? Are they in physical servers/hosts dedicated to App Service only? How many physical servers?
-- What exactly is the sandbox? The `D:\home`? Does the worker process get assigned the low-privileged user identity, and what privileges does it have? Seems that the worker process also has access to DWAS local directory.
