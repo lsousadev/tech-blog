@@ -2,20 +2,20 @@
 
 ## Handy Commands
 
-cd ~/projects/tech-blog
-sudo bundle // builds Ruby changes
-sudo jekyll build // buids the blog
-sudo jekyll serve // builds and runs the blog locally
-git add
-git commit -m ""
-git push
-aws s3 sync _site s3://lucas-sousa.com/ --delete
+- cd ~/projects/tech-blog
+- sudo bundle ### builds Ruby changes
+- sudo jekyll build ### buids the blog
+- sudo jekyll serve ### builds and runs the blog locally
+- git add
+- git commit -m ""
+- git push
+- aws s3 sync _site s3://lucas-sousa.com/ --delete
 
 ## Handy Links
 
-jekyll docs <https://jekyllrb.com/docs/>
-theme documentation: <https://github.com/jeffreytse/jekyll-theme-yat>
-bucket website url: <http://lucas-sousa.com.s3-website.us-west-1.amazonaws.com/>
+- jekyll docs <https://jekyllrb.com/docs/>
+- theme documentation: <https://github.com/jeffreytse/jekyll-theme-yat>
+- bucket website url: <http://lucas-sousa.com.s3-website.us-west-1.amazonaws.com/>
 
 ## Planned categories
 
