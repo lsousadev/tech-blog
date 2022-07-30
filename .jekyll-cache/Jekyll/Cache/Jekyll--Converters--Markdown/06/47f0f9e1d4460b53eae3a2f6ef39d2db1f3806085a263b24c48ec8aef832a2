@@ -1,0 +1,148 @@
+I"� <!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
+
+<h2 id="basics">Basics</h2>
+
+<h3 id="commands">Commands</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">terraform init</code> creates the Remote State: configures your local settings, downloads provider requirements, similar to activating a Python virtualenv</li>
+  <li><code class="language-plaintext highlighter-rouge">terraform plan</code> compares current state with desired state</li>
+  <li><code class="language-plaintext highlighter-rouge">terraform apply</code> makes the necessary API calls to create/delete/update the resources as needed, then polls them periodically until it is in its desired state</li>
+  <li><code class="language-plaintext highlighter-rouge">terraform graph</code> creates a dependency graph with all resources</li>
+  <li><code class="language-plaintext highlighter-rouge">terraform destroy</code> removes everything in the state file</li>
+</ul>
+
+<h3 id="variables">Variables</h3>
+
+<p><img src="/assets/images/2021-12-11-terraform-terragrunt-basics/tf-variables.png" alt="Terraform Variables" /></p>
+
+<ul>
+  <li>since there is no value declared, if you run <code class="language-plaintext highlighter-rouge">terraform plan</code>, it will prompt for input</li>
+  <li>you can declare a value via CLI with <code class="language-plaintext highlighter-rouge">terraform apply -var name=foo</code>, or inside terraform.tfvars: <code class="language-plaintext highlighter-rouge">name = "foo"</code></li>
+</ul>
+
+<h3 id="dependencies">Dependencies</h3>
+
+<ul>
+  <li>reference a resource by their resource type and their name, eg: <code class="language-plaintext highlighter-rouge">aws_instance.example1</code></li>
+</ul>
+
+<p><img src="/assets/images/2021-12-11-terraform-terragrunt-basics/tf-dependencies.png" alt="Terraform Dependencies" /></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">aws_eip</code> requires an instance’s ID to be specified</li>
+  <li>ID is an attribute of <code class="language-plaintext highlighter-rouge">aws_instance</code> that Terraform discovers, sets, and exports on creation</li>
+  <li>terraform creates a dependency graph under the hood to figure out the order to create each resource based on dependencies, which can be viewed with <code class="language-plaintext highlighter-rouge">terraform graph</code></li>
+</ul>
+
+<h3 id="state">State</h3>
+
+<ul>
+  <li>by default, state is stored locally in <code class="language-plaintext highlighter-rouge">.tfstate</code> files, but state can be stored remotely (for collaboration) using S3</li>
+</ul>
+
+<p><img src="/assets/images/2021-12-11-terraform-terragrunt-basics/tf-backend.png" alt="Terraform Backend" /></p>
+
+<p><img src="/assets/images/2021-12-11-terraform-terragrunt-basics/tf-backend-lock.png" alt="Terraform Backend with Lock" /></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">terraform init</code> configures and connects to remote state storage</li>
+  <li>most remote backends support locking and encryption</li>
+  <li>locking: while using Terraform, you can request a lock and no one will be able to change the state</li>
+  <li>lock is stored in DynamoDB</li>
+  <li>encryption: terraform stores secrets in plaintext inside state file</li>
+</ul>
+
+<h2 id="modules">Modules</h2>
+
+<ul>
+  <li>collection of Terraform code that you can reuse, configure, and version control — like blueprints</li>
+  <li>module = folder with Terraform files</li>
+  <li>convention for Gruntwork modules:
+    <ol>
+      <li>
+        <p><code class="language-plaintext highlighter-rouge">vars.tf</code> - specify module inputs</p>
+
+        <p><img src="/assets/images/2021-12-11-terraform-terragrunt-basics/tf-vars.png" alt="vars.tf Example" /></p>
+      </li>
+      <li>
+        <p><code class="language-plaintext highlighter-rouge">main.tf</code> - create resources</p>
+
+        <p><img src="/assets/images/2021-12-11-terraform-terragrunt-basics/tf-main.png" alt="main.tf Example" /></p>
+      </li>
+      <li>
+        <p><code class="language-plaintext highlighter-rouge">outputs.tf</code> - specify outputs (can be used as input for other modules)</p>
+
+        <p><img src="/assets/images/2021-12-11-terraform-terragrunt-basics/tf-outputs.png" alt="outputs.tf Example" /></p>
+      </li>
+    </ol>
+  </li>
+</ul>
+
+<p><img src="/assets/images/2021-12-11-terraform-terragrunt-basics/tf-module-code.png" alt="Terraform Module Code" /></p>
+
+<ul>
+  <li>a source can be a directory or URL</li>
+  <li>reference module outputs as attributes of that module</li>
+  <li>the <code class="language-plaintext highlighter-rouge">module</code> block needs to specify values for variables that don’t have default value — it cannot be passed via CLI and will not be prompted during plan/apply</li>
+</ul>
+
+<h3 id="example">Example</h3>
+
+<p><img src="/assets/images/2021-12-11-terraform-terragrunt-basics/tf-module-directory.png" alt="Terraform Module Directory" /></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">./main.tf</code> - only three block types: terraform (version), provider “aws”, and module blocks w/ the module’s variables specified inside the block</li>
+  <li><code class="language-plaintext highlighter-rouge">./vars.tf</code> - declaration (no values) of variables used inside <code class="language-plaintext highlighter-rouge">main.tf</code>. Since there’s no <code class="language-plaintext highlighter-rouge">terraform.tfvars</code>, the values will need to be passed via CLI or prompt</li>
+  <li><code class="language-plaintext highlighter-rouge">./outputs.tf</code> - outputs values from a module’s output via <code class="language-plaintext highlighter-rouge">module.module_label.output_label</code></li>
+  <li><code class="language-plaintext highlighter-rouge">./rails-module/main.tf</code> - has terraform (version) and resource blocks, no provider block needed</li>
+  <li><code class="language-plaintext highlighter-rouge">./rails-module/vars.tf</code> - variables used in <code class="language-plaintext highlighter-rouge">[./rails-module/main.tf](http://main.tf)</code> and declared here need to be addressed inside module block (see <code class="language-plaintext highlighter-rouge">./main.tf</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">./rails-module/outputs.tf</code> - outputs values from <code class="language-plaintext highlighter-rouge">./rails-module/main.tf</code> via <code class="language-plaintext highlighter-rouge">resource_type.resource_label_attribute</code></li>
+</ul>
+
+<h3 id="module-community-standards">Module Community Standards</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">variables.tf</code> instead of vars.tf</li>
+  <li>description property to each variable and output + a README file</li>
+</ul>
+
+<h2 id="best-practices">Best Practices</h2>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">plan</code> before <code class="language-plaintext highlighter-rouge">apply</code></li>
+  <li>stage before prod</li>
+  <li>
+    <p>isolated environments</p>
+
+    <p><img src="/assets/images/2021-12-11-terraform-terragrunt-basics/tf-module-env.png" alt="Terraform Module Environment" /></p>
+
+    <ul>
+      <li>there is a special data source called <code class="language-plaintext highlighter-rouge">terraform_remote_state</code> that shares state between environments — you can read outputs from one environment into another</li>
+    </ul>
+  </li>
+  <li>use versioned modules
+    <ul>
+      <li>
+        <p>if modules are defined in a separate repository, different environments can use different versioned URLs</p>
+
+        <p><img src="/assets/images/2021-12-11-terraform-terragrunt-basics/tf-module-version.png" alt="Terraform Module Version" /></p>
+      </li>
+      <li>
+        <p>the <code class="language-plaintext highlighter-rouge">source</code> URL supports versioning using the <code class="language-plaintext highlighter-rouge">ref</code> parameter to point to a tag or a commit ID</p>
+
+        <p><img src="/assets/images/2021-12-11-terraform-terragrunt-basics/tf-module-source.png" alt="Terraform Module Source" /></p>
+      </li>
+    </ul>
+  </li>
+  <li>use remote state
+    <ul>
+      <li>you have to create the bucket yourself — enabling versioning is recommended
+        <ul>
+          <li>the lock table is automatically created</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+:ET

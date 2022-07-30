@@ -8,11 +8,11 @@
 	
 
 {
-	"totalPosts":3,
-	"totalCategories": 3,
-	"totalTags": 15,
-	"totalWords": 3373,
-	"averageWordsPerPost": 1124,
+	"totalPosts":5,
+	"totalCategories": 4,
+	"totalTags": 21,
+	"totalWords": 8110,
+	"averageWordsPerPost": 1622,
 	"firstPost": {
 		"title":"Hosting a Safe Static Website on AWS (UI Version)",
 		"published":"2021-11-27",
@@ -31,7 +31,11 @@
 		
 			
 			,
-			{ "name": "aws", "size":1 }
+			{ "name": "aws", "size":2 }
+		
+			
+			,
+			{ "name": "terraform", "size":1 }
 		
 			
 			,
@@ -42,11 +46,11 @@
 		
 			
 			
-			{ "name": "aws", "size":1 }
+			{ "name": "aws", "size":2 }
 		
 			
 			,
-			{ "name": "cloud", "size":3 }
+			{ "name": "cloud", "size":4 }
 		
 			
 			,
@@ -71,6 +75,30 @@
 			
 			,
 			{ "name": "dns", "size":3 }
+		
+			
+			,
+			{ "name": "certificate", "size":1 }
+		
+			
+			,
+			{ "name": "aws developer associate", "size":1 }
+		
+			
+			,
+			{ "name": "devops", "size":1 }
+		
+			
+			,
+			{ "name": "terraform", "size":1 }
+		
+			
+			,
+			{ "name": "terragrunt", "size":1 }
+		
+			
+			,
+			{ "name": "iac", "size":1 }
 		
 			
 			,
@@ -101,6 +129,6 @@
 			{ "name": "networking", "size":2 }
 		
 	],
-	"dates":"2022-07-17,2022-07-10,2021-11-27"
+	"dates":"2022-07-17,2022-07-10,2021-12-11,2021-12-04,2021-11-27"
 
 }
