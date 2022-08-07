@@ -1,4 +1,6 @@
-I"c!<p>There are many articles on how to host a static website using S3. Many more explain how to enable <em>https</em>, and plenty of them lay out how to use your own domain to host them. AWS’ documentation alone covers all of it. In fact, the base for this article is in the documentation <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/website-hosting-custom-domain-walkthrough.html">pages</a>.</p>
+I"�!<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
+
+<p>There are many articles on how to host a static website using S3. Many more explain how to enable <em>https</em>, and plenty of them lay out how to use your own domain to host them. AWS’ documentation alone covers all of it. In fact, the base for this article is in the documentation <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/website-hosting-custom-domain-walkthrough.html">pages</a>.</p>
 
 <p>What makes this article worth writing (and hopefully reading) is the attention to the rationale behind every step, from bucket configuration to A record creation. The idea is to learn concepts rather than to practice following steps. Details on what buttons to click and where to find them can be found on the documentation.</p>
 

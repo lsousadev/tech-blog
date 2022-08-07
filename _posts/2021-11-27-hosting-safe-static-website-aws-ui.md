@@ -6,6 +6,8 @@ subtitle: Using Route 53, CloudFront, ACM, and S3
 categories: [networking, aws]
 tags: [aws, cloud, "route 53", cloudfront, acm, s3, webhosting, dns]
 ---
+<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
+
 There are many articles on how to host a static website using S3. Many more explain how to enable *https*, and plenty of them lay out how to use your own domain to host them. AWS' documentation alone covers all of it. In fact, the base for this article is in the documentation [pages](https://docs.aws.amazon.com/AmazonS3/latest/userguide/website-hosting-custom-domain-walkthrough.html).
 
 What makes this article worth writing (and hopefully reading) is the attention to the rationale behind every step, from bucket configuration to A record creation. The idea is to learn concepts rather than to practice following steps. Details on what buttons to click and where to find them can be found on the documentation.

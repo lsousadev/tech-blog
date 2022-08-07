@@ -1,0 +1,212 @@
+I").<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
+
+<p><a href="https://youtu.be/9fH3y5p8ewE">“Presentation Video”</a></p>
+
+<h2 id="characteristics-of-automotive-ecosystem">Characteristics of Automotive Ecosystem</h2>
+
+<ul>
+  <li>Connectivity: on-demand services</li>
+  <li>Autonomous Driving: push towards full autonomy. Lots of sensors, camera readers, up to 25TB/day of data</li>
+  <li>Multimodal Mobility: point A to point B</li>
+  <li>Marketplace: whole list of contextual, local, location-based services like food ordering &amp; payment, hotel reservation, offer from dealership</li>
+  <li>Electrification: very pervasive on ride-sharing and micro mobility (scooters, bikes) solutions</li>
+  <li>Subscriptions: car makers are becoming software and service companies (eg: make cars for subscription)</li>
+</ul>
+
+<p><img src="https://i.imgur.com/vcQA78X.png" alt="&quot;Why Enterprises Need Data Lakes&quot;" /></p>
+
+<h2 id="three-main-features-of-data-lakes">Three main features of Data Lakes</h2>
+
+<ol>
+  <li>Single point of truth: work on same data without moving it around, from R&amp;D to manufacturing to logistics to after-sales. Democratizing the data usage in the enterprise.</li>
+  <li>Support various data formats: from rational to non-rational data. Car sensor data, images from autonomous driving, etc.</li>
+  <li>Scales storage and compute individually.</li>
+</ol>
+
+<h2 id="intro-to-bmws-solution">Intro to BMW’s Solution</h2>
+
+<ul>
+  <li>BMW Intelligent Personal Assistant (IBM Assistant) - “Soul of your BMW” - focused on becoming more connected and more contextualized</li>
+  <li>Has to be properly integrated with Manufacturing, Logistics, Customer Service, After-Sales</li>
+  <li>They want to transform BMW into a truly data-driven company</li>
+  <li>Driven by:
+    <ul>
+      <li>Data &amp; AI</li>
+      <li>Cloud stack: pooling and providing the right tools and frameworks to work with data in most effective ways - leverage good, complete cloud stack - move away from heterogeneous landscape</li>
+      <li>Emerging tech: novel/unproven tech (eg: natural language processing, blockchain, etc) shouldn’t be avoided</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>(Why BMW started aggressively pursuing cloud solutions in 2019)</p>
+
+<ul>
+  <li>2014: Big Data journey - Hadoop + Kafka stack (fueling data transformation on top of the Hadoop ecosystem). Ingested both IoT and Product (ERP, CRM, OLTP) data via Kafka or Spark.</li>
+  <li>Eventually purpose-built databases started being introduced to speed up workloads (eg: PostgreSQL) trying to satisfy customer requirements</li>
+  <li>Lastly, to harness the results of the data analysis, in 2016 a K8s cluster was introduced.</li>
+</ul>
+
+<p><img src="https://i.imgur.com/CPuqyUF.png" alt="&quot;Old Big Data Landscape&quot;" /></p>
+
+<p>Very heterogeneous landscape. Consequences:</p>
+
+<ul>
+  <li>Only fractions of critical organization’s data were able to be ingested.</li>
+  <li>Bottlenecks were prominent. There were central teams taking care of data ingestion, no self-service. Scaling workforce didn’t help.</li>
+  <li>Move to purpose-built sandboxes for experiments (eg: Docker, Jupiter Notebooks, traditional solutions, etc).</li>
+  <li>The number of prototypes spinning out in different environments was growing exponentially bigger than products being made.</li>
+</ul>
+
+<p>The whole (small) DevOps team had full and trained responsibilities over all the components. Those reasons led BMW to move to the cloud.</p>
+
+<p><img src="https://i.imgur.com/YdGDQe1.png" alt="&quot;Lift, Think, and Shift&quot;" /></p>
+
+<p>Lift, Think, &amp; Shift: re-architecture of major parts of the on-premises platform into the cloud, not just duplicate the combobulated environment it currently had. Move of major parts into AWS primarily built upon cloud-native building blocks and IaaC</p>
+
+<p>That shift allowed BMW to focus more on the differentiating “bits and pieces” (services) and the quality of their data rather than making sure the tools, platforms, and infrastructures worked and communicated properly</p>
+
+<p>Hypothesis that supported the move to the cloud:</p>
+
+<ul>
+  <li>BMW will not be able to keep up with the radical pace of innovation AWS has in their data lakes services portfolio</li>
+  <li>making sure that BMW understands, curates, transforms, and leverages their data as opposed to wasting time with anything else</li>
+</ul>
+
+<h2 id="bmw-groups-cloud-data-hub">BMW Group’s Cloud Data Hub</h2>
+
+<p>(Platform design of the Cloud Data Hub built upon AWS)</p>
+
+<p>Three main premises:</p>
+
+<ol>
+  <li>Enable a very quick infrastructure setup in different regions while maintaining high security standards and complying with regulations</li>
+  <li>Support quick data integration for a wide array of datasets (both streaming and relational)</li>
+  <li>Provide consistent means of how people will interact with the data and how identities are managed across the platform (eg: SSO, making sure it translates well into the enterprise scenarios)</li>
+</ol>
+
+<p>Three-layered approach:</p>
+
+<p><img src="https://i.imgur.com/1RoHI0U.png" alt="&quot;Three Layered Approach&quot;" /></p>
+
+<ol>
+  <li>Real-Time Zone: keeps cached copies of real-world objects (eg: customer vehicles) for fast access to non-historic sized data needed for inference of ML models</li>
+  <li>Insight Zone: historicized versions of real-time objects and also plays well with already existing relational databases (OLTP, data warehouses, etc)</li>
+  <li>Unified API: collection of restful API that makes interaction of people &amp; systems w/ data easy, and gives the ability to expose both real-time and relational data very effectively</li>
+</ol>
+
+<p>Three important things about data platform:</p>
+
+<p><img src="https://i.imgur.com/jzaPUlE.png" alt="&quot;Three Important Data Platform Facts&quot;" /></p>
+
+<ul>
+  <li>Democratization: provide easy access to both bounded and unbounded data. Single point of truth for any kind of data analytics. Enable data stewards to intuitively look at what’s already there. Introducing a data catalog built in-house upon the existing Cloud Data Hub for exploration</li>
+  <li>Modularity: key to enable broader community to work with the platform. Allows users to bring their own building blocks too</li>
+  <li>Lean Ops: avoid putting all the effort and energy into the system, let AWS handle infrastructure. Fast-paced environment to drive innovation</li>
+</ul>
+
+<h2 id="cloud-data-hub-gui">Cloud Data Hub GUI</h2>
+
+<p><img src="https://i.imgur.com/tqToANn.png" alt="&quot;BMW Clodu Data Hub GUI&quot;" /></p>
+
+<p>Client Flow:</p>
+
+<ol>
+  <li>Login</li>
+  <li>Select Role</li>
+  <li>Launch CDH</li>
+  <li>Make queries</li>
+</ol>
+
+<p>Providing Data: very difficult, many ETL tools but always hits limitations and bottlenecks when implementing.</p>
+
+<ul>
+  <li>Option 1: Terraform template</li>
+  <li>Option 2: Manually via Hub (config &amp; auth, ingest source, scheduling)</li>
+</ul>
+
+<p>Older flow used EMR. Newer flow uses Lambda, CDK, CloudFormation orchestration.</p>
+
+<h3 id="data-consumption">Data Consumption</h3>
+
+<ul>
+  <li>Consumer requirements for data consumption: SPARK. Many data analytics points start with Spark.</li>
+  <li>Cloud Data Hub gives customers the ability to spin up a customizable Sage Maker stack with an EMR cluster. You can also open a Jupyter Notebook that directly interacts with the EMR cluster.</li>
+</ul>
+
+<h3 id="data-ingestion">Data Ingestion</h3>
+
+<p><img src="https://i.imgur.com/SMmdzOQ.png" alt="&quot;Data Ingestion - Part 1&quot;" /></p>
+
+<p><img src="https://i.imgur.com/1cAvlN3.png" alt="&quot;Data Ingestion - Part 2&quot;" /></p>
+
+<p>DATA.BMW.CLOUD: Store all bounded and unbounded data, build tools on top of that (eg: BMW CDH Portal) to give great and easy customer experience.</p>
+
+<p>Data Provider: very easy and customizable to bring data into CDH:</p>
+
+<p><img src="https://i.imgur.com/wqNihtj.png" alt="&quot;Data Provider Code&quot;" /></p>
+
+<h3 id="whats-provisioned-by-the-terraform-module-inside-the-data-provider">What’s provisioned by the Terraform module inside the Data Provider</h3>
+
+<ul>
+  <li>
+    <p>Bounded data:</p>
+
+    <p><img src="https://i.imgur.com/AeDluFz.png" alt="&quot;Ingestion Module - Bounded Data&quot;" /></p>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">Glue Trigger</code>: triggers the Glue ETL</li>
+      <li><code class="language-plaintext highlighter-rouge">Glue ETL</code>: has access to on-prem DB since it’s inside Private VPC. Uses:
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">CloudWatch</code>: log metrics</li>
+          <li><code class="language-plaintext highlighter-rouge">Secrets Manager</code>: DB secrets</li>
+          <li><code class="language-plaintext highlighter-rouge">Local Glue Data Catalog</code>: metadata</li>
+        </ul>
+      </li>
+      <li><code class="language-plaintext highlighter-rouge">Source S3 bucket</code>: stores all data. Resources for new data created via API</li>
+      <li><code class="language-plaintext highlighter-rouge">Glue DC Sync &amp; Global Glue DC</code>: all metadata stored and made available to consumer accounts</li>
+    </ul>
+  </li>
+  <li>
+    <p>Unbounded Data:</p>
+  </li>
+</ul>
+
+<p><img src="https://i.imgur.com/kMFa4OL.png" alt="&quot;Ingestion Module - Ingredients&quot;" /></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Kinesis</code>: Receives data from cloud-native data providers
+    <ul>
+      <li>1-2 minutes latency from writing data to Kinesis until it is visible in Athena</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">Firehose</code>: Batch data to S3</li>
+  <li><code class="language-plaintext highlighter-rouge">Lambda</code>: transforms data</li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">Fargate</code>: Imports legacy Kafka topics into Kinesis</p>
+
+    <p><img src="https://i.imgur.com/q9wmF9t.png" alt="&quot;Ingestion Module - Unbouded Data&quot;" /></p>
+  </li>
+  <li>Lambda Prep &amp; S3 Prep Bucket: Event data enriched with data such as vehicle/customer data.</li>
+  <li>Bucket Policies in the Source Bucket only apply to the objects owned by the bucket owner. That makes it hard for the Source Bucket to give access to consumer accounts. The solution is to use STS and roles when allowing Data Providers to feed data to the bucket.</li>
+  <li>For services that aren’t “role-aware” like Firehose, the workaround is to trigger an event on the upload, which uses SNS and SQS to start a Lambda function that fixes ownership of the object in the bucket and before passing the data along the pipeline to be enriched.</li>
+</ul>
+
+<h2 id="cloud-data-hub-highlights">Cloud Data Hub highlights</h2>
+
+<ol>
+  <li>Faster and more real-time: increase latency (eg: introduce Kinesis Data Analytics)</li>
+  <li>Metadata and lineage: improve metadata handling and data lineage tracking (from source to semantic layer), not currently reachable through API</li>
+  <li>Search in (meta-)data: improve indexing</li>
+  <li>Building blocks: improve customer service by building more blocks for data providers (eg: elasticsearch integration)</li>
+  <li>Increased self-service: more features to service portal (eg: make Terraform modules available on UI)</li>
+</ol>
+
+<h2 id="data-consumers">Data Consumers</h2>
+
+<ul>
+  <li>Where data scientists and analysts use consumer accounts and advanced analytics services such as Sage Maker. It’s important that consumers have the freedom to design their own custom infrastructure along with the available building blocks and templates.</li>
+  <li>Consumer account can also use SNS topic to trigger the processing once new data arrives.</li>
+</ul>
+:ET

@@ -7,22 +7,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
 <!-- Begin Jekyll SEO tag v2.7.1 -->
-<title>Azure App Service Architecture | Tech Notebook by Lucas</title>
+<title>AWS re:Invent 2019: Data-Driven, Cloud-Native Ecosystem | Tech Notebook by Lucas</title>
 <meta name="generator" content="Jekyll v4.2.1">
-<meta property="og:title" content="Azure App Service Architecture">
+<meta property="og:title" content="AWS re:Invent 2019: Data-Driven, Cloud-Native Ecosystem">
 <meta name="author" content="Lucas">
 <meta property="og:locale" content="en_US">
 <meta name="description" content="This blog was created for note-keeping purposes, not educational. Browse at your own peril.">
 <meta property="og:description" content="This blog was created for note-keeping purposes, not educational. Browse at your own peril.">
-<link rel="canonical" href="https://lucas-sousa.com/azure-app-services-architecture/">
-<meta property="og:url" content="https://lucas-sousa.com/azure-app-services-architecture/">
+<link rel="canonical" href="https://lucas-sousa.com/reinvent-2019-data-driven-cloud-native-ecosystem/">
+<meta property="og:url" content="https://lucas-sousa.com/reinvent-2019-data-driven-cloud-native-ecosystem/">
 <meta property="og:site_name" content="Tech Notebook by Lucas">
 <meta property="og:type" content="article">
-<meta property="article:published_time" content="2022-07-17T00:00:00-07:00">
+<meta property="article:published_time" content="2022-01-08T00:00:00-08:00">
 <meta name="twitter:card" content="summary">
-<meta property="twitter:title" content="Azure App Service Architecture">
+<meta property="twitter:title" content="AWS re:Invent 2019: Data-Driven, Cloud-Native Ecosystem">
 <script type="application/ld+json">
-{"@type":"BlogPosting","url":"https://lucas-sousa.com/azure-app-services-architecture/","headline":"Azure App Service Architecture","dateModified":"2022-07-17T00:00:00-07:00","datePublished":"2022-07-17T00:00:00-07:00","author":{"@type":"Person","name":"Lucas"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://lucas-sousa.com/azure-app-services-architecture/"},"description":"This blog was created for note-keeping purposes, not educational. Browse at your own peril.","@context":"https://schema.org"}</script>
+{"@type":"BlogPosting","url":"https://lucas-sousa.com/reinvent-2019-data-driven-cloud-native-ecosystem/","headline":"AWS re:Invent 2019: Data-Driven, Cloud-Native Ecosystem","dateModified":"2022-01-08T00:00:00-08:00","datePublished":"2022-01-08T00:00:00-08:00","author":{"@type":"Person","name":"Lucas"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://lucas-sousa.com/reinvent-2019-data-driven-cloud-native-ecosystem/"},"description":"This blog was created for note-keeping purposes, not educational. Browse at your own peril.","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="shortcut icon" href="/assets/images/devops.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -764,11 +764,11 @@ function googleTranslateElementInit() {
 
 
 <header class="post-header">
-  <h1 class="post-title p-name" itemprop="name headline">Azure App Service Architecture</h1>
-  <h2 class="post-subtitle">Dissecting Antares</h2>
+  <h1 class="post-title p-name" itemprop="name headline">AWS re:Invent 2019: Data-Driven, Cloud-Native Ecosystem</h1>
+  <h2 class="post-subtitle">Note Repository</h2>
 
   <p class="post-meta">
-    <time class="dt-published" datetime="2022-07-17T00:00:00-07:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Jul 17, 2022
+    <time class="dt-published" datetime="2022-01-08T00:00:00-08:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Jan 08, 2022
     </time>
 
     
@@ -805,10 +805,10 @@ function googleTranslateElementInit() {
 
 
 
-    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 7 mins</span>
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 8 mins</span>
   </p>
 <div class="post-tags">
-<a class="post-tag" href="/tags.html#azure">#azure</a><a class="post-tag" href="/tags.html#cloud">#cloud</a><a class="post-tag" href="/tags.html#vnet">#vnet</a><a class="post-tag" href="/tags.html#app%20service">#app service</a><a class="post-tag" href="/tags.html#dns">#dns</a><a class="post-tag" href="/tags.html#networking">#networking</a>
+<a class="post-tag" href="/tags.html#aws">#aws</a><a class="post-tag" href="/tags.html#re:invent">#re:invent</a><a class="post-tag" href="/tags.html#cloud">#cloud</a><a class="post-tag" href="/tags.html#automotive">#automotive</a><a class="post-tag" href="/tags.html#bmw">#bmw</a>
 </div></header>
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
@@ -816,160 +816,224 @@ function googleTranslateElementInit() {
 
       <!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
 
-<h2 id="app-service-within-azure-architecture">App Service Within Azure Architecture</h2>
+<p><a href="https://youtu.be/9fH3y5p8ewE">“Presentation Video”</a></p>
 
-<p><img src="/assets/images/azure_antares_architecture.png" alt="Azure - Antares Architecture"></p>
+<h2 id="characteristics-of-automotive-ecosystem">Characteristics of Automotive Ecosystem</h2>
 
 <ul>
-  <li>The architecture for App Service is called Antares.</li>
-  <li>The Control Plane API requests start from ARM (Azure Resource Manager) to Antares’ Geomaster.</li>
-  <li>The Geomaster is a component that serves as a load balancer keeping track of state of App Service’s stamps (scale units) around the world and directing API call traffic.</li>
-  <li>There are dozens to thousands of stampsin each Azure region.</li>
-  <li>Each scale unit, or stamp, consists of ~1000 virtual machines, also called servers or workers.</li>
-  <li>The underlying physical technology for the virtual machines are generally a single server host per VM.</li>
-  <li>All servers in a stamp are used for the App Service offering only, no other Azure service.</li>
+  <li>Connectivity: on-demand services</li>
+  <li>Autonomous Driving: push towards full autonomy. Lots of sensors, camera readers, up to 25TB/day of data</li>
+  <li>Multimodal Mobility: point A to point B</li>
+  <li>Marketplace: whole list of contextual, local, location-based services like food ordering &amp; payment, hotel reservation, offer from dealership</li>
+  <li>Electrification: very pervasive on ride-sharing and micro mobility (scooters, bikes) solutions</li>
+  <li>Subscriptions: car makers are becoming software and service companies (eg: make cars for subscription)</li>
 </ul>
 
-<h2 id="app-service-creation-flow">App Service Creation Flow</h2>
+<p><img src="https://i.imgur.com/vcQA78X.png" alt='"Why Enterprises Need Data Lakes"'></p>
 
-<p><img src="/assets/images/app_service_creation_flow.png" alt="App Service app creation flow"></p>
+<h2 id="three-main-features-of-data-lakes">Three main features of Data Lakes</h2>
 
 <ol>
-  <li>User makes a request to create a new site.</li>
-  <li>ARM makes sure user has access to the resource to allow the given operation (create in this case) and forwards the requests to App Service Geo-Master.</li>
-  <li>Geo-Master finds the best suitable scale unit for the user’s request and forwards the request.</li>
-  <li>The scale unit creates the new application.</li>
-  <li>Geo-Master reports success on the create request.</li>
+  <li>Single point of truth: work on same data without moving it around, from R&amp;D to manufacturing to logistics to after-sales. Democratizing the data usage in the enterprise.</li>
+  <li>Support various data formats: from rational to non-rational data. Car sensor data, images from autonomous driving, etc.</li>
+  <li>Scales storage and compute individually.</li>
 </ol>
 
-<h2 id="stamp-architecture">Stamp Architecture</h2>
-
-<p><img src="/assets/images/app_service_stamp_architecture.png" alt="App Service stamp architecture"></p>
+<h2 id="intro-to-bmws-solution">Intro to BMW’s Solution</h2>
 
 <ul>
-  <li>There are different types of workers inside of a stamp:
+  <li>BMW Intelligent Personal Assistant (IBM Assistant) - “Soul of your BMW” - focused on becoming more connected and more contextualized</li>
+  <li>Has to be properly integrated with Manufacturing, Logistics, Customer Service, After-Sales</li>
+  <li>They want to transform BMW into a truly data-driven company</li>
+  <li>Driven by:
     <ul>
-      <li>
-<strong>Web workers</strong>: the vast majority of workers in a stamp. It’s the server that runs the app. They can be shared between clients or dedicated to a single client, depending on the App Service Plan.</li>
-      <li>
-<strong>Front end</strong>: a layer 7 (HTTP) load balancer that distributes requests too all web workers allocated for an app. It uses round-robin by default.</li>
-      <li>
-<strong>File servers</strong>: worker that mounts page blob containing data needed to run app (code, images, etc) and exposes it as a network drive, which in turn is mapped by the web worker as a local drive. Any file-relateed r/w operation performed by the app passes through a file server.</li>
-      <li>
-<strong>API controller</strong>: performs management operations inside stamp. It is to the Control Plane what the Front end is to the Runtime Plane. Receives API calls and orchestrates the steps to fulfill the requests. Examples:
-        <ul>
-          <li>When Geo-Master passes an API call to create a new application, the API controller orchestrates the required steps to create the application at the scale unit.</li>
-          <li>When you use the Azure portal to reset your application, it’s the API controller that notifies all Web Workers currently allocated to your application to restart your app.</li>
-        </ul>
-      </li>
-      <li>
-<strong>Azure SQL</strong>: persists app metadata, only accessed by the data role.</li>
-      <li>
-<strong>Data role</strong>: a cache layer between the SQL database and all the other workers. Examples:
-        <ul>
-          <li>Web workers ask Data role for website configuration.</li>
-          <li>Front end workers ask Data role for list of workers they can route an app’s requests to.</li>
-        </ul>
-      </li>
-      <li>
-<strong>Publisher</strong>: exposes FTP functionality for customers to access their application content and logs in the Blob Storages and file servers. It also gives customers another way of deploying apps.</li>
+      <li>Data &amp; AI</li>
+      <li>Cloud stack: pooling and providing the right tools and frameworks to work with data in most effective ways - leverage good, complete cloud stack - move away from heterogeneous landscape</li>
+      <li>Emerging tech: novel/unproven tech (eg: natural language processing, blockchain, etc) shouldn’t be avoided</li>
     </ul>
   </li>
 </ul>
 
-<h2 id="iis-overview">IIS Overview</h2>
+<h2 id="motivation">Motivation</h2>
 
-<p><img src="/assets/images/iis_request_runtime_flow.png" alt="IIS request runtime flow"></p>
+<p>(Why BMW started aggressively pursuing cloud solutions in 2019)</p>
 
 <ul>
-  <li>Antares, in its initial version, was more of an IIS-as-a-service.</li>
-  <li>IIS’ model for hosting app code:
-    <ul>
-      <li>Config concepts: sites, bindings, apps, VirtualDirectories, ApplicationPools, handler mappings, etc</li>
-      <li>Runtime entities: HTTP(.sys) bindings, HTTP(.sys) request queues, user identities, worker processes (w3wp.exe), etc</li>
-    </ul>
-  </li>
+  <li>2014: Big Data journey - Hadoop + Kafka stack (fueling data transformation on top of the Hadoop ecosystem). Ingested both IoT and Product (ERP, CRM, OLTP) data via Kafka or Spark.</li>
+  <li>Eventually purpose-built databases started being introduced to speed up workloads (eg: PostgreSQL) trying to satisfy customer requirements</li>
+  <li>Lastly, to harness the results of the data analysis, in 2016 a K8s cluster was introduced.</li>
 </ul>
 
-<h2 id="web-worker-architecture">Web Worker Architecture</h2>
+<p><img src="https://i.imgur.com/CPuqyUF.png" alt='"Old Big Data Landscape"'></p>
 
-<p><img src="/assets/images/antares_dynamic_prov_control.png" alt="Antares dynamic website provisioning - control flow"></p>
+<p>Very heterogeneous landscape. Consequences:</p>
 
 <ul>
-  <li>Basic components:
+  <li>Only fractions of critical organization’s data were able to be ingested.</li>
+  <li>Bottlenecks were prominent. There were central teams taking care of data ingestion, no self-service. Scaling workforce didn’t help.</li>
+  <li>Move to purpose-built sandboxes for experiments (eg: Docker, Jupiter Notebooks, traditional solutions, etc).</li>
+  <li>The number of prototypes spinning out in different environments was growing exponentially bigger than products being made.</li>
+</ul>
+
+<p>The whole (small) DevOps team had full and trained responsibilities over all the components. Those reasons led BMW to move to the cloud.</p>
+
+<p><img src="https://i.imgur.com/YdGDQe1.png" alt='"Lift, Think, and Shift"'></p>
+
+<p>Lift, Think, &amp; Shift: re-architecture of major parts of the on-premises platform into the cloud, not just duplicate the combobulated environment it currently had. Move of major parts into AWS primarily built upon cloud-native building blocks and IaaC</p>
+
+<p>That shift allowed BMW to focus more on the differentiating “bits and pieces” (services) and the quality of their data rather than making sure the tools, platforms, and infrastructures worked and communicated properly</p>
+
+<p>Hypothesis that supported the move to the cloud:</p>
+
+<ul>
+  <li>BMW will not be able to keep up with the radical pace of innovation AWS has in their data lakes services portfolio</li>
+  <li>making sure that BMW understands, curates, transforms, and leverages their data as opposed to wasting time with anything else</li>
+</ul>
+
+<h2 id="bmw-groups-cloud-data-hub">BMW Group’s Cloud Data Hub</h2>
+
+<p>(Platform design of the Cloud Data Hub built upon AWS)</p>
+
+<p>Three main premises:</p>
+
+<ol>
+  <li>Enable a very quick infrastructure setup in different regions while maintaining high security standards and complying with regulations</li>
+  <li>Support quick data integration for a wide array of datasets (both streaming and relational)</li>
+  <li>Provide consistent means of how people will interact with the data and how identities are managed across the platform (eg: SSO, making sure it translates well into the enterprise scenarios)</li>
+</ol>
+
+<p>Three-layered approach:</p>
+
+<p><img src="https://i.imgur.com/1RoHI0U.png" alt='"Three Layered Approach"'></p>
+
+<ol>
+  <li>Real-Time Zone: keeps cached copies of real-world objects (eg: customer vehicles) for fast access to non-historic sized data needed for inference of ML models</li>
+  <li>Insight Zone: historicized versions of real-time objects and also plays well with already existing relational databases (OLTP, data warehouses, etc)</li>
+  <li>Unified API: collection of restful API that makes interaction of people &amp; systems w/ data easy, and gives the ability to expose both real-time and relational data very effectively</li>
+</ol>
+
+<p>Three important things about data platform:</p>
+
+<p><img src="https://i.imgur.com/jzaPUlE.png" alt='"Three Important Data Platform Facts"'></p>
+
+<ul>
+  <li>Democratization: provide easy access to both bounded and unbounded data. Single point of truth for any kind of data analytics. Enable data stewards to intuitively look at what’s already there. Introducing a data catalog built in-house upon the existing Cloud Data Hub for exploration</li>
+  <li>Modularity: key to enable broader community to work with the platform. Allows users to bring their own building blocks too</li>
+  <li>Lean Ops: avoid putting all the effort and energy into the system, let AWS handle infrastructure. Fast-paced environment to drive innovation</li>
+</ul>
+
+<h2 id="cloud-data-hub-gui">Cloud Data Hub GUI</h2>
+
+<p><img src="https://i.imgur.com/tqToANn.png" alt='"BMW Clodu Data Hub GUI"'></p>
+
+<p>Client Flow:</p>
+
+<ol>
+  <li>Login</li>
+  <li>Select Role</li>
+  <li>Launch CDH</li>
+  <li>Make queries</li>
+</ol>
+
+<p>Providing Data: very difficult, many ETL tools but always hits limitations and bottlenecks when implementing.</p>
+
+<ul>
+  <li>Option 1: Terraform template</li>
+  <li>Option 2: Manually via Hub (config &amp; auth, ingest source, scheduling)</li>
+</ul>
+
+<p>Older flow used EMR. Newer flow uses Lambda, CDK, CloudFormation orchestration.</p>
+
+<h3 id="data-consumption">Data Consumption</h3>
+
+<ul>
+  <li>Consumer requirements for data consumption: SPARK. Many data analytics points start with Spark.</li>
+  <li>Cloud Data Hub gives customers the ability to spin up a customizable Sage Maker stack with an EMR cluster. You can also open a Jupyter Notebook that directly interacts with the EMR cluster.</li>
+</ul>
+
+<h3 id="data-ingestion">Data Ingestion</h3>
+
+<p><img src="https://i.imgur.com/SMmdzOQ.png" alt='"Data Ingestion - Part 1"'></p>
+
+<p><img src="https://i.imgur.com/1cAvlN3.png" alt='"Data Ingestion - Part 2"'></p>
+
+<p>DATA.BMW.CLOUD: Store all bounded and unbounded data, build tools on top of that (eg: BMW CDH Portal) to give great and easy customer experience.</p>
+
+<p>Data Provider: very easy and customizable to bring data into CDH:</p>
+
+<p><img src="https://i.imgur.com/wqNihtj.png" alt='"Data Provider Code"'></p>
+
+<h3 id="whats-provisioned-by-the-terraform-module-inside-the-data-provider">What’s provisioned by the Terraform module inside the Data Provider</h3>
+
+<ul>
+  <li>
+    <p>Bounded data:</p>
+
+    <p><img src="https://i.imgur.com/AeDluFz.png" alt='"Ingestion Module - Bounded Data"'></p>
+
     <ul>
       <li>
-<strong>HTTP.sys</strong>: receives requests (by matching, as seen above) based on URL and port, then sends it to HTTP Request Queue.</li>
+<code class="language-plaintext highlighter-rouge">Glue Trigger</code>: triggers the Glue ETL</li>
       <li>
-<strong>HTTP Request Queue</strong>: sends requests received via site-specific binding (hostname + port, eg. “mysite:80”) to the site specific HTTP request queue, and sends all other requests to the MiniARR HTTP request queue.</li>
-      <li>
-<strong>MiniARR Worker Process</strong>: only receives requests for websites not yet set up. Tells DWAS to create the structure for the website requested.</li>
-      <li>
-<strong>DWAS</strong>: receives input from two components:
+<code class="language-plaintext highlighter-rouge">Glue ETL</code>: has access to on-prem DB since it’s inside Private VPC. Uses:
         <ul>
-          <li>From <strong>MiniARR</strong>, triggering a dynamic website provisining. DWAS:
-            <ol>
-              <li>receives host name from MiniArr and uses it to fetch site config (<code class="language-plaintext highlighter-rouge">StartSiteContext</code>) from DataRole.</li>
-              <li>generates <code class="language-plaintext highlighter-rouge">applicationHost.config</code>, <code class="language-plaintext highlighter-rouge">rootweb.config</code>, etc into its temp directory.
-                <ul>
-                  <li>Both config files are created with “transform pipeline” code, under <code class="language-plaintext highlighter-rouge">Microsoft.Web.Hosting\Utilities\Transformers</code>.</li>
-                  <li>The transform pipeline can inject user-specific config settings into the <code class="language-plaintext highlighter-rouge">.config</code> files, such as Virtual Directories, Apps, Handler Mappings (PHP/Python support), etc.</li>
-                </ul>
-              </li>
-              <li>generates low-privileged user identity to run site code.</li>
-              <li>creates a local directory for site, and sets up a symlink to the site’s root directory. (eg. <code class="language-plaintext highlighter-rouge">C:\DWASFiles\Sites\foo\VirtualDir0</code> pointing to <code class="language-plaintext highlighter-rouge">\\FileServerIP1\volume-3-default\&lt;webspaceGuid&gt;\&lt;siteGuid&gt;</code>)</li>
-              <li>copies config files from temp to local directory at <code class="language-plaintext highlighter-rouge">config\</code>.</li>
-              <li>creates a site-specific binding in HTTP.sys and an HTTP request queue, asking to be notified once queue gets a requests.</li>
-              <li>registers with Data Role to receive change notifications to website config.</li>
-              <li>sets up rest of state in machine needed to run the site (VNet and MSI integration, cert installation, local cache hydration, etc), based on site config.</li>
-            </ol>
-          </li>
-          <li>From <strong>site-specific HTTP request queue</strong>, triggering DWAS to:
-            <ol>
-              <li>spin up and initializes a sandboxed Worker Process (a <code class="language-plaintext highlighter-rouge">w3wp.exe</code>) for the site.</li>
-              <li>create a sandbox by virtualizing <code class="language-plaintext highlighter-rouge">D:\home</code> which points to the site’s root directory and only allows access to that SMB path.
-                <ul>
-                  <li>SANDBOX</li>
-                </ul>
-              </li>
-            </ol>
-          </li>
-          <li>From <strong>DataRole</strong> (outside of Web Worker) to change site configuration. DWAS:
-            <ol>
-              <li>receives a notification from DataRole by long-polling for it.</li>
-              <li>fetches new <code class="language-plaintext highlighter-rouge">StartSiteContext</code> from DataRole and compares with previous version.</li>
-              <li>overwrites <code class="language-plaintext highlighter-rouge">.config</code> files if there are changes and orchestrates the changes to ensure new config is applied.
-                <ul>
-                  <li>Overwriting the <code class="language-plaintext highlighter-rouge">.config</code> files causes AppDomain recycles for ASP.NET apps, and can cause child-process recycles for other stacks.</li>
-                  <li>Config changes such as an update to app-settings usually require worker process recycle.</li>
-                </ul>
-              </li>
-              <li>gets informed about internal system changes such as movement of storage volumes through long-polling calls to DataRole as well, on top of pinging storage itself every 5 seconds for health.
-                <ul>
-                  <li>Change to the site’s root path requires worker process recycle.</li>
-                </ul>
-              </li>
-            </ol>
-          </li>
+          <li>
+<code class="language-plaintext highlighter-rouge">CloudWatch</code>: log metrics</li>
+          <li>
+<code class="language-plaintext highlighter-rouge">Secrets Manager</code>: DB secrets</li>
+          <li>
+<code class="language-plaintext highlighter-rouge">Local Glue Data Catalog</code>: metadata</li>
         </ul>
       </li>
       <li>
-<strong>Worker Process</strong>: sandboxed site-specific worker process that dequeues requests in its corresponding queue, then processes it through a module pipeline, much like in IIS (out of scope for this post).
-        <ul>
-          <li>Its initialization process is similar to IIS as well, requiring DWAS to guide it through start-up, and then signal when it is ready to start processing requests.</li>
-          <li>The process is under a “job object”, which imposes restrictions on the amount of memory and CPU that specific <code class="language-plaintext highlighter-rouge">w3wp.exe</code> can utilize.</li>
-          <li>Again, like IIS, the worker process expects to retrieve config files from the DWAS local directory at <code class="language-plaintext highlighter-rouge">C:\DWASFiles\Sites\foo\config\</code>.</li>
-          <li>The worker process stays alive for 30 minutes before ending itself if there are no requests.</li>
-        </ul>
-      </li>
+<code class="language-plaintext highlighter-rouge">Source S3 bucket</code>: stores all data. Resources for new data created via API</li>
+      <li>
+<code class="language-plaintext highlighter-rouge">Glue DC Sync &amp; Global Glue DC</code>: all metadata stored and made available to consumer accounts</li>
     </ul>
+  </li>
+  <li>
+    <p>Unbounded Data:</p>
   </li>
 </ul>
 
-<h2 id="reference">Reference</h2>
+<p><img src="https://i.imgur.com/kMFa4OL.png" alt='"Ingestion Module - Ingredients"'></p>
 
 <ul>
-  <li><a href="https://docs.microsoft.com/en-us/archive/msdn-magazine/2017/february/azure-inside-the-azure-app-service-architecture">https://docs.microsoft.com/en-us/archive/msdn-magazine/2017/february/azure-inside-the-azure-app-service-architecture</a></li>
+  <li>
+<code class="language-plaintext highlighter-rouge">Kinesis</code>: Receives data from cloud-native data providers
+    <ul>
+      <li>1-2 minutes latency from writing data to Kinesis until it is visible in Athena</li>
+    </ul>
+  </li>
+  <li>
+<code class="language-plaintext highlighter-rouge">Firehose</code>: Batch data to S3</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">Lambda</code>: transforms data</li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">Fargate</code>: Imports legacy Kafka topics into Kinesis</p>
+
+    <p><img src="https://i.imgur.com/q9wmF9t.png" alt='"Ingestion Module - Unbouded Data"'></p>
+  </li>
+  <li>Lambda Prep &amp; S3 Prep Bucket: Event data enriched with data such as vehicle/customer data.</li>
+  <li>Bucket Policies in the Source Bucket only apply to the objects owned by the bucket owner. That makes it hard for the Source Bucket to give access to consumer accounts. The solution is to use STS and roles when allowing Data Providers to feed data to the bucket.</li>
+  <li>For services that aren’t “role-aware” like Firehose, the workaround is to trigger an event on the upload, which uses SNS and SQS to start a Lambda function that fixes ownership of the object in the bucket and before passing the data along the pipeline to be enriched.</li>
+</ul>
+
+<h2 id="cloud-data-hub-highlights">Cloud Data Hub highlights</h2>
+
+<ol>
+  <li>Faster and more real-time: increase latency (eg: introduce Kinesis Data Analytics)</li>
+  <li>Metadata and lineage: improve metadata handling and data lineage tracking (from source to semantic layer), not currently reachable through API</li>
+  <li>Search in (meta-)data: improve indexing</li>
+  <li>Building blocks: improve customer service by building more blocks for data providers (eg: elasticsearch integration)</li>
+  <li>Increased self-service: more features to service portal (eg: make Terraform modules available on UI)</li>
+</ol>
+
+<h2 id="data-consumers">Data Consumers</h2>
+
+<ul>
+  <li>Where data scientists and analysts use consumer accounts and advanced analytics services such as Sage Maker. It’s important that consumers have the freedom to design their own custom infrastructure along with the available building blocks and templates.</li>
+  <li>Consumer account can also use SNS topic to trigger the processing once new data arrives.</li>
 </ul>
 
 
@@ -977,15 +1041,15 @@ function googleTranslateElementInit() {
 
 </article>
 <div class="post-nav">
-<a class="previous" href="/azure-networking-vnet-dns/" title="Azure Networking for Virtual Networks">Azure Networking for Virtual Networks</a><span></span>
+<a class="previous" href="/kubernetes-basics/" title="Kubernetes Basics">Kubernetes Basics</a><a class="next" href="/azure-networking-vnet-dns/" title="Azure Networking for Virtual Networks">Azure Networking for Virtual Networks</a>
 </div>
 <div class="post-related">
       <div>Related Articles</div>
       <ul>
-        <li><a class="post-link" href="/azure-app-services-architecture/" title="">Azure App Service Architecture</a></li>
-<li><a class="post-link" href="/aws-developer-associate-notes/" title="">AWS Developer Associate Certification Notes</a></li>
-<li><a class="post-link" href="/hosting-safe-static-website-aws-ui/" title="">Hosting a Safe Static Website on AWS (UI Version)</a></li>
-<li><a class="post-link" href="/terraform-terragrunt-basics/" title="">Terraform + Terragrunt Basics</a></li>
+        <li><a class="post-link" href="/reinvent-2019-data-driven-cloud-native-ecosystem/" title="Azure Networking for Virtual Networks">AWS re:Invent 2019: Data-Driven, Cloud-Native Ecosystem</a></li>
+<li><a class="post-link" href="/aws-developer-associate-notes/" title="Azure Networking for Virtual Networks">AWS Developer Associate Certification Notes</a></li>
+<li><a class="post-link" href="/hosting-safe-static-website-aws-ui/" title="Azure Networking for Virtual Networks">Hosting a Safe Static Website on AWS (UI Version)</a></li>
+<li><a class="post-link" href="/azure-app-services-architecture/" title="Azure Networking for Virtual Networks">Azure App Service Architecture</a></li>
 </ul>
     </div>
 <div class="post-comments"></div></section>
