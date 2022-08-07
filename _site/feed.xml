@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-07-29T22:07:21-07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Tech Notebook by Lucas</title><subtitle>This blog was created for note-keeping purposes, not educational. Browse at your own peril.</subtitle><author><name>Lucas Sousa</name></author><entry><title type="html">Azure App Service Architecture</title><link href="http://localhost:4000/azure-app-services-architecture/" rel="alternate" type="text/html" title="Azure App Service Architecture" /><published>2022-07-17T00:00:00-07:00</published><updated>2022-07-17T00:00:00-07:00</updated><id>http://localhost:4000/azure-app-services-architecture</id><content type="html" xml:base="http://localhost:4000/azure-app-services-architecture/"><![CDATA[<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-07T11:19:05-07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Tech Notebook by Lucas</title><subtitle>This blog was created for note-keeping purposes, not educational. Browse at your own peril.</subtitle><author><name>Lucas Sousa</name></author><entry><title type="html">Azure App Service Architecture</title><link href="http://localhost:4000/azure-app-services-architecture/" rel="alternate" type="text/html" title="Azure App Service Architecture" /><published>2022-07-17T00:00:00-07:00</published><updated>2022-07-17T00:00:00-07:00</updated><id>http://localhost:4000/azure-app-services-architecture</id><content type="html" xml:base="http://localhost:4000/azure-app-services-architecture/"><![CDATA[<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
 
 <h2 id="app-service-within-azure-architecture">App Service Within Azure Architecture</h2>
 
@@ -278,7 +278,497 @@
   <li>Does the Private Endpoint NIC get attached directly to the resource server?</li>
   <li>How does Private Endpoint DNS work without Private Link?</li>
   <li>How does a private DNS zone get linked to a VNet? VNet’s route table?</li>
-</ul>]]></content><author><name>Lucas</name></author><category term="networking" /><category term="azure" /><category term="azure" /><category term="cloud" /><category term="vnet" /><category term="app service" /><category term="dns" /><category term="private endpoint" /><category term="service endpoint" /><category term="private link" /><category term="networking" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Terraform + Terragrunt Basics</title><link href="http://localhost:4000/terraform-terragrunt-basics/" rel="alternate" type="text/html" title="Terraform + Terragrunt Basics" /><published>2021-12-11T00:00:00-08:00</published><updated>2021-12-11T00:00:00-08:00</updated><id>http://localhost:4000/terraform-terragrunt-basics</id><content type="html" xml:base="http://localhost:4000/terraform-terragrunt-basics/"><![CDATA[<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
+</ul>]]></content><author><name>Lucas</name></author><category term="networking" /><category term="azure" /><category term="azure" /><category term="cloud" /><category term="vnet" /><category term="app service" /><category term="dns" /><category term="private endpoint" /><category term="service endpoint" /><category term="private link" /><category term="networking" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Kubernetes Basics</title><link href="http://localhost:4000/kubernetes-basics/" rel="alternate" type="text/html" title="Kubernetes Basics" /><published>2021-12-18T00:00:00-08:00</published><updated>2021-12-18T00:00:00-08:00</updated><id>http://localhost:4000/kubernetes-basics</id><content type="html" xml:base="http://localhost:4000/kubernetes-basics/"><![CDATA[<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
+
+<h2 id="references">References</h2>
+
+<p><a href="https://www.freecodecamp.org/news/the-kubernetes-handbook/#introduction-to-container-orchestration-and-kubernetes">The Kubernetes Handbook</a></p>
+
+<p><a href="https://github.com/fhsinchy/kubernetes-handbook-projects">GitHub - fhsinchy/kubernetes-handbook-projects</a></p>
+
+<h2 id="useful-code-snippets">Useful Code Snippets</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Create 'pod/&lt;pod_name&gt;'</span>
+<span class="c"># Run &lt;image_name&gt; inside pod</span>
+kubectl run &lt;pod_name&gt; <span class="se">\</span>
+<span class="nt">--image</span><span class="o">=</span>&lt;image_name&gt; <span class="se">\</span>
+<span class="nt">--port</span><span class="o">=</span>80
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 'ls -la' for k8s</span>
+kubectl get pod/service
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Create 'service/&lt;pod_name&gt;'</span>
+<span class="c"># Run load balancer as a service</span>
+kubectl expose pod &lt;pod_name&gt; <span class="se">\</span>
+<span class="nt">--type</span><span class="o">=</span>LoadBalancer <span class="se">\</span>
+<span class="nt">--port</span><span class="o">=</span>80
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Delete resource based on type and name</span>
+kubectl delete &lt;<span class="nb">type</span><span class="o">&gt;</span> &lt;name&gt;
+</code></pre></div></div>
+
+<h2 id="basics">Basics</h2>
+
+<p>🚢 Container orchestration is the process of automating the <code class="language-plaintext highlighter-rouge">deployment</code>, <code class="language-plaintext highlighter-rouge">management</code>, <code class="language-plaintext highlighter-rouge">scaling</code>, and <code class="language-plaintext highlighter-rouge">networking</code> tasks of containers.</p>
+
+<h3 id="architecture">Architecture</h3>
+
+<p><img src="/assets/images/2021-12-18-kubernetes-basics/k8s_architecture.png" alt="Kubernetes Architecture" /></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">kubectl</code>: K8s CLI tool to communicate with your cluster via API</li>
+  <li><code class="language-plaintext highlighter-rouge">node</code>: the machine, virtual or physical, that hosts the pods. Usually refers to worker nodes that run the containerized workloads, but could also refer to control plane nodes (centralized API, cluster management).
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">kubelet</code>: primary agent in a node, does things such as start pods &amp; containers or register the node with the apiserver. Receives instructions from the control plane, keeps etcd updated</li>
+      <li><code class="language-plaintext highlighter-rouge">kube-proxy</code>: runs on each node to maintain network rules. Any network request that reaches a service inside the cluster passes through the kube-proxy service</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">control plane</code>: cluster management
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">etcd</code>: data store that maintains a record of the state of the cluster in a distributed key-value store</li>
+      <li><code class="language-plaintext highlighter-rouge">kube-scheduler</code>: queries state of the cluster (at etcd) to schedule/assign workloads to worker nodes, making sure no server is overloaded</li>
+      <li><code class="language-plaintext highlighter-rouge">kube-api-server</code>: gateway to query and interact with cluster. Validates and processes requests delivered using client libraries like kubectl</li>
+      <li><code class="language-plaintext highlighter-rouge">cloud-controller-manager</code>: interacts with cloud provider’s (GKE, EKS) API. Keeps local and cloud interactions isolated</li>
+      <li><code class="language-plaintext highlighter-rouge">kube-controller-manager</code>: responsible for controlling the state of the cluster. Implements and tracks the lifecycle of the controllers deployed to the cluster. Main workloads managed by kube-controller-manager:
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">Deployment</code>: declarative and good for managing stateless apps (pods are interchangeable and replaceable), it matches the current state of your cluster to the desired state mentioned in the Deployment manifest (YAML). e.g. If you create a deployment with 1 replica, it will check that the desired state of ReplicaSet is 1 and current state is 0, so it will create a ReplicaSet, which will further create the pod.</li>
+          <li><code class="language-plaintext highlighter-rouge">StatefulSet</code>: lets you run 1+ pods that track state in some manner. Helps match pods with persistent volumes.</li>
+          <li><code class="language-plaintext highlighter-rouge">DaemonSet</code>: ensures that the pod specified via YAML runs on all the nodes of the cluster. If a node is added/removed from a cluster, DaemonSet automatically adds/deletes the pod. e.g. Installing a monitoring agent on each node.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="objects">Objects</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">pods</code>: self-contained, easily replicable objects. Can host a container or a group of (very closely related — more than back-end app + db) containers with shared network IP address and filesystem volumes, meant to run a single instance of an application.</li>
+  <li><code class="language-plaintext highlighter-rouge">services</code>: since pods are ephemeral (destroyed and replaced, not recycled — new IP every time), a service is an abstraction that groups a logical set of pods and presents them as a single entity, e.g. LoadBalancer, ClusterIP, NodePort, ExternalName
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">LoadBalancer</code>: exposes a group of pods as one entity to the outside (of the cluster). The pod(s) become(s) exposed on the port specified. Can be accessed via <code class="language-plaintext highlighter-rouge">minikube service &lt;service_name&gt;</code>, which accesses the cluster’s IP + the ephemeral exposed port, which is mapped to the port exposed by the load balancer.</li>
+      <li><code class="language-plaintext highlighter-rouge">ClusterIP</code>: same as LoadBalancer but only within the cluster</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">Controllers</code>: non-terminating control loops that watch the state of the cluster and make/request changes accordingly. There are controllers to manage each type of workload supported by Kubernetes.</li>
+</ul>
+
+<h2 id="declarative-app-example">Declarative App Example</h2>
+
+<h3 id="directory-tree">Directory Tree</h3>
+
+<ul>
+  <li>src /
+    <ul>
+      <li>(app code)</li>
+    </ul>
+  </li>
+  <li>k8s /
+    <ul>
+      <li>
+        <p>example-pod.yaml</p>
+
+        <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span> <span class="c1"># k8s API version</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Pod</span> <span class="c1"># object type</span>
+<span class="na">metadata</span><span class="pi">:</span> <span class="c1"># useful for future referencing</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">example-pod</span>
+    <span class="na">labels</span><span class="pi">:</span> <span class="c1"># services select objects via labels</span>
+    <span class="na">component</span><span class="pi">:</span> <span class="s">web</span>
+<span class="na">spec</span><span class="pi">:</span> <span class="c1"># specify state wanted for object</span>
+    <span class="na">containers</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">example</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">example/latest</span>
+    <span class="na">ports</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">containerPort</span><span class="pi">:</span> <span class="m">80</span>
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>example-lb-service.yaml</p>
+
+        <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Service</span>
+<span class="na">metadata</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">example-lb-service</span>
+<span class="na">spec</span><span class="pi">:</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">LoadBalancer</span> <span class="c1"># other options: ClusterIP, NodePort, ExternalName</span>
+    <span class="na">ports</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">port</span><span class="pi">:</span> <span class="m">80</span> <span class="c1"># port for others to access LB pod</span>
+    <span class="na">targetPort</span><span class="pi">:</span> <span class="m">80</span> <span class="c1"># containers' port (must match)</span>
+    <span class="na">selector</span><span class="pi">:</span> <span class="c1"># ID objects connected to the service</span>
+    <span class="na">component</span><span class="pi">:</span> <span class="s">web</span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Dockerfile</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># copies the whole directory into node image directory</span>
+<span class="c"># installs package.json with npm, then runs build</span>
+<span class="c"># copies compiled app into nginx image with port 80 exposed</span>
+<span class="c"># after that, image can run as container with port 80 publicly accessible</span>
+</code></pre></div>    </div>
+  </li>
+  <li>index.html</li>
+  <li>package.json</li>
+</ul>
+
+<h3 id="execution">Execution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c"># Both 'apply' commands can be consolidated with 'kubectl apply -f &lt;directory&gt;'</span>
+
+  kubectl apply <span class="nt">-f</span> example-pod.yaml
+  
+  <span class="c"># pod/example-pod created</span>
+  
+  kubectl get pod
+  
+  <span class="c"># NAME         READY   STATUS    RESTARTS   AGE</span>
+  <span class="c"># example-pod   1/1     Running   0          3m3s</span>
+  
+  kubectl apply <span class="nt">-f</span> example-lb-service.yaml
+  
+  <span class="c"># service/example-lb-service created</span>
+  
+  kubectl get service
+  
+  <span class="c"># NAME                 TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE</span>
+  <span class="c"># example-lb-service   LoadBalancer   10.107.231.120   &lt;pending&gt;     80:30848/TCP   7s</span>
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c"># Example if running locally with minikube</span>
+
+  minikube service example-lb-service
+  
+  <span class="c"># |-----------|--------------------|-------------|-----------------------------|</span>
+  <span class="c"># | NAMESPACE |        NAME        | TARGET PORT |             URL             |</span>
+  <span class="c"># |-----------|--------------------|-------------|-----------------------------|</span>
+  <span class="c"># | default   | example-lb-service |          80 | http://192.168.99.101:30848 |</span>
+  <span class="c"># |-----------|--------------------|-------------|-----------------------------|</span>
+  <span class="c"># ?  Opening service default/example-lb-service in default browser...</span>
+</code></pre></div></div>
+
+<h2 id="multi-container-app-example">Multi-Container App Example</h2>
+
+<h3 id="architecture-1">Architecture</h3>
+
+<p><img src="/assets/images/2021-12-18-kubernetes-basics/multi-container-app-arch.png" alt="Untitled" /></p>
+
+<ul>
+  <li>Note that the ClusterIP works like a LoadBalancer and can point to a single pod or a set of pods, but it can only serve requests from within the cluster</li>
+</ul>
+
+<h3 id="directory-tree-1">Directory Tree</h3>
+
+<ul>
+  <li>app /
+    <ul>
+      <li>(app source code, including Dockerfile)</li>
+    </ul>
+  </li>
+  <li>postgres /
+    <ul>
+      <li>(db Dockerfiles and init file)</li>
+    </ul>
+  </li>
+  <li>k8s /
+    <ul>
+      <li>
+        <p>app-deployment.yaml</p>
+
+        <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">apps/v1</span> <span class="c1"># based on docs</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Deployment</span>
+<span class="na">metadata</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">app-deployment</span>
+<span class="na">spec</span><span class="pi">:</span> <span class="c1"># controller specs</span>
+    <span class="na">replicas</span><span class="pi">:</span> <span class="m">3</span>
+    <span class="na">selector</span><span class="pi">:</span> 
+    <span class="na">matchLabels</span><span class="pi">:</span>
+    <span class="na">component</span><span class="pi">:</span> <span class="s">app</span> <span class="c1"># all pods with this label will be controlled</span>
+    <span class="na">template</span><span class="pi">:</span> <span class="c1"># container specs and metadata</span>
+    <span class="na">metadata</span><span class="pi">:</span>
+    <span class="na">labels</span><span class="pi">:</span>
+    <span class="na">component</span><span class="pi">:</span> <span class="s">app</span> <span class="c1"># all pods created will have this label</span>
+    <span class="na">spec</span><span class="pi">:</span>
+    <span class="na">containers</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">app</span>
+        <span class="s">image</span><span class="err">:</span> <span class="s">app/latest</span>
+        <span class="s">ports</span><span class="err">:</span>
+        <span class="pi">-</span> <span class="na">containerPort</span><span class="pi">:</span> <span class="m">3000</span>
+        <span class="na">env</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">DB_CONNECTION</span>
+        <span class="na">value</span><span class="pi">:</span> <span class="s">pg</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">DB_HOST</span> <span class="c1"># use service name to reach db host</span>
+                <span class="na">value</span><span class="pi">:</span> <span class="s">postgres-cluster-ip-service</span>
+            <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">DB_PORT</span>
+                <span class="s">value</span><span class="err">:</span> <span class="s1">'</span><span class="s">5432'</span>
+            <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">DB_USER</span>
+                <span class="s">value</span><span class="err">:</span> <span class="s">postgres</span>
+            <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">DB_DATABASE</span> <span class="c1"># db to be used inside host</span>
+                <span class="na">value</span><span class="pi">:</span> <span class="s">notesdb</span>
+            <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">DB_PASSWORD</span>
+                <span class="s">value</span><span class="err">:</span> <span class="s">63eaQB9wtLqmNBpg</span>
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>postgres-deployment.yaml</p>
+
+        <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">apps/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Deployment</span>
+<span class="na">metadata</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">postgres-deployment</span>
+<span class="na">spec</span><span class="pi">:</span>
+    <span class="na">replicas</span><span class="pi">:</span> <span class="m">1</span>
+    <span class="na">selector</span><span class="pi">:</span>
+    <span class="na">matchLabels</span><span class="pi">:</span>
+        <span class="na">component</span><span class="pi">:</span> <span class="s">postgres</span>
+    <span class="na">template</span><span class="pi">:</span>
+    <span class="na">metadata</span><span class="pi">:</span>
+        <span class="na">labels</span><span class="pi">:</span>
+        <span class="na">component</span><span class="pi">:</span> <span class="s">postgres</span>
+    <span class="na">spec</span><span class="pi">:</span>
+    <span class="na">volumes</span><span class="pi">:</span> <span class="c1"># pods' storage assignments and claims</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">postgres-storage</span>
+            <span class="s">persistentVolumeClaim</span><span class="err">:</span>
+            <span class="na">claimName</span><span class="pi">:</span> <span class="s">database-persistent-volume-claim</span>
+        <span class="na">containers</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">postgres</span>
+            <span class="s">image</span><span class="err">:</span> <span class="s">postgres/latest</span>
+            <span class="s">ports</span><span class="err">:</span>
+            <span class="pi">-</span> <span class="na">containerPort</span><span class="pi">:</span> <span class="m">5432</span>
+        <span class="na">volumeMounts</span><span class="pi">:</span> <span class="c1"># connect pod volumes to container</span>
+            <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">postgres-storage</span>
+                <span class="s">mountPath</span><span class="err">:</span> <span class="s">/var/lib/postgresql/data</span> <span class="c1"># container dir</span>
+                <span class="na">subPath</span><span class="pi">:</span> <span class="s">postgres</span> <span class="c1"># dir created inside vol for container</span>
+            <span class="na">env</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">POSTGRES_PASSWORD</span> <span class="c1"># used to connect to db via API</span>
+                <span class="na">value</span><span class="pi">:</span> <span class="s">63eaQB9wtLqmNBpg</span>
+            <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">POSTGRES_DB</span>
+                <span class="s">value</span><span class="err">:</span> <span class="s">appdb</span>
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>database-persistent-volume.yaml</p>
+
+        <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Not actually used, just an example</span>
+
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">PersistentVolume</span>
+<span class="na">metadata</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">database-persistent-volume</span>
+<span class="na">spec</span><span class="pi">:</span>
+    <span class="na">storageClassName</span><span class="pi">:</span> <span class="s">manual</span>
+    <span class="na">capacity</span><span class="pi">:</span>
+    <span class="na">storage</span><span class="pi">:</span> <span class="s">5Gi</span>
+    <span class="na">accessModes</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">ReadWriteOnce</span> <span class="c1"># mounted as r/w by one single node</span>
+    <span class="c1"># - ReadOnlyMany # many nodes can mount it as read only</span>
+    <span class="na">hostPath</span><span class="pi">:</span> <span class="c1"># development-specific, look into carefully on creation</span>
+    <span class="na">path</span><span class="pi">:</span> <span class="s2">"</span><span class="s">/mnt/data"</span>
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>database-persistent-volume-claim.yaml</p>
+
+        <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">PersistentVolumeClaim</span>
+<span class="na">metadata</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">database-persistent-volume-claim</span>
+<span class="na">spec</span><span class="pi">:</span>
+    <span class="c1">#storageClassName: manual # removing this dynamically creates volume</span>
+    <span class="na">accessModes</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">ReadWriteOnce</span>
+    <span class="na">resources</span><span class="pi">:</span>
+    <span class="na">requests</span><span class="pi">:</span>
+        <span class="na">storage</span><span class="pi">:</span> <span class="s">2Gi</span>
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>postgres-cluster-ip-service.yaml</p>
+
+        <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Service</span>
+<span class="na">metadata</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">postgres-cluster-ip-service</span>
+<span class="na">spec</span><span class="pi">:</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">ClusterIP</span>
+    <span class="na">selector</span><span class="pi">:</span>
+    <span class="na">component</span><span class="pi">:</span> <span class="s">postgres</span>
+    <span class="na">ports</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">port</span><span class="pi">:</span> <span class="m">5432</span>
+        <span class="na">targetPort</span><span class="pi">:</span> <span class="m">5432</span>
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>app-lb-service.yaml</p>
+
+        <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Service</span>
+<span class="na">metadata</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">app-lb-service</span>
+<span class="na">spec</span><span class="pi">:</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">LoadBalancer</span>
+    <span class="na">ports</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">port</span><span class="pi">:</span> <span class="m">3000</span>
+        <span class="na">targetPort</span><span class="pi">:</span> <span class="m">3000</span>
+    <span class="na">selector</span><span class="pi">:</span>
+    <span class="na">component</span><span class="pi">:</span> <span class="s">app</span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>docker-compose.yaml</p>
+
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">3.8"</span>
+  
+<span class="na">services</span><span class="pi">:</span> 
+    <span class="na">db</span><span class="pi">:</span>
+        <span class="na">build</span><span class="pi">:</span>
+            <span class="c1"># custom image w/ app table pre-created</span>
+            <span class="na">context</span><span class="pi">:</span> <span class="s">./postgres</span>
+            <span class="na">dockerfile</span><span class="pi">:</span> <span class="s">Dockerfile.dev</span>
+        <span class="na">volumes</span><span class="pi">:</span> 
+            <span class="pi">-</span> <span class="s">db-data:/var/lib/postgresql/data</span>
+        <span class="na">environment</span><span class="pi">:</span>
+            <span class="na">POSTGRES_PASSWORD</span><span class="pi">:</span> <span class="s">63eaQB9wtLqmNBpg</span>
+            <span class="na">POSTGRES_DB</span><span class="pi">:</span> <span class="s">notesdb</span>
+    <span class="na">app</span><span class="pi">:</span>
+        <span class="na">build</span><span class="pi">:</span> 
+            <span class="na">context</span><span class="pi">:</span> <span class="s">./app</span>
+            <span class="na">dockerfile</span><span class="pi">:</span> <span class="s">Dockerfile.dev</span>
+        <span class="na">ports</span><span class="pi">:</span> 
+            <span class="pi">-</span> <span class="s">3000:3000</span>
+        <span class="na">volumes</span><span class="pi">:</span> 
+            <span class="pi">-</span> <span class="s">/home/node/app/node_modules</span>
+            <span class="pi">-</span> <span class="s">./app:/home/node/app</span>
+        <span class="na">environment</span><span class="pi">:</span> 
+            <span class="na">DB_CONNECTION</span><span class="pi">:</span> <span class="s">pg</span>
+            <span class="na">DB_HOST</span><span class="pi">:</span> <span class="s">db</span>
+            <span class="na">DB_PORT</span><span class="pi">:</span> <span class="m">5432</span>
+            <span class="na">DB_USER</span><span class="pi">:</span> <span class="s">postgres</span>
+            <span class="na">DB_DATABASE</span><span class="pi">:</span> <span class="s">notesdb</span>
+            <span class="na">DB_PASSWORD</span><span class="pi">:</span> <span class="s">63eaQB9wtLqmNBpg</span>
+  
+<span class="na">volumes</span><span class="pi">:</span>
+    <span class="na">db-data</span><span class="pi">:</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">app-db-dev-data</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="execution-1">Execution</h3>
+
+<ul>
+  <li>
+    <p>Debug session example:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl apply <span class="nt">-f</span> app-deployment.yaml
+  
+<span class="c"># deployment.apps/app-deployment created</span>
+  
+kubectl get deployment
+  
+<span class="c"># NAME             READY   UP-TO-DATE   AVAILABLE   AGE</span>
+<span class="c"># app-deployment   0/3     3            0           18m2s</span>
+  
+kubectl get <span class="nt">-f</span> app-deployment.yaml
+  
+<span class="c"># NAME             READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES               SELECTOR</span>
+<span class="c"># app-deployment   0/3     3            0           19m   app          app/latest           component=app</span>
+  
+kubectl get pod
+  
+<span class="c"># NAME                             READY   STATUS             RESTARTS   AGE</span>
+<span class="c"># app-deployment-d59f9c884-88j45   0/1     CrashLoopBackOff   10         30m</span>
+<span class="c"># app-deployment-d59f9c884-96hfr   0/1     CrashLoopBackOff   10         30m</span>
+<span class="c"># app-deployment-d59f9c884-pzdxg   0/1     CrashLoopBackOff   10         30m</span>
+  
+kubectl describe pod api-deployment-d59f9c884-88j45
+  
+<span class="c"># (Extensive debug info)</span>
+  
+kubectl logs api-deployment-d59f9c884-88j45
+  
+<span class="c"># (Logs for container -- error with image)</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>After fixing image:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl apply <span class="nt">-f</span> api-deployment.yaml
+  
+<span class="c"># deployment.apps/api-deployment configured</span>
+  
+kubectl get deployment
+  
+<span class="c"># NAME             READY   UP-TO-DATE   AVAILABLE   AGE</span>
+<span class="c"># app-deployment   3/3     3            3           6m</span>
+  
+kubectl get pod
+  
+<span class="c"># NAME                              READY   STATUS    RESTARTS   AGE</span>
+<span class="c"># app-deployment-66cdd98546-l9x8q   1/1     Running   0          7m26s</span>
+<span class="c"># app-deployment-66cdd98546-mbfw9   1/1     Running   0          7m31s</span>
+<span class="c"># app-deployment-66cdd98546-pntxv   1/1     Running   0          7m21s</span>
+  
+kubectl apply <span class="nt">-f</span> postgres-deployment.yaml
+  
+<span class="c"># deployment.apps/postgres-deployment created</span>
+  
+kubectl get deployment
+  
+<span class="c"># NAME                  READY   UP-TO-DATE   AVAILABLE   AGE</span>
+<span class="c"># postgres-deployment   1/1     1            1           13m</span>
+  
+kubectl get pod
+  
+<span class="c"># NAME                                   READY   STATUS    RESTARTS   AGE</span>
+<span class="c"># postgres-deployment-76fcc75998-mwnb7   1/1     Running   0          13m</span>
+  
+kubectl apply <span class="nt">-f</span> database-persistent-volume-claim.yaml
+  
+<span class="c"># persistentvolumeclaim/database-persistent-volume-claim created</span>
+  
+kubectl get persistentvolumeclaim
+  
+<span class="c"># NAME                               STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE</span>
+<span class="c"># database-persistent-volume-claim   Bound    pvc-525ae8af-00d3-4cc7-ae47-866aa13dffd5   2Gi        RWO            standard       2s</span>
+  
+kubectl apply <span class="nt">-f</span> postgres-cluster-ip-service.yaml
+kubectl apply <span class="nt">-f</span> app-lb-service.yaml
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Short version:</p>
+
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">kubectl apply -f k8s</span>
+  
+<span class="c1"># deployment.apps/app-deployment created</span>
+<span class="c1"># service/app-load-balancer-service created</span>
+<span class="c1"># persistentvolumeclaim/database-persistent-volume-claim created</span>
+<span class="c1"># service/postgres-cluster-ip-service created</span>
+<span class="c1"># deployment.apps/postgres-deployment created</span>
+  
+<span class="s">kubectl get deployment</span>
+  
+<span class="c1"># NAME                  READY   UP-TO-DATE   AVAILABLE   AGE</span>
+<span class="c1"># app-deployment        3/3     3            3           106s</span>
+<span class="c1"># postgres-deployment   1/1     1            1           106s</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="further-education">Further Education</h2>
+
+<ul>
+  <li><a href="https://kubernetes.io/docs/home/">Kubernetes Documentation</a>: go through “Getting Started”, “Tutorials”, “Concepts”.</li>
+  <li><a href="https://kubernetes.io/docs/tasks/">Task Catalog</a>: How to do common Kubernetes tasks.</li>
+  <li><a href="https://kubernetes.io/docs/reference/">Reference page</a> - all things API, setup (kubeadm) and component (kubelet, kube-proxy, TLS bootstrapping, etc) tools, kubectl, etc.</li>
+</ul>]]></content><author><name>Lucas</name></author><category term="kubernetes" /><category term="devops" /><category term="kubernetes" /><category term="containers" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Terraform + Terragrunt Basics</title><link href="http://localhost:4000/terraform-terragrunt-basics/" rel="alternate" type="text/html" title="Terraform + Terragrunt Basics" /><published>2021-12-11T00:00:00-08:00</published><updated>2021-12-11T00:00:00-08:00</updated><id>http://localhost:4000/terraform-terragrunt-basics</id><content type="html" xml:base="http://localhost:4000/terraform-terragrunt-basics/"><![CDATA[<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
 
 <h2 id="basics">Basics</h2>
 
