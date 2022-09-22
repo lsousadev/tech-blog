@@ -8,11 +8,11 @@
 	
 
 {
-	"totalPosts":7,
-	"totalCategories": 5,
-	"totalTags": 26,
-	"totalWords": 11868,
-	"averageWordsPerPost": 1695,
+	"totalPosts":8,
+	"totalCategories": 6,
+	"totalTags": 28,
+	"totalWords": 13921,
+	"averageWordsPerPost": 1740,
 	"firstPost": {
 		"title":"Hosting a Safe Static Website on AWS (UI Version)",
 		"published":"2021-11-27",
@@ -43,6 +43,10 @@
 		
 			
 			,
+			{ "name": "iot", "size":1 }
+		
+			
+			,
 			{ "name": "azure", "size":2 }
 		
 	],
@@ -50,11 +54,11 @@
 		
 			
 			
-			{ "name": "aws", "size":3 }
+			{ "name": "aws", "size":4 }
 		
 			
 			,
-			{ "name": "cloud", "size":5 }
+			{ "name": "cloud", "size":6 }
 		
 			
 			,
@@ -82,7 +86,7 @@
 		
 			
 			,
-			{ "name": "certificate", "size":1 }
+			{ "name": "certificate", "size":2 }
 		
 			
 			,
@@ -126,6 +130,14 @@
 		
 			
 			,
+			{ "name": "iot", "size":1 }
+		
+			
+			,
+			{ "name": "aws cloud practicioner", "size":1 }
+		
+			
+			,
 			{ "name": "azure", "size":2 }
 		
 			
@@ -153,6 +165,6 @@
 			{ "name": "networking", "size":2 }
 		
 	],
-	"dates":"2022-07-17,2022-07-10,2022-01-08,2021-12-18,2021-12-11,2021-12-04,2021-11-27"
+	"dates":"2022-07-17,2022-07-10,2022-01-15,2022-01-08,2021-12-18,2021-12-11,2021-12-04,2021-11-27"
 
 }

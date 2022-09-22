@@ -3,12 +3,12 @@ layout: post
 author: Lucas
 title: "AWS re:Invent 2019: Data-Driven, Cloud-Native Ecosystem"
 subtitle: Note Repository
-categories: [aws]
-tags: [aws, re:invent, cloud, automotive, bmw]
+categories: [iot]
+tags: [aws, re:invent, cloud, automotive, bmw, iot]
 ---
 <!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
 
-["Presentation Video"](https://youtu.be/9fH3y5p8ewE)
+[Presentation Video](https://youtu.be/9fH3y5p8ewE)
 
 ## Characteristics of Automotive Ecosystem
 
@@ -158,7 +158,7 @@ Data Provider: very easy and customizable to bring data into CDH:
 - Bucket Policies in the Source Bucket only apply to the objects owned by the bucket owner. That makes it hard for the Source Bucket to give access to consumer accounts. The solution is to use STS and roles when allowing Data Providers to feed data to the bucket.
 - For services that aren't "role-aware" like Firehose, the workaround is to trigger an event on the upload, which uses SNS and SQS to start a Lambda function that fixes ownership of the object in the bucket and before passing the data along the pipeline to be enriched.
 
-## Cloud Data Hub highlights
+## Cloud Data Hub Highlights
 
 1. Faster and more real-time: increase latency (eg: introduce Kinesis Data Analytics)
 2. Metadata and lineage: improve metadata handling and data lineage tracking (from source to semantic layer), not currently reachable through API

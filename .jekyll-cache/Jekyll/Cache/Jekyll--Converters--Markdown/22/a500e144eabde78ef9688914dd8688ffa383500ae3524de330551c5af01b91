@@ -1,6 +1,6 @@
-I").<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
+I"#.<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
 
-<p><a href="https://youtu.be/9fH3y5p8ewE">“Presentation Video”</a></p>
+<p><a href="https://youtu.be/9fH3y5p8ewE">Presentation Video</a></p>
 
 <h2 id="characteristics-of-automotive-ecosystem">Characteristics of Automotive Ecosystem</h2>
 
@@ -193,7 +193,7 @@
   <li>For services that aren’t “role-aware” like Firehose, the workaround is to trigger an event on the upload, which uses SNS and SQS to start a Lambda function that fixes ownership of the object in the bucket and before passing the data along the pipeline to be enriched.</li>
 </ul>
 
-<h2 id="cloud-data-hub-highlights">Cloud Data Hub highlights</h2>
+<h2 id="cloud-data-hub-highlights">Cloud Data Hub Highlights</h2>
 
 <ol>
   <li>Faster and more real-time: increase latency (eg: introduce Kinesis Data Analytics)</li>

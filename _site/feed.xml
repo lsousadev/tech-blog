@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="https://lucas-sousa.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://lucas-sousa.com/" rel="alternate" type="text/html" /><updated>2022-08-07T15:02:19-07:00</updated><id>https://lucas-sousa.com/feed.xml</id><title type="html">Tech Notebook by Lucas</title><subtitle>This blog was created for note-keeping purposes, not educational. Browse at your own peril.</subtitle><author><name>Lucas Sousa</name></author><entry><title type="html">Azure App Service Architecture</title><link href="https://lucas-sousa.com/azure-app-services-architecture/" rel="alternate" type="text/html" title="Azure App Service Architecture" /><published>2022-07-17T00:00:00-07:00</published><updated>2022-07-17T00:00:00-07:00</updated><id>https://lucas-sousa.com/azure-app-services-architecture</id><content type="html" xml:base="https://lucas-sousa.com/azure-app-services-architecture/"><![CDATA[<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-22T14:18:40-07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Tech Notebook by Lucas</title><subtitle>This blog was created for note-keeping purposes, not educational. Browse at your own peril.</subtitle><author><name>Lucas Sousa</name></author><entry><title type="html">Azure App Service Architecture</title><link href="http://localhost:4000/azure-app-services-architecture/" rel="alternate" type="text/html" title="Azure App Service Architecture" /><published>2022-07-17T00:00:00-07:00</published><updated>2022-07-17T00:00:00-07:00</updated><id>http://localhost:4000/azure-app-services-architecture</id><content type="html" xml:base="http://localhost:4000/azure-app-services-architecture/"><![CDATA[<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
 
 <h2 id="app-service-within-azure-architecture">App Service Within Azure Architecture</h2>
 
@@ -142,7 +142,7 @@
 
 <ul>
   <li><a href="https://docs.microsoft.com/en-us/archive/msdn-magazine/2017/february/azure-inside-the-azure-app-service-architecture">https://docs.microsoft.com/en-us/archive/msdn-magazine/2017/february/azure-inside-the-azure-app-service-architecture</a></li>
-</ul>]]></content><author><name>Lucas</name></author><category term="azure" /><category term="azure" /><category term="cloud" /><category term="vnet" /><category term="app service" /><category term="dns" /><category term="networking" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Azure Networking for Virtual Networks</title><link href="https://lucas-sousa.com/azure-networking-vnet-dns/" rel="alternate" type="text/html" title="Azure Networking for Virtual Networks" /><published>2022-07-10T00:00:00-07:00</published><updated>2022-07-10T00:00:00-07:00</updated><id>https://lucas-sousa.com/azure-networking-vnet-dns</id><content type="html" xml:base="https://lucas-sousa.com/azure-networking-vnet-dns/"><![CDATA[<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
+</ul>]]></content><author><name>Lucas</name></author><category term="azure" /><category term="azure" /><category term="cloud" /><category term="vnet" /><category term="app service" /><category term="dns" /><category term="networking" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Azure Networking for Virtual Networks</title><link href="http://localhost:4000/azure-networking-vnet-dns/" rel="alternate" type="text/html" title="Azure Networking for Virtual Networks" /><published>2022-07-10T00:00:00-07:00</published><updated>2022-07-10T00:00:00-07:00</updated><id>http://localhost:4000/azure-networking-vnet-dns</id><content type="html" xml:base="http://localhost:4000/azure-networking-vnet-dns/"><![CDATA[<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
 
 <h2 id="basics--concepts">Basics &amp; Concepts</h2>
 
@@ -278,9 +278,428 @@
   <li>Does the Private Endpoint NIC get attached directly to the resource server?</li>
   <li>How does Private Endpoint DNS work without Private Link?</li>
   <li>How does a private DNS zone get linked to a VNet? VNet’s route table?</li>
-</ul>]]></content><author><name>Lucas</name></author><category term="networking" /><category term="azure" /><category term="azure" /><category term="cloud" /><category term="vnet" /><category term="app service" /><category term="dns" /><category term="private endpoint" /><category term="service endpoint" /><category term="private link" /><category term="networking" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">AWS re:Invent 2019: Data-Driven, Cloud-Native Ecosystem</title><link href="https://lucas-sousa.com/reinvent-2019-data-driven-cloud-native-ecosystem/" rel="alternate" type="text/html" title="AWS re:Invent 2019: Data-Driven, Cloud-Native Ecosystem" /><published>2022-01-08T00:00:00-08:00</published><updated>2022-01-08T00:00:00-08:00</updated><id>https://lucas-sousa.com/reinvent-2019-data-driven-cloud-native-ecosystem</id><content type="html" xml:base="https://lucas-sousa.com/reinvent-2019-data-driven-cloud-native-ecosystem/"><![CDATA[<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
+</ul>]]></content><author><name>Lucas</name></author><category term="networking" /><category term="azure" /><category term="azure" /><category term="cloud" /><category term="vnet" /><category term="app service" /><category term="dns" /><category term="private endpoint" /><category term="service endpoint" /><category term="private link" /><category term="networking" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">AWS Cloud Practitioner Certification Notes</title><link href="http://localhost:4000/aws-cloud-practitioner-notes/" rel="alternate" type="text/html" title="AWS Cloud Practitioner Certification Notes" /><published>2022-01-15T00:00:00-08:00</published><updated>2022-01-15T00:00:00-08:00</updated><id>http://localhost:4000/aws-cloud-practitioner-notes</id><content type="html" xml:base="http://localhost:4000/aws-cloud-practitioner-notes/"><![CDATA[<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
 
-<p><a href="https://youtu.be/9fH3y5p8ewE">“Presentation Video”</a></p>
+<h2 id="compute-and-networking">Compute and Networking</h2>
+
+<h3 id="amazon-ec2-elastic-compute-cloud">Amazon EC2 (Elastic Compute Cloud)</h3>
+
+<ul>
+  <li>Secure, resizable compute capacity in the cloud. It is designed to make web-scale computing easier for developers.</li>
+  <li>It offers the broadest choice of processor, storage, networking, OS, and purchase model.</li>
+  <li>Pricing:
+    <ul>
+      <li>$ Spot Instances.</li>
+      <li>$$ Savings Plan.</li>
+      <li>$$$ Reserved Instances.</li>
+      <li>$$$$ On-Demand.</li>
+      <li>$$$$$ Dedicated Host.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="elb-elastic-load-balancer">ELB (Elastic Load Balancer)</h3>
+
+<ul>
+  <li>Can load balance at a regional level.</li>
+  <li>Works both for client-server and frontend-backend relationships.</li>
+</ul>
+
+<h3 id="amazon-sns-simple-notification-service">Amazon SNS (Simple Notification Service)</h3>
+
+<ul>
+  <li>Pub/sub service.</li>
+  <li>Subscribers can be web servers, email addresses, AWS Lambda functions, or several other options.</li>
+</ul>
+
+<h3 id="amazon-sqs-simple-queue-service">Amazon SQS (Simple Queue Service)</h3>
+
+<ul>
+  <li>Send, store, and receive messages between software components, without losing messages or requiring other services to be available.</li>
+</ul>
+
+<h3 id="aws-lambda">AWS Lambda</h3>
+
+<ul>
+  <li>Serverless compute service.</li>
+  <li>Upload code, set trigger, pay only for time used.</li>
+</ul>
+
+<h3 id="amazon-ecs-elastic-container-service">Amazon ECS (Elastic Container Service)</h3>
+
+<ul>
+  <li>Enables the running and scaling of containerized applications on AWS.</li>
+</ul>
+
+<h3 id="amazon-eks-elastic-kubernetes-service">Amazon EKS (Elastic Kubernetes Service)</h3>
+
+<ul>
+  <li>Provides the flexibility of Kubernetes with the security and resiliency of being an AWS managed service.</li>
+</ul>
+
+<h3 id="aws-fargate">AWS Fargate</h3>
+
+<ul>
+  <li>Serverless compute engine for containers (Lambda for whole containers instead of code).</li>
+</ul>
+
+<h3 id="amazon-cloudfront">Amazon CloudFront</h3>
+
+<ul>
+  <li>Amazon’s CDN (Content Delivery Network) service.</li>
+  <li>Edge location: site that Amazon CloudFront uses to store cached copies of the content closer to the customers for faster delivery.</li>
+</ul>
+
+<h3 id="amazon-vpc-virtual-private-cloud">Amazon VPC (Virtual Private Cloud)</h3>
+
+<ul>
+  <li>Virtual private AWS network divided into sections called subnets.</li>
+  <li>Components:
+    <ul>
+      <li>Internet Gateway: “Door” to enter VPC. Connection between internet and VPC.</li>
+      <li>Virtual Private Gateway: Gateway that allows protected internet traffic coming from approved networks only.</li>
+      <li>AWS Direct Connect: Dedicated private connection between data center and VPC, instead of VPN encrypting.</li>
+      <li>Private Subnet: Contains resources that should be only accessible through private network, such as customers’ personal info.</li>
+      <li>Network ACLs (Access Control Lists): Virtual firewall that controls in and outbound traffic at the subnet (boundary) level. They are STATELESS: they do not remember/recognize whether it is a returning or new packet, always checks them.</li>
+      <li>Security Group: Virtual firewall for an EC2 instance. Default: deny all inbound, allow all outbound traffic. They are STATEFUL: they allow request responses to return regardless of rules.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="amazon-route-53">Amazon Route 53</h3>
+
+<ul>
+  <li>Amazon’s managed DNS service.</li>
+  <li>A reliable way to route end users to internet applications hosted in AWS (ALIAS records to AWS resources). Useful when resources keep changing IP addresses.</li>
+  <li>New domain names can be registered directly in Route 53 &amp; DNS records transferred for existing domain names managed by other domain registrars.</li>
+  <li>Can load balance on DNS level.</li>
+</ul>
+
+<h2 id="storage">Storage</h2>
+
+<h3 id="amazon-ebs-elastic-block-store">Amazon EBS (Elastic Block Store)</h3>
+
+<ul>
+  <li>Snapshots: Incremental backups (only changed data is backed up).</li>
+  <li>Volume size and type can be configured before provisioning, then it gets attached to the EC2 instance.</li>
+  <li>Better for huge files, since it breaks it down to blocks and saves only what changes.</li>
+  <li>Better for complex read, write, change functions.</li>
+  <li>It’s an AZ level resource, needs to be in the same AZ to attach to EC2 instances.</li>
+  <li>Since it’s like a physical harddrive, it doesn’t automatically scale.</li>
+</ul>
+
+<h3 id="amazon-s3-simple-storage-service">Amazon S3 (Simple Storage Service)</h3>
+
+<ul>
+  <li>Web enabled (every object has a URL with access rights), regionally distributed.</li>
+  <li>Serverless, lower cost.</li>
+  <li>Better for complete objects and occasional changes.</li>
+  <li>With object storage, each object consists of data, metadata (info about data), and a key (ID).</li>
+  <li>0 bytes to 5 TB per object.</li>
+  <li>Consistency:
+    <ul>
+      <li>New upload: Immediate (available immediately).</li>
+      <li>Update/Deletion: Eventual.</li>
+    </ul>
+  </li>
+  <li>Tiers:
+    <ul>
+      <li>Standard: 11 9’s of durability after 1 year.</li>
+      <li>Standard-IA (Infrequent Access): Lower storage price, higher retrieval price.</li>
+      <li>One Zone-IA: 1 availability zone instead of 3.</li>
+      <li>Intelligent-Tiering: Automatic tiering based on usage. Small monthly monitoring and automation fee. No performance impact or operational overhead.</li>
+      <li>Glacier: Lower cost, might take hours to retrieve objects.</li>
+      <li>Glacier Deep: Lowest cost, retrieve objects within 12 hours.</li>
+    </ul>
+  </li>
+  <li>Lifecycle Management: Policies that move data automatically between tiers based on how old they are.</li>
+</ul>
+
+<h3 id="amazon-efs-elastic-file-system">Amazon EFS (Elastic File System)</h3>
+
+<ul>
+  <li>Can have multiple instances reading and writing simultaneously.</li>
+  <li>Linux file system.</li>
+  <li>Regional resource, any EC2 instance can access it within the region.</li>
+  <li>Automatically scale.</li>
+</ul>
+
+<h3 id="amazon-rds-relational-database-service">Amazon RDS (Relational Database Service)</h3>
+
+<ul>
+  <li>Amazon’s managed database.</li>
+  <li>6 different engines:
+    <ul>
+      <li>Amazon Aurora: compatible with MySQL and PostgreSQL. 6 copies at any time accross 3 AZ’s, up to 15 read replicas. Continuous backup to S3, and has point-in-time recovery.</li>
+      <li>PostgreSQL.</li>
+      <li>MySQL.</li>
+      <li>MariaDB.</li>
+      <li>Oracle Database.</li>
+      <li>Microsoft SQL Server.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="dynamodb">DynamoDB</h3>
+
+<ul>
+  <li>Serverless tables that auto-scale.</li>
+  <li>Millisecond response time.</li>
+  <li>It’s a non-relationable database, or NoSQL (doesn’t support SQL-like queries).</li>
+</ul>
+
+<h3 id="amazon-redshift">Amazon Redshift</h3>
+
+<ul>
+  <li>Data warehousing as a service.</li>
+  <li>Handles big data, historical (non-changing data) analytics as opposed to operational analysis.</li>
+</ul>
+
+<h3 id="amazon-dms-data-migration-service">Amazon DMS (Data Migration Service)</h3>
+
+<ul>
+  <li>Safely migrate data from source to target database.</li>
+  <li>Source remains fully operational.</li>
+  <li>Source and target don’t have to be same type.</li>
+  <li>Uses are continuous replication, database consolidation, and dev/test db migration.</li>
+</ul>
+
+<h3 id="additional-db-services">Additional DB services</h3>
+
+<ul>
+  <li>Amazon DocumentDB: Supports MongoDB workloads.</li>
+  <li>Amazon Neptune: graph database. Good with recommendation engines and fraud detection.</li>
+  <li>Amazon QLDB (Quantum Ledger Database): Immutable ledger.</li>
+  <li>Amazon Managed Blockchain: Create and manage blockchain networks with open-source frameworks.</li>
+  <li>Amazon ElastiCache: Adds caching layers on top of db. Supports 2 types of data stores, Redis and Memcached.</li>
+  <li>Amazon DAX (DynamoDB Accelerator): In-memory cache for DynamoDB. Milli to microseconds.</li>
+</ul>
+
+<h2 id="security">Security</h2>
+
+<h3 id="aws-iam-identity-and-access-management">AWS IAM (Identity and Access Management)</h3>
+
+<ul>
+  <li>When an AWS account is first created, it begins with only one identity, known as the root user.</li>
+  <li>Best practice is to never use root user unless absolutely necessary.</li>
+  <li>MFA (Multi-Factor Authentication) is an extra layer of security, such as a second form of authentication like a random code sent to a mobile device.</li>
+  <li>IAM user: Name and credential for a person/app that interacts with AWS services and resources. No permissions by default.</li>
+  <li>IAM policy: Grants or denies specific permissions for specific resources and can be attached to IAM users.</li>
+  <li>IAM group: Policies can be written for groups, and then users are assigned to the groups.</li>
+  <li>IAM role: An identity that can be assumed to gain temporary access to permissions.</li>
+</ul>
+
+<h3 id="aws-organizations">AWS Organizations</h3>
+
+<ul>
+  <li>Central location to manage AWS accounts with consolidation billing.</li>
+  <li>Hierarchical groupings (Organization Units) of accounts.</li>
+  <li>SCPs (Service Control Policies): Specify maximum permission for accounts in the organization.</li>
+</ul>
+
+<h3 id="aws-artifact">AWS Artifact</h3>
+
+<ul>
+  <li>Service that provides on-demand access to AWS security and compliance reports and select online agreements.</li>
+  <li>AWS Artifact Agreements: Review, accept, and manage agreements with AWS regarding the use of certain types of information throughout AWS services.</li>
+  <li>AWS Artifact Reports: Provide compliance reports from third-party auditors. AWS is compliant with a variety of global, regional, and industry-specific security standards and regulations. It remains up to date with the latest reports released.</li>
+</ul>
+
+<h3 id="aws-shield">AWS Shield</h3>
+
+<ul>
+  <li>Service that protects applications against DDoS attacks.</li>
+  <li>Plans:
+    <ul>
+      <li>Standard: Automatic, no cost. Protects from the most common, frequently occurring types of DDoS attacks.</li>
+      <li>Advanced: Paid service with detailed attack diagnostics. Integrates with other AWS services such as CloudFront, Route 53, and ELB.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="aws-waf-website-application-firewall">AWS WAF (Website Application Firewall)</h3>
+
+<ul>
+  <li>Monitor and filter incoming traffic, proactive defense with machine learning.</li>
+</ul>
+
+<h3 id="aws-kms-key-management-service">AWS KMS (Key Management Service)</h3>
+
+<ul>
+  <li>Encryption operations through the use of cryptographic keys.</li>
+</ul>
+
+<h3 id="amazon-inspector">Amazon Inspector</h3>
+
+<ul>
+  <li>Automated security assessment against infrastructure.</li>
+</ul>
+
+<h3 id="amazon-guardduty">Amazon GuardDuty</h3>
+
+<ul>
+  <li>Uses integrated threat intelligence to identify threats.</li>
+  <li>Runs independently from AWS services.</li>
+  <li>Identifies threats by continuously monitoring the network activity and account behavior within a AWS environment.</li>
+</ul>
+
+<h2 id="monitoring-and-analytics">Monitoring and Analytics</h2>
+
+<h3 id="amazon-cloudwatch">Amazon CloudWatch</h3>
+
+<ul>
+  <li>Monitors and manages various metrics.</li>
+  <li>Configures alarm actions based on data from those metrics.</li>
+  <li>Customizable dashboard feature enables access all metrics for resources from a single location.</li>
+</ul>
+
+<h3 id="aws-cloudtrail">AWS CloudTrail</h3>
+
+<ul>
+  <li>Records API calls: ID of caller, time of call, source IP address of caller, etc.</li>
+  <li>Events are typically updated in CloudTrail within 15 minutes after an API call.</li>
+</ul>
+
+<h3 id="aws-trusted-advisor">AWS Trusted Advisor</h3>
+
+<ul>
+  <li>Inspects AWS environment and provides real-time recommendations in accordance with AWS best practices.</li>
+  <li>5 categories: Cost Optimization, Performance, Security, Fault Tolerance, Service Limits.</li>
+</ul>
+
+<h2 id="pricing-and-support">Pricing and Support</h2>
+
+<ul>
+  <li>Pay for what is used. Pay less for reserved resources. Pay less with volume-based discounts.</li>
+  <li>AWS Free Tier comes in 3 types:
+    <ul>
+      <li>Always Free: Lambda, DynamoDB.</li>
+      <li>12 Months Free: S3 Standard, EFS.</li>
+      <li>Trials: Inspector, Lightsail.</li>
+    </ul>
+  </li>
+  <li>AWS Pricing Calculator: Explore AWS services and create an estimate for the cost of use cases on AWS.</li>
+  <li>AWS Billing &amp; Cost Management dashboard: Pay AWS bills, monitor usage, and analyze and control costs.</li>
+  <li>Consolidated Billing: Add up usage of multiple accounts within the Organization to qualify for volume-based discounts.</li>
+  <li>AWS Budgets: Create budgets and set alarms to plan and monitor service usage, service costs, and instance reservations.</li>
+  <li>AWS Cost Explorer: Visualize, understand, and manage AWS costs and usage over time. Offers graphs and filters.</li>
+  <li>AWS Support tiers:
+    <ul>
+      <li>Basic: 24/7 Customer service, documentation, whitepapers, forums, Trusted Advisor, AWS Personal Health Dashboard.</li>
+      <li>Developer: Email access to customer support (24h response time).</li>
+      <li>Business: Full set of checks for Trusted Advisor, phone access to support, infrastructure event management.</li>
+      <li>Enterprise: 15-min SLA for business-critical workload, TAM (Technical Account Manager).</li>
+    </ul>
+  </li>
+  <li>TAM: Provides guidance, architectural reviews, and ongoing communication for companies to plan, deploy, and optimize applications.</li>
+  <li>AWS Marketplace: Digital catalog that includes thousands of software listings from independent software vendors.</li>
+</ul>
+
+<h2 id="migration">Migration</h2>
+
+<ul>
+  <li>AWS CAF (Cloud Adoption Framework): Organizes guidance into six areas of focus, called Perspectives:
+    <ul>
+      <li>Business capabilities: Business, People, Governance.</li>
+      <li>Technical capabilities: Platform, Security, Operations.</li>
+    </ul>
+  </li>
+  <li>6 different strategies (R’s) for migrating applications:
+    <ul>
+      <li>Rehosting: Move applications “as is” to AWS without optimization.</li>
+      <li>Replatforming: Rehosting with a few optimizations, no core code change, no new dev efforts. Eg: MySQL -&gt; RDS MySQL.</li>
+      <li>Repurchasing: Abandoning legacy software vendors and moving to another one or a cloud-based one.</li>
+      <li>Refactoring/Re-architecting: New code, driven by business need of new features. Highest initial cost.</li>
+      <li>Retaining: No need to migrate apps about to be deprecated.</li>
+      <li>Retiring: A % of app portfolio usually is no longer needed, can be terminated.</li>
+    </ul>
+  </li>
+  <li>AWS Snow Family:
+    <ul>
+      <li>AWS Snowcone: 2 CPUs, 4 GB of memory, 8 TB of usable storage</li>
+      <li>AWS Snowball Edge:
+        <ul>
+          <li>Compute Optimized: 52 vCPUs, 208GiB memory, 42 TB HDD, 7.68 TB SSD.</li>
+          <li>Storage Optimized: 40 vCPUs, 80GiB memory, 80 TB HDD, 1 TB SSD.</li>
+        </ul>
+      </li>
+      <li>AWS Snowmobile: 100 PB HDD</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="aws-innovation-services">AWS Innovation Services</h3>
+
+<ul>
+  <li>Amazon SageMaker: Build, train, and deploy Machine Learning models quickly.</li>
+  <li>AI services:
+    <ul>
+      <li>Transcribe: Convert speech to text.</li>
+      <li>Comprehend: Discover patterns in text.</li>
+      <li>Lex: Build voice and text chatbots.</li>
+      <li>Amazon A2I: Provides built-in human review workflows for common machine learning use cases.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="other-notes">Other Notes</h2>
+
+<ul>
+  <li>AWS Cloud: Pay only for what is used.</li>
+  <li>Factors for selecting a Region:
+    <ul>
+      <li>Compliance.</li>
+      <li>Latency/Proximity.</li>
+      <li>Feature/Service Availability.</li>
+      <li>Pricing.</li>
+    </ul>
+  </li>
+  <li>Availability Zone: A single data center or a group of data centers within a Region.</li>
+  <li>Everything in AWS is an API call. These API calls can be crafted by the customer or facilitated by AWS:
+    <ul>
+      <li>DIY options:
+        <ul>
+          <li>AWS Management Console: Browser-based. Good for learning, testing, viewing bills, etc.</li>
+          <li>AWS CLI: Make API calls from own terminal (write commands).</li>
+          <li>SDKs (Software Development Kits): Use a specific language to make calls (write programs).</li>
+        </ul>
+      </li>
+      <li>Managed tools:
+        <ul>
+          <li>AWS Elastic Beanstalk: Provide code and config settings, and EB deploys resources necessary for Load balancing, Scaling, Monitoring, etc</li>
+          <li>AWS CloudFormation: Infrastructure as Code. What is wanted without specifying how. CF will do that. Create an environment, called a CF Template, and CF does the rest.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Five pillars of Well-Architected Framework:
+    <ul>
+      <li>Operational Excellence.</li>
+      <li>Security.</li>
+      <li>Reliability.</li>
+      <li>Performance Efficiency.</li>
+      <li>Cost Optimization.</li>
+    </ul>
+  </li>
+  <li>Benefits of the AWS Cloud:
+    <ul>
+      <li>Trade upfront expense for variable expense.</li>
+      <li>Benefit from massive economies of scale.</li>
+      <li>Stop guessing capacity.</li>
+      <li>Increase speed and agility.</li>
+      <li>Stop spending money running and maintaining data centers.</li>
+      <li>Go global in minutes.</li>
+    </ul>
+  </li>
+  <li>AWS Shared Responsibility Model:
+    <ul>
+      <li>AWS: Responsible for security “of” the cloud (Physical, Network, Hypervisor).</li>
+      <li>Customer: Responsible for security “in” the cloud (OS, Application, Data).</li>
+    </ul>
+  </li>
+</ul>]]></content><author><name>Lucas</name></author><category term="aws" /><category term="aws" /><category term="cloud" /><category term="certificate" /><category term="aws cloud practicioner" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">AWS re:Invent 2019: Data-Driven, Cloud-Native Ecosystem</title><link href="http://localhost:4000/reinvent-2019-data-driven-cloud-native-ecosystem/" rel="alternate" type="text/html" title="AWS re:Invent 2019: Data-Driven, Cloud-Native Ecosystem" /><published>2022-01-08T00:00:00-08:00</published><updated>2022-01-08T00:00:00-08:00</updated><id>http://localhost:4000/reinvent-2019-data-driven-cloud-native-ecosystem</id><content type="html" xml:base="http://localhost:4000/reinvent-2019-data-driven-cloud-native-ecosystem/"><![CDATA[<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
+
+<p><a href="https://youtu.be/9fH3y5p8ewE">Presentation Video</a></p>
 
 <h2 id="characteristics-of-automotive-ecosystem">Characteristics of Automotive Ecosystem</h2>
 
@@ -473,7 +892,7 @@
   <li>For services that aren’t “role-aware” like Firehose, the workaround is to trigger an event on the upload, which uses SNS and SQS to start a Lambda function that fixes ownership of the object in the bucket and before passing the data along the pipeline to be enriched.</li>
 </ul>
 
-<h2 id="cloud-data-hub-highlights">Cloud Data Hub highlights</h2>
+<h2 id="cloud-data-hub-highlights">Cloud Data Hub Highlights</h2>
 
 <ol>
   <li>Faster and more real-time: increase latency (eg: introduce Kinesis Data Analytics)</li>
@@ -488,7 +907,7 @@
 <ul>
   <li>Where data scientists and analysts use consumer accounts and advanced analytics services such as Sage Maker. It’s important that consumers have the freedom to design their own custom infrastructure along with the available building blocks and templates.</li>
   <li>Consumer account can also use SNS topic to trigger the processing once new data arrives.</li>
-</ul>]]></content><author><name>Lucas</name></author><category term="aws" /><category term="aws" /><category term="re:invent" /><category term="cloud" /><category term="automotive" /><category term="bmw" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Kubernetes Basics</title><link href="https://lucas-sousa.com/kubernetes-basics/" rel="alternate" type="text/html" title="Kubernetes Basics" /><published>2021-12-18T00:00:00-08:00</published><updated>2021-12-18T00:00:00-08:00</updated><id>https://lucas-sousa.com/kubernetes-basics</id><content type="html" xml:base="https://lucas-sousa.com/kubernetes-basics/"><![CDATA[<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
+</ul>]]></content><author><name>Lucas</name></author><category term="iot" /><category term="aws" /><category term="re:invent" /><category term="cloud" /><category term="automotive" /><category term="bmw" /><category term="iot" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Kubernetes Basics</title><link href="http://localhost:4000/kubernetes-basics/" rel="alternate" type="text/html" title="Kubernetes Basics" /><published>2021-12-18T00:00:00-08:00</published><updated>2021-12-18T00:00:00-08:00</updated><id>http://localhost:4000/kubernetes-basics</id><content type="html" xml:base="http://localhost:4000/kubernetes-basics/"><![CDATA[<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
 
 <h2 id="references">References</h2>
 
@@ -978,7 +1397,7 @@ kubectl apply <span class="nt">-f</span> app-lb-service.yaml
   <li><a href="https://kubernetes.io/docs/home/">Kubernetes Documentation</a>: go through “Getting Started”, “Tutorials”, “Concepts”.</li>
   <li><a href="https://kubernetes.io/docs/tasks/">Task Catalog</a>: How to do common Kubernetes tasks.</li>
   <li><a href="https://kubernetes.io/docs/reference/">Reference page</a> - all things API, setup (kubeadm) and component (kubelet, kube-proxy, TLS bootstrapping, etc) tools, kubectl, etc.</li>
-</ul>]]></content><author><name>Lucas</name></author><category term="kubernetes" /><category term="devops" /><category term="kubernetes" /><category term="containers" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Terraform + Terragrunt Basics</title><link href="https://lucas-sousa.com/terraform-terragrunt-basics/" rel="alternate" type="text/html" title="Terraform + Terragrunt Basics" /><published>2021-12-11T00:00:00-08:00</published><updated>2021-12-11T00:00:00-08:00</updated><id>https://lucas-sousa.com/terraform-terragrunt-basics</id><content type="html" xml:base="https://lucas-sousa.com/terraform-terragrunt-basics/"><![CDATA[<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
+</ul>]]></content><author><name>Lucas</name></author><category term="kubernetes" /><category term="devops" /><category term="kubernetes" /><category term="containers" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Terraform + Terragrunt Basics</title><link href="http://localhost:4000/terraform-terragrunt-basics/" rel="alternate" type="text/html" title="Terraform + Terragrunt Basics" /><published>2021-12-11T00:00:00-08:00</published><updated>2021-12-11T00:00:00-08:00</updated><id>http://localhost:4000/terraform-terragrunt-basics</id><content type="html" xml:base="http://localhost:4000/terraform-terragrunt-basics/"><![CDATA[<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
 
 <h2 id="basics">Basics</h2>
 
@@ -1124,7 +1543,7 @@ kubectl apply <span class="nt">-f</span> app-lb-service.yaml
       </li>
     </ul>
   </li>
-</ul>]]></content><author><name>Lucas</name></author><category term="terraform" /><category term="devops" /><category term="terraform" /><category term="terragrunt" /><category term="iac" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">AWS Developer Associate Certification Notes</title><link href="https://lucas-sousa.com/aws-developer-associate-notes/" rel="alternate" type="text/html" title="AWS Developer Associate Certification Notes" /><published>2021-12-04T00:00:00-08:00</published><updated>2021-12-04T00:00:00-08:00</updated><id>https://lucas-sousa.com/aws-developer-associate-notes</id><content type="html" xml:base="https://lucas-sousa.com/aws-developer-associate-notes/"><![CDATA[<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
+</ul>]]></content><author><name>Lucas</name></author><category term="terraform" /><category term="devops" /><category term="terraform" /><category term="terragrunt" /><category term="iac" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">AWS Developer Associate Certification Notes</title><link href="http://localhost:4000/aws-developer-associate-notes/" rel="alternate" type="text/html" title="AWS Developer Associate Certification Notes" /><published>2021-12-04T00:00:00-08:00</published><updated>2021-12-04T00:00:00-08:00</updated><id>http://localhost:4000/aws-developer-associate-notes</id><content type="html" xml:base="http://localhost:4000/aws-developer-associate-notes/"><![CDATA[<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
 
 <h2 id="api-gateway">API Gateway</h2>
 
@@ -1638,7 +2057,7 @@ kubectl apply <span class="nt">-f</span> app-lb-service.yaml
   </li>
   <li>If a load balancer or other intermediary forwards a request to your application, X-Ray takes the client IP from the <code class="language-plaintext highlighter-rouge">X-Forwarded-For</code> header in the request instead of from the source IP in the IP packet, which would only show the ELB’s IP address.</li>
   <li>SDK: does not send trace data directly to AWS X-Ray. To avoid calling the service every time your application serves a request, the SDK sends the trace data to a daemon, which collects segments for multiple requests and uploads them in batches.</li>
-</ul>]]></content><author><name>Lucas</name></author><category term="aws" /><category term="aws" /><category term="cloud" /><category term="certificate" /><category term="aws developer associate" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Hosting a Safe Static Website on AWS (UI Version)</title><link href="https://lucas-sousa.com/hosting-safe-static-website-aws-ui/" rel="alternate" type="text/html" title="Hosting a Safe Static Website on AWS (UI Version)" /><published>2021-11-27T00:00:00-08:00</published><updated>2021-11-27T00:00:00-08:00</updated><id>https://lucas-sousa.com/hosting-safe-static-website-aws-ui</id><content type="html" xml:base="https://lucas-sousa.com/hosting-safe-static-website-aws-ui/"><![CDATA[<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
+</ul>]]></content><author><name>Lucas</name></author><category term="aws" /><category term="aws" /><category term="cloud" /><category term="certificate" /><category term="aws developer associate" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Hosting a Safe Static Website on AWS (UI Version)</title><link href="http://localhost:4000/hosting-safe-static-website-aws-ui/" rel="alternate" type="text/html" title="Hosting a Safe Static Website on AWS (UI Version)" /><published>2021-11-27T00:00:00-08:00</published><updated>2021-11-27T00:00:00-08:00</updated><id>http://localhost:4000/hosting-safe-static-website-aws-ui</id><content type="html" xml:base="http://localhost:4000/hosting-safe-static-website-aws-ui/"><![CDATA[<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
 
 <p>There are many articles on how to host a static website using S3. Many more explain how to enable <em>https</em>, and plenty of them lay out how to use your own domain to host them. AWS’ documentation alone covers all of it. In fact, the base for this article is in the documentation <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/website-hosting-custom-domain-walkthrough.html">pages</a>.</p>
 
