@@ -47,7 +47,7 @@ description: >- # this means to ignore newlines until "baseurl:"
 
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://lucas-sousa.com" # the base hostname & protocol for your site, e.g. http://example.com
-favicon: "/assets/images/devops.png" # the favicon for your site
+favicon: "/assets/images/favicons/devops.png" # the favicon for your site
 permalink: /:title/
 
 # Yat date format
@@ -201,7 +201,7 @@ kmarkdown:
 
 plugins:
   - jekyll-feed
+  - jekyll-paginate
   - jekyll-seo-tag
   - jekyll-sitemap
-  - jekyll-paginate
   - jekyll-spaceship

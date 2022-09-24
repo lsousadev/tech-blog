@@ -29,5 +29,5 @@
 
 - improve stats page (ref <https://www.raymondcamden.com/2018/07/21/building-a-stats-page-for-jekyll-blogs>)
 - visitor count / analytics <https://ravichaganti.com/blog/adding-visitor-counter-to-statically-generated-web-pages/> <https://michaelsoolee.com/google-analytics-jekyll/>
-- add ## Reference section to every post
-- fix Home Page's Categories sidebar
+- add ## Reference to azure posts
+- fix Homepage's  sidebar to show posts (https://github.com/jeffreytse/jekyll-theme-yat/issues/101)
