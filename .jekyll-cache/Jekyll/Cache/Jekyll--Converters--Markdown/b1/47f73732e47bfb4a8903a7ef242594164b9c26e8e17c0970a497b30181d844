@@ -1,4 +1,4 @@
-I"=<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
+I"�<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
 
 <h2 id="references">References</h2>
 
@@ -488,5 +488,11 @@ kubectl apply <span class="nt">-f</span> app-lb-service.yaml
   <li><a href="https://kubernetes.io/docs/home/">Kubernetes Documentation</a>: go through “Getting Started”, “Tutorials”, “Concepts”.</li>
   <li><a href="https://kubernetes.io/docs/tasks/">Task Catalog</a>: How to do common Kubernetes tasks.</li>
   <li><a href="https://kubernetes.io/docs/reference/">Reference page</a> - all things API, setup (kubeadm) and component (kubelet, kube-proxy, TLS bootstrapping, etc) tools, kubectl, etc.</li>
+</ul>
+
+<h2 id="reference">Reference</h2>
+
+<ul>
+  <li><a href="https://www.freecodecamp.org/news/the-kubernetes-handbook/">The Kubernetes Handbook</a></li>
 </ul>
 :ET

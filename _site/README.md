@@ -31,4 +31,3 @@
 - visitor count / analytics <https://ravichaganti.com/blog/adding-visitor-counter-to-statically-generated-web-pages/> <https://michaelsoolee.com/google-analytics-jekyll/>
 - add ## Reference section to every post
 - fix Home Page's Categories sidebar
-- fix BMW post images

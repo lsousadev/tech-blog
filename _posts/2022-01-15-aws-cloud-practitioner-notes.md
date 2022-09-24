@@ -298,3 +298,7 @@ tags: [aws, cloud, certificate, aws cloud practicioner]
 - AWS Shared Responsibility Model:
   - AWS: Responsible for security "of" the cloud (Physical, Network, Hypervisor).
   - Customer: Responsible for security "in" the cloud (OS, Application, Data).
+
+## Reference
+
+- [AWS Cloud Practitioner Essentials](https://aws.amazon.com/training/digital/aws-cloud-practitioner-essentials/)

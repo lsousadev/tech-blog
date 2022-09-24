@@ -1,4 +1,4 @@
-I"�E<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
+I"6F<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
 
 <h2 id="compute-and-networking">Compute and Networking</h2>
 
@@ -417,5 +417,11 @@
       <li>Customer: Responsible for security “in” the cloud (OS, Application, Data).</li>
     </ul>
   </li>
+</ul>
+
+<h2 id="reference">Reference</h2>
+
+<ul>
+  <li><a href="https://aws.amazon.com/training/digital/aws-cloud-practitioner-essentials/">AWS Cloud Practitioner Essentials</a></li>
 </ul>
 :ET

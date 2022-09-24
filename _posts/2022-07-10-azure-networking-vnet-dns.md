@@ -41,7 +41,7 @@ tags: [azure, cloud, vnet, app service, dns, private endpoint, service endpoint,
 
 ### Service Endpoints
 
-![Service Endpoint Request Flow](/assets/images/service_endpoint.jpg)
+![Service Endpoint Request Flow](/assets/images/2022-07-10-azure-networking-vnet-dns/service_endpoint.jpg)
 
 - Adds a record to a subnet's route table pointing public IP addresses of services to `VirtualNetworkServiceEndpoint`, which chains records redirecting the request through the Azure backbone all the way to the service's public endpoint.
 - The source IP address will switch from public to private as the request will be internal to the VNet, so the service's firewall rules must reflect that.
@@ -50,7 +50,7 @@ tags: [azure, cloud, vnet, app service, dns, private endpoint, service endpoint,
 
 ### Private Endpoints
 
-![Private Endpoint Request Flow with Private Link](/assets/images/private_endpoint_private_link.png)
+![Private Endpoint Request Flow with Private Link](/assets/images/2022-07-10-azure-networking-vnet-dns/private_endpoint_private_link.png)
 
 - Adds a NIC to a subnet and attaches said NIC to a specific *resource* (eg. a blob storage).
 - It is usually coupled with Private Link, which creates a private DNS zone to map all resource requests to their correct Private Endpoint private IP addresses.

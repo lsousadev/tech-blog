@@ -1,4 +1,4 @@
-I"�~<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
+I"�<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
 
 <h2 id="api-gateway">API Gateway</h2>
 
@@ -22,7 +22,7 @@
   <li>Non-proxy Lambda integration:</li>
 </ul>
 
-<p><img src="/assets/images/api_gateway_lambda_integration.png" alt="API Gateway Lambda Integration" /></p>
+<p><img src="/assets/images/2021-12-04-aws-developer-associate-notes/api_gateway_lambda_integration.png" alt="API Gateway Lambda Integration" /></p>
 
 <h2 id="cloudformation">CloudFormation</h2>
 
@@ -229,7 +229,7 @@
   <li>Deployment methods (note that <code class="language-plaintext highlighter-rouge">canary</code> is not available):</li>
 </ul>
 
-<p><img src="/assets/images/elastic_beanstalk_deployment_methods.png" alt="Elastic Beanstalk Deployment Methods" /></p>
+<p><img src="/assets/images/2021-12-04-aws-developer-associate-notes/elastic_beanstalk_deployment_methods.png" alt="Elastic Beanstalk Deployment Methods" /></p>
 
 <ul>
   <li>Note that Canary is not available</li>
@@ -512,5 +512,11 @@
   </li>
   <li>If a load balancer or other intermediary forwards a request to your application, X-Ray takes the client IP from the <code class="language-plaintext highlighter-rouge">X-Forwarded-For</code> header in the request instead of from the source IP in the IP packet, which would only show the ELB’s IP address.</li>
   <li>SDK: does not send trace data directly to AWS X-Ray. To avoid calling the service every time your application serves a request, the SDK sends the trace data to a daemon, which collects segments for multiple requests and uploads them in batches.</li>
+</ul>
+
+<h2 id="reference">Reference</h2>
+
+<ul>
+  <li><a href="https://www.udemy.com/">Udemy.com</a> - Stephane Maarek - AWS Certified Developer Associate</li>
 </ul>
 :ET

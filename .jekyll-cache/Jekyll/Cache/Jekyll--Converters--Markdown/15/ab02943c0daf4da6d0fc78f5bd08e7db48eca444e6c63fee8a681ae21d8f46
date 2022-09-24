@@ -1,4 +1,4 @@
-I"�<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
+I"'<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
 
 <h2 id="basics--concepts">Basics &amp; Concepts</h2>
 
@@ -53,7 +53,7 @@
 
 <h3 id="service-endpoints">Service Endpoints</h3>
 
-<p><img src="/assets/images/service_endpoint.jpg" alt="Service Endpoint Request Flow" /></p>
+<p><img src="/assets/images/2022-07-10-azure-networking-vnet-dns/service_endpoint.jpg" alt="Service Endpoint Request Flow" /></p>
 
 <ul>
   <li>Adds a record to a subnet’s route table pointing public IP addresses of services to <code class="language-plaintext highlighter-rouge">VirtualNetworkServiceEndpoint</code>, which chains records redirecting the request through the Azure backbone all the way to the service’s public endpoint.</li>
@@ -64,7 +64,7 @@
 
 <h3 id="private-endpoints">Private Endpoints</h3>
 
-<p><img src="/assets/images/private_endpoint_private_link.png" alt="Private Endpoint Request Flow with Private Link" /></p>
+<p><img src="/assets/images/2022-07-10-azure-networking-vnet-dns/private_endpoint_private_link.png" alt="Private Endpoint Request Flow with Private Link" /></p>
 
 <ul>
   <li>Adds a NIC to a subnet and attaches said NIC to a specific <em>resource</em> (eg. a blob storage).</li>

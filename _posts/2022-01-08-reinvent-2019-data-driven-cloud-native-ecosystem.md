@@ -19,7 +19,7 @@ tags: [aws, re:invent, cloud, automotive, bmw, iot]
 - Electrification: very pervasive on ride-sharing and micro mobility (scooters, bikes) solutions
 - Subscriptions: car makers are becoming software and service companies (eg: make cars for subscription)
 
-!["Why Enterprises Need Data Lakes"](https://i.imgur.com/vcQA78X.png)
+!["Why Enterprises Need Data Lakes"](/assets/images/2022-01-08-reinvent-2019-data-driven-cloud-native-ecosystem/why_enterprises_need_data_lakes.png)
 
 ## Three main features of Data Lakes
 
@@ -45,7 +45,7 @@ tags: [aws, re:invent, cloud, automotive, bmw, iot]
 - Eventually purpose-built databases started being introduced to speed up workloads (eg: PostgreSQL) trying to satisfy customer requirements
 - Lastly, to harness the results of the data analysis, in 2016 a K8s cluster was introduced.
 
-!["Old Big Data Landscape"](https://i.imgur.com/CPuqyUF.png)
+!["Traditional Big Data Landscape"](/assets/images/2022-01-08-reinvent-2019-data-driven-cloud-native-ecosystem/traditional_big_data_landscape.png)
 
 Very heterogeneous landscape. Consequences:
 
@@ -56,7 +56,7 @@ Very heterogeneous landscape. Consequences:
 
 The whole (small) DevOps team had full and trained responsibilities over all the components. Those reasons led BMW to move to the cloud.
 
-!["Lift, Think, and Shift"](https://i.imgur.com/YdGDQe1.png)
+!["Lift, Think, and Shift"](/assets/images/2022-01-08-reinvent-2019-data-driven-cloud-native-ecosystem/lift_think_and_shift.png)
 
 Lift, Think, & Shift: re-architecture of major parts of the on-premises platform into the cloud, not just duplicate the combobulated environment it currently had. Move of major parts into AWS primarily built upon cloud-native building blocks and IaaC
 
@@ -79,7 +79,7 @@ Three main premises:
 
 Three-layered approach:
 
-!["Three Layered Approach"](https://i.imgur.com/1RoHI0U.png)
+!["Three Layered Approach"](/assets/images/2022-01-08-reinvent-2019-data-driven-cloud-native-ecosystem/three_layer_approach.png)
 
 1. Real-Time Zone: keeps cached copies of real-world objects (eg: customer vehicles) for fast access to non-historic sized data needed for inference of ML models
 2. Insight Zone: historicized versions of real-time objects and also plays well with already existing relational databases (OLTP, data warehouses, etc)
@@ -87,7 +87,7 @@ Three-layered approach:
 
 Three important things about data platform:
 
-!["Three Important Data Platform Facts"](https://i.imgur.com/jzaPUlE.png)
+!["Three Important Data Platform Facts"](/assets/images/2022-01-08-reinvent-2019-data-driven-cloud-native-ecosystem/three_important_data_platform_facts.png)
 
 - Democratization: provide easy access to both bounded and unbounded data. Single point of truth for any kind of data analytics. Enable data stewards to intuitively look at what's already there. Introducing a data catalog built in-house upon the existing Cloud Data Hub for exploration
 - Modularity: key to enable broader community to work with the platform. Allows users to bring their own building blocks too
@@ -95,7 +95,7 @@ Three important things about data platform:
 
 ## Cloud Data Hub GUI
 
-!["BMW Clodu Data Hub GUI"](https://i.imgur.com/tqToANn.png)
+!["BMW Cloud Data Hub GUI"](/assets/images/2022-01-08-reinvent-2019-data-driven-cloud-native-ecosystem/bmw_cloud_data_hub_gui.png)
 
 Client Flow:
 
@@ -118,21 +118,21 @@ Older flow used EMR. Newer flow uses Lambda, CDK, CloudFormation orchestration.
 
 ### Data Ingestion
 
-!["Data Ingestion - Part 1"](https://i.imgur.com/SMmdzOQ.png)
+!["Data Ingestion - Part 1"](/assets/images/2022-01-08-reinvent-2019-data-driven-cloud-native-ecosystem/data_ingestion_part_1.png)
 
-!["Data Ingestion - Part 2"](https://i.imgur.com/1cAvlN3.png)
+!["Data Ingestion - Part 2"](/assets/images/2022-01-08-reinvent-2019-data-driven-cloud-native-ecosystem/data_ingestion_part_2.png)
 
 DATA.BMW.CLOUD: Store all bounded and unbounded data, build tools on top of that (eg: BMW CDH Portal) to give great and easy customer experience.
 
 Data Provider: very easy and customizable to bring data into CDH:
 
-  !["Data Provider Code"](https://i.imgur.com/wqNihtj.png)
+  !["Data Provider Code"](/assets/images/2022-01-08-reinvent-2019-data-driven-cloud-native-ecosystem/data_provider_code.png)
 
 ### What's provisioned by the Terraform module inside the Data Provider
 
 - Bounded data:
 
-  !["Ingestion Module - Bounded Data"](https://i.imgur.com/AeDluFz.png)
+  !["Ingestion Module - Bounded Data"](/assets/images/2022-01-08-reinvent-2019-data-driven-cloud-native-ecosystem/ingestion_module_bounded_data.png)
 
   - `Glue Trigger`: triggers the Glue ETL
   - `Glue ETL`: has access to on-prem DB since it's inside Private VPC. Uses:
@@ -144,7 +144,7 @@ Data Provider: very easy and customizable to bring data into CDH:
 
 - Unbounded Data:
 
-!["Ingestion Module - Ingredients"](https://i.imgur.com/kMFa4OL.png)
+!["Ingestion Module - Ingredients"](/assets/images/2022-01-08-reinvent-2019-data-driven-cloud-native-ecosystem/ingestion_module_ingredients.png)
 
 - `Kinesis`: Receives data from cloud-native data providers
   - 1-2 minutes latency from writing data to Kinesis until it is visible in Athena
@@ -152,7 +152,7 @@ Data Provider: very easy and customizable to bring data into CDH:
 - `Lambda`: transforms data
 - `Fargate`: Imports legacy Kafka topics into Kinesis
 
-  !["Ingestion Module - Unbouded Data"](https://i.imgur.com/q9wmF9t.png)
+  !["Ingestion Module - Unbouded Data"](/assets/images/2022-01-08-reinvent-2019-data-driven-cloud-native-ecosystem/ingestion_module_unbounded_data.png)
 
 - Lambda Prep & S3 Prep Bucket: Event data enriched with data such as vehicle/customer data.
 - Bucket Policies in the Source Bucket only apply to the objects owned by the bucket owner. That makes it hard for the Source Bucket to give access to consumer accounts. The solution is to use STS and roles when allowing Data Providers to feed data to the bucket.

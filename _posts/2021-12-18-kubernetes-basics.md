@@ -460,3 +460,7 @@ kubectl delete <type> <name>
 - [Kubernetes Documentation](https://kubernetes.io/docs/home/): go through "Getting Started", "Tutorials", "Concepts".
 - [Task Catalog](https://kubernetes.io/docs/tasks/): How to do common Kubernetes tasks.
 - [Reference page](https://kubernetes.io/docs/reference/) - all things API, setup (kubeadm) and component (kubelet, kube-proxy, TLS bootstrapping, etc) tools, kubectl, etc.
+
+## Reference
+
+- [The Kubernetes Handbook](https://www.freecodecamp.org/news/the-kubernetes-handbook/)

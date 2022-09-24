@@ -22,7 +22,7 @@ tags: [aws, cloud, certificate, aws developer associate]
   - request parameter-based: eceives the caller's identity in a combination of headers, query string parameters, stageVariables, and $context variables
 - Non-proxy Lambda integration:
 
-![API Gateway Lambda Integration](/assets/images/api_gateway_lambda_integration.png)
+![API Gateway Lambda Integration](/assets/images/2021-12-04-aws-developer-associate-notes/api_gateway_lambda_integration.png)
 
 ## CloudFormation
 
@@ -138,7 +138,7 @@ tags: [aws, cloud, certificate, aws developer associate]
   - `aws elasticbeanstalk update-application` doesn’t allow for package upload, only updates specified properties of the app
 - Deployment methods (note that `canary` is not available):
 
-![Elastic Beanstalk Deployment Methods](/assets/images/elastic_beanstalk_deployment_methods.png)
+![Elastic Beanstalk Deployment Methods](/assets/images/2021-12-04-aws-developer-associate-notes/elastic_beanstalk_deployment_methods.png)
 
 - Note that Canary is not available
 - Environment: an instance of a version of an application. You can have multiple environments of the same version or app at the same time
@@ -307,3 +307,7 @@ tags: [aws, cloud, certificate, aws developer associate]
   - AWS_XRAY_DAEMON_ADDRESS: formatted IP_ADDRESS:PORT and used to send trace data to daemon directly, without SDK
 - If a load balancer or other intermediary forwards a request to your application, X-Ray takes the client IP from the `X-Forwarded-For` header in the request instead of from the source IP in the IP packet, which would only show the ELB’s IP address.
 - SDK: does not send trace data directly to AWS X-Ray. To avoid calling the service every time your application serves a request, the SDK sends the trace data to a daemon, which collects segments for multiple requests and uploads them in batches.
+
+## Reference
+
+- [Udemy.com](https://www.udemy.com/) - Stephane Maarek - AWS Certified Developer Associate

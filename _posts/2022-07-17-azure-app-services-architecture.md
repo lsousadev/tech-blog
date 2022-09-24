@@ -10,7 +10,7 @@ tags: [azure, cloud, vnet, app service, dns, networking]
 
 ## App Service Within Azure Architecture
 
-![Azure - Antares Architecture](/assets/images/azure_antares_architecture.png)
+![Azure - Antares Architecture](/assets/images/2022-07-17-azure-app-services-architecture/azure_antares_architecture.png)
 
 - The architecture for App Service is called Antares.
 - The Control Plane API requests start from ARM (Azure Resource Manager) to Antares' Geomaster.
@@ -22,7 +22,7 @@ tags: [azure, cloud, vnet, app service, dns, networking]
 
 ## App Service Creation Flow
 
-![App Service app creation flow](/assets/images/app_service_creation_flow.png)
+![App Service app creation flow](/assets/images/2022-07-17-azure-app-services-architecture/app_service_creation_flow.png)
 
 1. User makes a request to create a new site.
 2. ARM makes sure user has access to the resource to allow the given operation (create in this case) and forwards the requests to App Service Geo-Master.
@@ -32,7 +32,7 @@ tags: [azure, cloud, vnet, app service, dns, networking]
 
 ## Stamp Architecture
 
-![App Service stamp architecture](/assets/images/app_service_stamp_architecture.png)
+![App Service stamp architecture](/assets/images/2022-07-17-azure-app-services-architecture/app_service_stamp_architecture.png)
 
 - There are different types of workers inside of a stamp:
   - **Web workers**: the vast majority of workers in a stamp. It's the server that runs the app. They can be shared between clients or dedicated to a single client, depending on the App Service Plan.
@@ -49,7 +49,7 @@ tags: [azure, cloud, vnet, app service, dns, networking]
 
 ## IIS Overview
 
-![IIS request runtime flow](/assets/images/iis_request_runtime_flow.png)
+![IIS request runtime flow](/assets/images/2022-07-17-azure-app-services-architecture/iis_request_runtime_flow.png)
 
 - Antares, in its initial version, was more of an IIS-as-a-service.
 - IIS' model for hosting app code:
@@ -58,7 +58,7 @@ tags: [azure, cloud, vnet, app service, dns, networking]
 
 ## Web Worker Architecture
 
-![Antares dynamic website provisioning - control flow](/assets/images/antares_dynamic_prov_control.png)
+![Antares dynamic website provisioning - control flow](/assets/images/2022-07-17-azure-app-services-architecture/antares_dynamic_prov_control.png)
 
 - Basic components:
   - **HTTP.sys**: receives requests (by matching, as seen above) based on URL and port, then sends it to HTTP Request Queue.

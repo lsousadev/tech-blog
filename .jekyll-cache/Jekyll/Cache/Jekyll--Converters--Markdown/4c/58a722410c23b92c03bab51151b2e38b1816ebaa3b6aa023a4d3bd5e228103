@@ -1,8 +1,8 @@
-I"�)<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
+I"h*<!--🔴 🟠 ⚫ ⚪ 🟣 🟢 🟡 🔵-->
 
 <h2 id="app-service-within-azure-architecture">App Service Within Azure Architecture</h2>
 
-<p><img src="/assets/images/azure_antares_architecture.png" alt="Azure - Antares Architecture" /></p>
+<p><img src="/assets/images/2022-07-17-azure-app-services-architecture/azure_antares_architecture.png" alt="Azure - Antares Architecture" /></p>
 
 <ul>
   <li>The architecture for App Service is called Antares.</li>
@@ -16,7 +16,7 @@
 
 <h2 id="app-service-creation-flow">App Service Creation Flow</h2>
 
-<p><img src="/assets/images/app_service_creation_flow.png" alt="App Service app creation flow" /></p>
+<p><img src="/assets/images/2022-07-17-azure-app-services-architecture/app_service_creation_flow.png" alt="App Service app creation flow" /></p>
 
 <ol>
   <li>User makes a request to create a new site.</li>
@@ -28,7 +28,7 @@
 
 <h2 id="stamp-architecture">Stamp Architecture</h2>
 
-<p><img src="/assets/images/app_service_stamp_architecture.png" alt="App Service stamp architecture" /></p>
+<p><img src="/assets/images/2022-07-17-azure-app-services-architecture/app_service_stamp_architecture.png" alt="App Service stamp architecture" /></p>
 
 <ul>
   <li>There are different types of workers inside of a stamp:
@@ -56,7 +56,7 @@
 
 <h2 id="iis-overview">IIS Overview</h2>
 
-<p><img src="/assets/images/iis_request_runtime_flow.png" alt="IIS request runtime flow" /></p>
+<p><img src="/assets/images/2022-07-17-azure-app-services-architecture/iis_request_runtime_flow.png" alt="IIS request runtime flow" /></p>
 
 <ul>
   <li>Antares, in its initial version, was more of an IIS-as-a-service.</li>
@@ -70,7 +70,7 @@
 
 <h2 id="web-worker-architecture">Web Worker Architecture</h2>
 
-<p><img src="/assets/images/antares_dynamic_prov_control.png" alt="Antares dynamic website provisioning - control flow" /></p>
+<p><img src="/assets/images/2022-07-17-azure-app-services-architecture/antares_dynamic_prov_control.png" alt="Antares dynamic website provisioning - control flow" /></p>
 
 <ul>
   <li>Basic components:
