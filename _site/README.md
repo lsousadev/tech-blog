@@ -6,7 +6,7 @@
 - sudo bundle ### builds Ruby changes
 - sudo jekyll build ### buids the blog
 - sudo jekyll serve ### builds and runs the blog locally
-- git add
+- git add .
 - git commit -m ""
 - git push
 - aws s3 sync _site s3://lucas-sousa.com/ --delete
