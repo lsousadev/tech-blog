@@ -8,20 +8,20 @@
 	
 
 {
-	"totalPosts":8,
-	"totalCategories": 6,
-	"totalTags": 28,
-	"totalWords": 13952,
-	"averageWordsPerPost": 1744,
+	"totalPosts":9,
+	"totalCategories": 7,
+	"totalTags": 32,
+	"totalWords": 18500,
+	"averageWordsPerPost": 2055,
 	"firstPost": {
 		"title":"Hosting a Safe Static Website on AWS (UI Version)",
 		"published":"2021-11-27",
 		"url":"/hosting-safe-static-website-aws-ui/"
 	},
 	"lastPost": {
-		"title":"Azure App Service Architecture",
-		"published":"2022-07-17",
-		"url":"/azure-app-services-architecture/"
+		"title":"Comptia Security+ Certification Notes",
+		"published":"2023-01-15",
+		"url":"/comptia-security-notes/"
 	},
 	"postsPerCategory":[
 		
@@ -48,6 +48,10 @@
 			
 			,
 			{ "name": "azure", "size":2 }
+		
+			
+			,
+			{ "name": "cybersecurity", "size":1 }
 		
 	],
 	"postsPerTag":[
@@ -86,7 +90,7 @@
 		
 			
 			,
-			{ "name": "certificate", "size":2 }
+			{ "name": "certificate", "size":3 }
 		
 			
 			,
@@ -164,7 +168,23 @@
 			,
 			{ "name": "networking", "size":2 }
 		
+			
+			,
+			{ "name": "comptia", "size":1 }
+		
+			
+			,
+			{ "name": "security", "size":1 }
+		
+			
+			,
+			{ "name": "security+", "size":1 }
+		
+			
+			,
+			{ "name": "cybersecurity", "size":1 }
+		
 	],
-	"dates":"2022-07-17,2022-07-10,2022-01-15,2022-01-08,2021-12-18,2021-12-11,2021-12-04,2021-11-27"
+	"dates":"2023-01-15,2022-07-17,2022-07-10,2022-01-15,2022-01-08,2021-12-18,2021-12-11,2021-12-04,2021-11-27"
 
 }
